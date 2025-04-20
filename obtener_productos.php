@@ -1,6 +1,11 @@
 <?php
-// Conexión a la base de datos
-$conexion = new mysqli("localhost", "root", "", "uwu");
+$host = "b1xbvdktlo20sdr39wbi-mysql.services.clever-cloud.com";
+$usuario = "udqgmhwed2gjzprz";         // Cambia esto por el usuario real
+$contrasena = "5pDRSAyLkyoXQW28HNBK";   // Nunca publiques esto en Git o público
+$baseDatos = "b1xbvdktlo20sdr39wbi"; // Ej: b1xbvdktlo20sdr39wbi
+
+// Crear conexión
+$conexion = new mysqli($host, $usuario, $contrasena, $baseDatos);
 
 if ($conexion->connect_error) {
     echo json_encode(['success' => false, 'message' => 'Error de conexión a la base de datos.']);
