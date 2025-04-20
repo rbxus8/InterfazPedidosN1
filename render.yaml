@@ -1,0 +1,7 @@
+services:
+  - type: web
+    name: interfaz-pedidos
+    env: docker
+    plan: free
+    branch: main # o el nombre de tu rama
+    repo: https://github.com/tu-usuario/tu-repo # reemplázalo por tu repo real
