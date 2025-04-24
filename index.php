@@ -57,6 +57,10 @@ $resultadoPedidos = $stmt->get_result();
 </head>
 
 <body>
+    <header>
+        <div><a href="#">Juli's</a></div>
+    </header>
+    <div class="espacio"></div>
     <div class="container">
         <h1>Gestión de Pedidos</h1>
 
@@ -117,6 +121,11 @@ $resultadoPedidos = $stmt->get_result();
             </tbody>
         </table>
     </div>
+    <div class="espacio"></div>
+    <footer>
+        <p>&copy; 2023 Juli's. Todos los derechos reservados.</p>
+        <p>Desarrollado por Julián</p>
+    </footer>
 </body>
 
 </html>

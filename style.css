@@ -1,110 +1,44 @@
-body{
-    background-color: rgb(233, 154, 19);
-    width: 100%;
-    height: 100%;
-}
 
-.titulo_hog{
-    width: 100%;
-    text-align: center;
-}
-
-.select0{
-    width: 100px;
-}
-
-.select{
-    width: 200px;
-}
-
-.select1{
-    width: 500px;
-}
-
-.table{
-    border-style: groove;
-    padding: 1%;
-}
-
-.btn {
-    display: inline-block;
-    background-color: #007bff;
-    color: #fff;
-    padding: 10px 15px;
-    border: none;
-    border-radius: 5px;
-    text-decoration: none;
-    font-size: 16px;
-    text-align: center;
-}
-
-.btn:hover {
-    background-color: #0056b3;
-}
-
-
-.btn-delete {
-    color: #fff;
-    background-color: #dc3545;
-    padding: 5px 10px;
-    text-decoration: none;
-    border-radius: 5px;
-}
-
-.btn-delete:hover {
-    background-color: #c82333;
-}
-
-.form-group {
-    margin-bottom: 20px;
-    text-align: left;
-}
-
-
-.form-group {
-    margin-bottom: 20px;
-    text-align: left;
-}
-
-input, select {
-    width: 100%;
-    padding: 10px;
-    margin-top: 5px;
-    border: 1px solid #ddd;
-    border-radius: 5px;
-}
-
-button.btn {
-    background-color: #007bff;
-    color: white;
-    padding: 10px 15px;
-    border: none;
-    border-radius: 5px;
-    cursor: pointer;
-}
-
-button.btn:hover {
-    background-color: #0056b3;
-}
-
-
-/* Reset de márgenes y paddings */
 * {
     margin: 0;
     padding: 0;
     box-sizing: border-box;
 }
 
-/* Estilo global */
+/* BODY Y ESTRUCTURA BÁSICA */
 body {
+    width: 100%;
+    height: 100%;
     font-family: 'Arial', sans-serif;
     background-color: #f4f4f4;
     color: #333;
     line-height: 1.6;
-    padding: 20px;
 }
 
-/* Contenedor principal */
+/* ENCABEZADO */
+header {
+    background-color: rgb(0, 0, 0);
+    padding: 1em;
+    position: fixed;
+    width: 100%;
+}
+
+header a {
+    color: #fff;
+    text-decoration: none;
+    font-size: 1.2em;
+    margin: 0 15px;
+}
+
+
+
+/*espacio*/
+
+.espacio{
+    height: 80px;
+}
+
+/* CONTAINER PRINCIPAL */
 .container {
     width: 90%;
     margin: 0 auto;
@@ -112,32 +46,31 @@ body {
     padding: 30px;
     border-radius: 8px;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    display: flex;
+    flex-direction: column;
+    overflow: scroll;
+    
 }
 
-/* Encabezados */
+/* TITULOS */
 h1, h2, h3 {
     color: #333;
     font-weight: bold;
     margin-bottom: 20px;
 }
 
-/* Botón */
-.btn {
-    background-color: #007BFF;
-    color: #fff;
-    padding: 10px 20px;
-    border: none;
-    border-radius: 5px;
-    cursor: pointer;
-    text-align: center;
-    transition: background-color 0.3s ease;
+h2, h3 {
+    margin-top: 40px;
+    border-top: 2px solid #ddd;
+    padding-top: 20px;
 }
 
-.btn:hover {
-    background-color: #0056b3;
+h2 {
+    border-bottom: 2px solid #ddd;
+    padding-bottom: 10px;
 }
 
-/* Enlace */
+/* ENLACES */
 a {
     text-decoration: none;
     color: #007BFF;
@@ -147,29 +80,13 @@ a:hover {
     color: #0056b3;
 }
 
-/* Formulario */
-.form-group {
-    margin-bottom: 20px;
-}
-
-.form-group label {
-    display: block;
-    margin-bottom: 8px;
-    font-weight: bold;
-}
-
-.select1 {
-    width: 100%;
-    padding: 10px;
-    border: 1px solid #ddd;
-    border-radius: 5px;
-}
-
-/* Tablas */
+/* TABLAS */
 table {
     width: 100%;
     border-collapse: collapse;
     margin-bottom: 40px;
+    border-style: groove;
+    padding: 1%;
 }
 
 table, th, td {
@@ -188,24 +105,19 @@ td {
     text-align: left;
 }
 
-td input[type="number"] {
-    padding: 5px;
-    border-radius: 5px;
-    border: 1px solid #ddd;
-    width: 100px;
-}
-
-/* Estilo para las tablas de los productos */
 table th, table td {
     font-size: 14px;
     text-align: center;
 }
 
 table td input[type="number"] {
+    padding: 5px;
+    border-radius: 5px;
+    border: 1px solid #ddd;
+    width: 100px;
     text-align: center;
 }
 
-/* Tabla de Productos */
 table tbody tr:nth-child(odd) {
     background-color: #f9f9f9;
 }
@@ -214,19 +126,25 @@ table tbody tr:hover {
     background-color: #f1f1f1;
 }
 
-/* Estilo para las tablas cuando hay formularios */
 table form {
     display: inline;
 }
 
-/* Separador entre secciones */
-h2, h3 {
-    margin-top: 40px;
-    border-top: 2px solid #ddd;
-    padding-top: 20px;
+/* FORMULARIOS */
+.form-group {
+    margin-bottom: 20px;
+    text-align: left;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
 }
 
-/* Detalles específicos de los formularios */
+.form-group label {
+    display: block;
+    margin-bottom: 8px;
+    font-weight: bold;
+}
+
 input[type="text"],
 input[type="number"],
 select {
@@ -243,14 +161,72 @@ select:focus {
     outline: none;
 }
 
-/* Espaciado extra para los botones en los formularios */
 form button {
     margin-top: 20px;
 }
 
-/* Estilo de las tablas de productos */
-h2 {
-    border-bottom: 2px solid #ddd;
-    padding-bottom: 10px;
+/* SELECTORES INDIVIDUALES */
+.select0 {
+    width: 100px;
 }
 
+.select {
+    width: 200px;
+}
+
+.select1 {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+}
+
+/* BOTONES */
+.btn, button.btn {
+    display: inline-block;
+    background-color: #007BFF;
+    color: #fff;
+    padding: 10px 15px;
+    border: none;
+    border-radius: 5px;
+    text-align: center;
+    font-size: 16px;
+    cursor: pointer;
+    text-decoration: none;
+    transition: background-color 0.3s ease;
+}
+
+.btn:hover,
+button.btn:hover {
+    background-color: #0056b3;
+}
+
+.btn-delete {
+    color: #fff;
+    background-color: #dc3545;
+    padding: 5px 10px;
+    text-decoration: none;
+    border-radius: 5px;
+}
+
+.btn-delete:hover {
+    background-color: #c82333;
+}
+
+/* OTROS */
+.titulo_hog {
+    width: 100%;
+    text-align: center;
+}
+
+
+/*footer*/
+footer{
+    background-color: rgb(0, 0, 0);
+    color: #fff;
+    text-align: center;
+    padding: 20px 0;
+
+    bottom: 0;
+    width: 100%;
+}

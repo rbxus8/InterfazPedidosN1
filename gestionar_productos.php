@@ -26,13 +26,19 @@ $productosB = $conexion->query("SELECT p.id_producto, p.nombre, p.codigo_product
 
 <!DOCTYPE html>
 <html lang="es">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Gestión de Productos</title>
     <link rel="stylesheet" href="style.css">
 </head>
+
 <body>
+    <header>
+        <div><a href="#">Juli's</a></div>
+    </header>
+    <div class="espacio"></div>
     <div class="container">
         <h1>Gestión de Productos</h1>
 
@@ -64,15 +70,15 @@ $productosB = $conexion->query("SELECT p.id_producto, p.nombre, p.codigo_product
                         <td><?= $producto['unidad_medida'] ?></td> <!-- Mostrar la unidad -->
                         <td><?= $producto['cantidad_producto'] ?></td>
                         <td>
-                            <form  action="agregar_stock.php" method="POST">
-                                <input  type="hidden" name="id_producto" value="<?= $producto['id_producto'] ?>">
-                                <input  type="number" name="cantidad" min="1" placeholder="Cantidad a agregar" required>
+                            <form action="agregar_stock.php" method="POST">
+                                <input type="hidden" name="id_producto" value="<?= $producto['id_producto'] ?>">
+                                <input type="number" name="cantidad" min="1" placeholder="Cantidad a agregar" required>
                                 <button type="submit" class="btn">Agregar Stock</button>
                             </form>
                         </td>
                         <td>
                             <form action="eliminar_producto.php" method="POST">
-                                <input  type="hidden" name="id_producto" value="<?= $producto['id_producto'] ?>">
+                                <input type="hidden" name="id_producto" value="<?= $producto['id_producto'] ?>">
                                 <button type="submit" class="btn">Eliminar</button>
                             </form>
                         </td>
@@ -130,7 +136,7 @@ $productosB = $conexion->query("SELECT p.id_producto, p.nombre, p.codigo_product
             </div>
             <div class="form-group">
                 <label for="stock">Cantidad de Stock:</label>
-                <input class="select1"type="number" name="stock" id="stock" min="1" required>
+                <input class="select1" type="number" name="stock" id="stock" min="1" required>
             </div>
             <div class="form-group">
                 <label for="local">Seleccionar Local:</label>
@@ -142,7 +148,11 @@ $productosB = $conexion->query("SELECT p.id_producto, p.nombre, p.codigo_product
             <button type="submit" class="btn">Agregar Producto</button>
         </form>
     </div>
+    <div class="espacio"></div>
+    <footer>
+        <p>&copy; 2023 Juli's. Todos los derechos reservados.</p>
+        <p>Desarrollado por Julián</p>
+    </footer>
 </body>
+
 </html>
-
-

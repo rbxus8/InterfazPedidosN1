@@ -27,6 +27,10 @@ $locales = $conexion->query("SELECT id_local, nombre FROM locales");
 </head>
 
 <body>
+    <header>
+        <div><a href="#">Juli's</a></div>
+    </header>
+    <div class="espacio"></div>
     <div class="container">
         <h1>Agregar Nuevo Cliente</h1>
         <form action="guardar_cliente.php" method="POST">
@@ -65,6 +69,11 @@ $locales = $conexion->query("SELECT id_local, nombre FROM locales");
 
         </form>
     </div>
+    <div class="espacio"></div>
+    <footer>
+        <p>&copy; 2023 Juli's. Todos los derechos reservados.</p>
+        <p>Desarrollado por Julián</p>
+    </footer>
 </body>
 
 </html>

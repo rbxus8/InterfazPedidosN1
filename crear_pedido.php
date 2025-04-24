@@ -19,6 +19,7 @@ $locales = $conexion->query("SELECT id_local, nombre FROM locales");
 
 <!DOCTYPE html>
 <html lang="es">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -72,7 +73,12 @@ $locales = $conexion->query("SELECT id_local, nombre FROM locales");
         }
     </script>
 </head>
+
 <body>
+    <header>
+        <div><a href="#">Juli's</a></div>
+    </header>
+    <div class="espacio"></div>
     <div class="container">
         <h1>Crear Nuevo Pedido</h1>
         <form action="guardar_pedido.php" method="POST">
@@ -113,13 +119,18 @@ $locales = $conexion->query("SELECT id_local, nombre FROM locales");
             <div class="form-group">
                 <button type="submit" class="btn">Guardar Pedido</button>
             </div>
-                    <!-- Botón de regresar a Gestión de Pedidos -->
-        <div class="form-group">
-            <a href="index.php" class="btn">Regresar a Gestión de Pedidos</a>
-        </div>
+            <!-- Botón de regresar a Gestión de Pedidos -->
+            <div class="form-group">
+                <a href="index.php" class="btn">Regresar a Gestión de Pedidos</a>
+            </div>
 
         </form>
     </div>
+    <div class="espacio"></div>
+    <footer>
+        <p>&copy; 2023 Juli's. Todos los derechos reservados.</p>
+        <p>Desarrollado por Julián</p>
+    </footer>
 </body>
-</html>
 
+</html>
