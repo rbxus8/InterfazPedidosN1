@@ -49,13 +49,19 @@ $productosDisponibles = $conexion->query("
 
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Editar Pedido</title>
-    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="style.css">
 </head>
+
 <body>
+    <header>
+        <div><a href="#">Juli's</a></div>
+    </header>
+    <div class="espacio"></div>
     <div class="container">
         <h1>Editar Pedido</h1>
         <form action="actualizar_pedido.php" method="POST">
@@ -85,15 +91,18 @@ $productosDisponibles = $conexion->query("
                     <?php while ($producto = $productos->fetch_assoc()) : ?>
                         <li>
                             <label>
-                                <?= $producto['nombre'] ?> 
-                                (Stock disponible: <?= $producto['stock_disponible'] ?>) 
-                                - Cantidad actual: 
-                                <input type="number" name="productos[<?= $producto['id_producto'] ?>][cantidad]" 
-                                       value="<?= $producto['cantidad_seleccionada'] ?>" 
-                                       min="1" max="<?= $producto['stock_disponible'] ?>" required>
+                                <?= $producto['nombre'] ?>
+                                (Stock disponible: <?= $producto['stock_disponible'] ?>)
+                                - Cantidad actual:
+                                <input type="number" name="productos[<?= $producto['id_producto'] ?>][cantidad]"
+                                    value="<?= $producto['cantidad_seleccionada'] ?>"
+                                    min="1" max="<?= $producto['stock_disponible'] ?>" required>
+                                <div>
+                                    <input type="checkbox" name="productos[<?= $producto['id_producto'] ?>][eliminar]" value="1">
+                                    <span>Eliminar Producto</span>
+                                </div>
                             </label>
-                            <input type="checkbox" name="productos[<?= $producto['id_producto'] ?>][eliminar]" value="1">
-                            <span>Eliminar Producto</span>
+
                         </li>
                     <?php endwhile; ?>
                 </ul>
@@ -101,46 +110,53 @@ $productosDisponibles = $conexion->query("
 
             <!-- Agregar nuevos productos -->
             <div class="form-group">
-    <h3>Agregar Nuevos Productos</h3>
-    <ul>
-        <?php while ($productoDisponible = $productosDisponibles->fetch_assoc()) : ?>
-            <li>
-                <label>
-                    <input type="checkbox" name="nuevos_productos[<?= $productoDisponible['id_producto'] ?>][seleccionado]" 
-                           value="1" 
-                           onchange="habilitarCantidad(<?= $productoDisponible['id_producto'] ?>)">
-                    <?= $productoDisponible['nombre'] ?> 
-                    (Stock disponible: <?= $productoDisponible['cantidad_producto'] ?>)
-                </label>
-                <input type="number" name="nuevos_productos[<?= $productoDisponible['id_producto'] ?>][cantidad]" 
-                       placeholder="Cantidad" 
-                       min="1" 
-                       max="<?= $productoDisponible['cantidad_producto'] ?>" 
-                       disabled id="cantidad_<?= $productoDisponible['id_producto'] ?>">
-                
-            </li>
-        <?php endwhile; ?>
-    </ul>
-</div>
+                <h3>Agregar Nuevos Productos</h3>
+                <ul>
+                    <?php while ($productoDisponible = $productosDisponibles->fetch_assoc()) : ?>
+                        <li>
+                            <label>
+                                <div>
+                                    <input type="checkbox" name="nuevos_productos[<?= $productoDisponible['id_producto'] ?>][seleccionado]"
+                                        value="1"
+                                        onchange="habilitarCantidad(<?= $productoDisponible['id_producto'] ?>)">
+                                    <?= $productoDisponible['nombre'] ?>
+                                    (Stock disponible: <?= $productoDisponible['cantidad_producto'] ?>)
+                                </div>
+                                <input type="number" name="nuevos_productos[<?= $productoDisponible['id_producto'] ?>][cantidad]"
+                                    placeholder="Cantidad"
+                                    min="1"
+                                    max="<?= $productoDisponible['cantidad_producto'] ?>"
+                                    disabled id="cantidad_<?= $productoDisponible['id_producto'] ?>">
+                            </label>
 
 
-            <!-- Botón Guardar -->
-            <div class="form-group">
-                <button type="submit" class="btn">Actualizar Pedido</button>
+                        </li>
+                    <?php endwhile; ?>
+                </ul>
             </div>
 
-            <!-- Botón Regresar a Pedidos Existentes -->
-            <div class="form-group">
-                <a href="index.php" class="btn">Regresar a Pedidos Existentes</a>
+
+
+            <div>
+                <button type="submit" class="btn">Actualizar Pedido</button><!-- Botón Guardar -->
+                <a href="index.php" class="btn">Regresar a Pedidos Existentes</a> <!-- Botón Regresar a Pedidos Existentes -->
             </div>
+
+
+
         </form>
     </div>
+    <div class="espacio"></div>
+    <footer>
+        <p>&copy; 2023 Juli's. Todos los derechos reservados.</p>
+        <p>Desarrollado por Julián</p>
+    </footer>
 </body>
 <script>
     function habilitarCantidad(idProducto) {
         // Obtiene el input de cantidad para el producto seleccionado
         var cantidadInput = document.getElementById('cantidad_' + idProducto);
-        
+
         // Si la casilla está marcada, habilita el campo de cantidad
         if (document.querySelector('input[name="nuevos_productos[' + idProducto + '][seleccionado]"]:checked')) {
             cantidadInput.disabled = false;
@@ -149,8 +165,8 @@ $productosDisponibles = $conexion->query("
         }
     }
 
-     // Función que habilita la cantidad y el botón de agregar
-     function habilitarCantidad(idProducto) {
+    // Función que habilita la cantidad y el botón de agregar
+    function habilitarCantidad(idProducto) {
         var cantidadInput = document.getElementById('cantidad_' + idProducto);
         var botonAgregar = document.getElementById('agregar_' + idProducto);
 
@@ -159,14 +175,14 @@ $productosDisponibles = $conexion->query("
             cantidadInput.disabled = false;
         } else {
             cantidadInput.disabled = true;
-            botonAgregar.disabled = true;  // Deshabilita el botón si el producto no está seleccionado
+            botonAgregar.disabled = true; // Deshabilita el botón si el producto no está seleccionado
         }
 
         // Si hay una cantidad válida, habilita el botón "Agregar"
         if (cantidadInput.value > 0 && cantidadInput.value <= parseInt(cantidadInput.max)) {
-            botonAgregar.disabled = false;  // Habilita el botón "Agregar"
+            botonAgregar.disabled = false; // Habilita el botón "Agregar"
         } else {
-            botonAgregar.disabled = true;  // Deshabilita el botón si la cantidad es inválida
+            botonAgregar.disabled = true; // Deshabilita el botón si la cantidad es inválida
         }
 
         // Escucha el cambio en el input de cantidad
@@ -192,18 +208,18 @@ $productosDisponibles = $conexion->query("
 
             // Enviar los datos al servidor
             fetch('agregar_producto_pedido.php', {
-                method: 'POST',
-                body: formData
-            })
-            .then(response => response.json())
-            .then(data => {
-                alert('Producto agregado correctamente!');
-                // Actualizar la lista de productos o realizar alguna acción después de agregar el producto
-            })
-            .catch(error => {
-                console.error('Error:', error);
-                alert('Hubo un problema al agregar el producto');
-            });
+                    method: 'POST',
+                    body: formData
+                })
+                .then(response => response.json())
+                .then(data => {
+                    alert('Producto agregado correctamente!');
+                    // Actualizar la lista de productos o realizar alguna acción después de agregar el producto
+                })
+                .catch(error => {
+                    console.error('Error:', error);
+                    alert('Hubo un problema al agregar el producto');
+                });
         }
     }
 </script>

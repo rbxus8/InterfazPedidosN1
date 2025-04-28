@@ -3,6 +3,8 @@
     margin: 0;
     padding: 0;
     box-sizing: border-box;
+    text-decoration: none;
+    list-style: none;
 }
 
 /* BODY Y ESTRUCTURA BÁSICA */
@@ -49,8 +51,11 @@ header a {
     display: flex;
     flex-direction: column;
     overflow: scroll;
+
     
 }
+
+
 
 /* TITULOS */
 h1, h2, h3 {
@@ -137,12 +142,22 @@ table form {
     display: flex;
     flex-wrap: wrap;
     gap: 10px;
+    flex-direction: column;
 }
 
 .form-group label {
-    display: block;
+    display: flex;
+    flex-wrap: wrap;
     margin-bottom: 8px;
     font-weight: bold;
+    align-items: center;
+    justify-content: space-between;
+}
+
+
+
+.form-group label input{
+    max-width: 100px;
 }
 
 input[type="text"],
