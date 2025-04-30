@@ -51,10 +51,7 @@ header a {
     display: flex;
     flex-direction: column;
     overflow: auto; /*scrollbar si el contenido es muy largo*/
-
-    
 }
-
 
 
 /* TITULOS */
@@ -234,6 +231,7 @@ button.btn:hover {
     text-align: center;
 }
 
+/*inicio*/
 
 /*footer*/
 footer{
@@ -246,6 +244,7 @@ footer{
     display: flex;
     justify-content: center;
     padding: 2em;
-    position: absolute;
+
+    position: relative;
 }
 
