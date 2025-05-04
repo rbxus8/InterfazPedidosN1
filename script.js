@@ -1,3 +1,6 @@
+
+
+
 function cargarProductos(localId) {
     if (localId) {
         fetch('obtener_productos.php?local_id=' + localId)
@@ -28,3 +31,5 @@ function cargarProductos(localId) {
             });
     }
 }
+
+
