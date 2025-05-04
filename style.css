@@ -140,6 +140,7 @@ table form {
     flex-wrap: wrap;
     gap: 10px;
     flex-direction: column;
+    max-width: 500px;
 }
 
 .form-group label {
@@ -157,21 +158,7 @@ table form {
     max-width: 100px;
 }
 
-input[type="text"],
-input[type="number"],
-select {
-    width: 100%;
-    padding: 12px;
-    border: 1px solid #ddd;
-    border-radius: 5px;
-}
 
-input[type="text"]:focus,
-input[type="number"]:focus,
-select:focus {
-    border-color: #007BFF;
-    outline: none;
-}
 
 form button {
     margin-top: 20px;
@@ -189,6 +176,15 @@ form button {
 .select1 {
     width: 100%;
     padding: 10px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+}
+
+/* input*/
+
+.input{
+    width: 100%;
+    padding: 12px;
     border: 1px solid #ddd;
     border-radius: 5px;
 }
@@ -254,12 +250,7 @@ button.btn:hover {
     height: 100vh;
 }
 
-.container_usuario input{
-    width: 100%;
-    padding: 12px;
-    border: 1px solid #ddd;
-    border-radius: 5px;
-}
+
 
 .cuerpo_form form{
     display: flex;
@@ -281,6 +272,14 @@ button.btn:hover {
     transition: background-color 0.3s ease;
     
 }
+
+/*registrarse*/
+
+.telefono_reg{
+    display: flex;
+    gap: 10px;
+}
+
 
 
 /*footer*/

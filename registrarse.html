@@ -4,7 +4,7 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <link rel="stylesheet" href="style.css" />
-    <title>Document</title>
+    <title>Registrarse</title>
   </head>
   <body>
     <header>
@@ -13,65 +13,89 @@
     <div class="espacio"></div>
     <div class="espacio"></div>
     <section class="formulario_reg">
-      <h1>CREAR PERFIL</h1>
-      <form action="post" method="post">
-        <input type="text" name="nombre_reg" placeholder="Nombre*" required />
+      <div class="container">
+        <h1>CREAR PERFIL</h1>
+        <form class="form-group" action="post" method="post">
+          <input
+            class="input"
+            type="text"
+            name="nombre_reg"
+            placeholder="Nombre*"
+            required
+          />
 
-        <input
-          type="text"
-          name="apellido_reg"
-          placeholder="Apellido*"
-          required
-        />
-        <select name="pais/region" id="pais/region_reg">
-          <option value="none">Pais/Region*</option>
-          <option value="valor2">Argentina</option>
-          <option value="valor3">Bolivia</option>
-          <option value="valor4">Chile</option>
-          <option value="valor5">Colombia</option>
-          <option value="valor6">Ecuador</option>
-          <option value="valor7">Paraguay</option>
-          <option value="valor8">Peru</option>
-          <option value="valor9">Uruguay</option>
-          <option value="valor10">Venezuela</option>
-        </select>
-        <div class="telefono_reg">
-          <select name="cod_region" id="cod_region_reg">
-            <option value="none">Cod. Region*</option>
-            <option value="valor2">+54</option>
-            <option value="valor3">+591</option>
-            <option value="valor4">+56</option>
-            <option value="valor5">+57</option>
-            <option value="valor6">+593</option>
-            <option value="valor7">+595</option>
-            <option value="valor8">+51</option>
-            <option value="valor9">+598</option>
-            <option value="valor10">+58</option>
+          <input
+            class="input"
+            type="text"
+            name="apellido_reg"
+            placeholder="Apellido*"
+            required
+          />
+          <select class="select1" name="pais/region" id="pais/region_reg">
+            <option value="none">Pais/Region*</option>
+            <option value="valor2">Argentina</option>
+            <option value="valor3">Bolivia</option>
+            <option value="valor4">Chile</option>
+            <option value="valor5">Colombia</option>
+            <option value="valor6">Ecuador</option>
+            <option value="valor7">Paraguay</option>
+            <option value="valor8">Peru</option>
+            <option value="valor9">Uruguay</option>
+            <option value="valor10">Venezuela</option>
           </select>
-          <input type="text" name="celular_reg" placeholder="Celular*" />
-        </div>
-        <input type="email" name="correo_reg" placeholder="Correo*" required />
-        <input
-          type="password"
-          name="contraseña_reg"
-          placeholder="Contraseña*"
-          required
-        />
-        <input
-          type="password"
-          name="confirmar_contraseña_reg"
-          placeholder="Confirmar contraseña*"
-          required
-        />
-        <div>
-          <input type="checkbox" name="terminos_reg" id="terminos_reg" />
-          <label for="terminos_reg">Acepto los terminos y condiciones</label>
-        </div>
-        <div class="boton_reg">
-          <button class="btn">BACK</button>
-          <button class="btn" type="submit">REGISTRARSE</button>
-        </div>
-      </form>
+          <div class="telefono_reg">
+            <select class="select1" name="cod_region" id="cod_region_reg">
+              <option value="none">Cod. Region*</option>
+              <option value="valor2">+54</option>
+              <option value="valor3">+591</option>
+              <option value="valor4">+56</option>
+              <option value="valor5">+57</option>
+              <option value="valor6">+593</option>
+              <option value="valor7">+595</option>
+              <option value="valor8">+51</option>
+              <option value="valor9">+598</option>
+              <option value="valor10">+58</option>
+            </select>
+            <input
+              class="input"
+              type="number"
+              name="celular_reg"
+              placeholder="Celular*"
+            />
+          </div>
+          <input
+            class="input"
+            type="email"
+            name="correo_reg"
+            placeholder="Correo*"
+            required
+          />
+          <input
+            class="input"
+            type="password"
+            name="contraseña_reg"
+            placeholder="Contraseña*"
+            required
+          />
+          <input
+            class="input"
+            type="password"
+            name="confirmar_contraseña_reg"
+            placeholder="Confirmar contraseña*"
+            required
+          />
+          <div class="terminos_reg">
+            <input type="checkbox" name="terminos_reg" id="terminos_reg" />
+            <label for="terminos_reg">Acepto los terminos y condiciones</label>
+          </div>
+          <div class="boton_reg">
+            <a href="selec_usuario.html"
+              ><button type="button" class="btn">BACK</button></a
+            >
+            <button class="btn" type="submit">REGISTRARSE</button>
+          </div>
+        </form>
+      </div>
     </section>
   </body>
   <div class="espacio"></div>
