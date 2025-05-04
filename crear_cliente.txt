@@ -1,3 +1,4 @@
+
 <?php
 $host = "b1xbvdktlo20sdr39wbi-mysql.services.clever-cloud.com";
 $usuario = "udqgmhwed2gjzprz";         // Cambia esto por el usuario real
