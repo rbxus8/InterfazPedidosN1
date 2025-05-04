@@ -13,7 +13,7 @@ if ($conexion->connect_error) {
 }
 
 // Consultar datos de clientes y locales
-$clientes = $conexion->query("SELECT id_cliente, nombre, telefono FROM clientes");
+$usuarios = $conexion->query("SELECT id, nombre, telefono FROM usuarios");
 $locales = $conexion->query("SELECT id_local, nombre FROM locales");
 ?>
 
@@ -87,8 +87,8 @@ $locales = $conexion->query("SELECT id_local, nombre FROM locales");
                 <label for="cliente">Seleccione un Cliente:</label>
                 <select name="cliente" id="cliente" required onchange="mostrarTelefono()">
                     <option value="">Seleccione un cliente</option>
-                    <?php while ($cliente = $clientes->fetch_assoc()) : ?>
-                        <option value="<?= $cliente['id_cliente'] ?>" data-telefono="<?= $cliente['telefono'] ?>">
+                    <?php while ($cliente = $usuarios->fetch_assoc()) : ?>
+                        <option value="<?= $cliente['id_usuario'] ?>" data-telefono="<?= $cliente['telefono'] ?>">
                             <?= $cliente['nombre'] ?>
                         </option>
                     <?php endwhile; ?>
