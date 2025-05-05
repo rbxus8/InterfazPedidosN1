@@ -1,12 +1,15 @@
 <?php
+session_start();
+
 $host = "b1xbvdktlo20sdr39wbi-mysql.services.clever-cloud.com";
 $usuario = "udqgmhwed2gjzprz";
 $contrasena = "5pDRSAyLkyoXQW28HNBK";
 $baseDatos = "b1xbvdktlo20sdr39wbi";
 
-// Crear conexión
+// Crear la conexión
 $conexion = new mysqli($host, $usuario, $contrasena, $baseDatos);
 
+// Verificar la conexión
 if ($conexion->connect_error) {
   die("Error de conexión: " . $conexion->connect_error);
 }
@@ -16,29 +19,39 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
   $correo = $_POST['correo'];
   $contraseña = $_POST['contraseña'];
 
-  // Preparar y ejecutar la consulta
+  // Preparar y ejecutar la consulta para obtener la contraseña del usuario
   $stmt = $conexion->prepare("SELECT contraseña FROM usuarios WHERE correo = ?");
   $stmt->bind_param("s", $correo);
   $stmt->execute();
   $stmt->store_result();
 
+  // Verificar si el usuario existe
   if ($stmt->num_rows === 1) {
     $stmt->bind_result($hash);
     $stmt->fetch();
 
+    // Verificar la contraseña
     if (password_verify($contraseña, $hash)) {
-      header("Location: inicio.php");
+      // Si la contraseña es correcta, redirigir a la página de inicio
+      header("Location: index.php");
       exit();
     } else {
+      // Si la contraseña es incorrecta
       echo "<script>alert('Contraseña incorrecta');</script>";
     }
   } else {
+    // Si el correo no está registrado
     echo "<script>alert('Correo no registrado');</script>";
   }
 
+  // Cerrar la declaración
   $stmt->close();
 }
+
+// Cerrar la conexión a la base de datos
+$conexion->close();
 ?>
+
 
 
 
