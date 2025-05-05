@@ -12,7 +12,7 @@ if ($conexion->connect_error) {
 }
 
 // Obtener filtro de estado
-$filtroEstado = isset($_GET['estado']) ? $_GET['estado'] : "";
+$filtroEstado = isset($_GET['estado']) ? $_GET['estado'] : ""; //operador ternario.
 
 // CONSULTA CORREGIDA - VERIFICAR NOMBRES EXACTOS DE COLUMNAS
 $consultaPedidos = "
