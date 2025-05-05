@@ -49,7 +49,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
   $stmt->bind_param("sssss", $nombre, $apellido, $telefono, $correo, $claveHash);
 
   if ($stmt->execute()) {
-    echo "<script>alert('Registro exitoso.'); window.location.href='selec_usuario.html';</script>";
+    echo "<script>alert('Registro exitoso.'); window.location.href='selec_usuario.php';</script>";
   } else {
     echo "Error al registrar: " . $stmt->error;
   }
@@ -135,7 +135,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
           <label for="terminos_reg">Acepto los terminos y condiciones</label>
         </div>
         <div class="boton_reg">
-          <a href="selec_usuario.html"><button type="button" class="btn">BACK</button></a>
+          <a href="selec_usuario.php"><button type="button" class="btn">BACK</button></a>
           <button class="btn" type="submit">REGISTRARSE</button>
         </div>
       </form>
