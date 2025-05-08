@@ -125,7 +125,7 @@ $conexion->close();
     <p>&copy; 2023 Juli's. Todos los derechos reservados.</p>
     <p>Desarrollado por Julián</p>
   </footer>
-  <script src="alert.js"></script>
+
 </body>
 
 </html>
