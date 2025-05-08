@@ -91,12 +91,11 @@ $resultadoPedidos = $stmt->get_result();
         <table>
             <thead>
                 <tr>
-                    <th>ID</th>
-                    <th>Cliente</th>
+                    <th>ID Pedido</th>
+                    <th>Codigos de Productos</th>
                     <th>Local</th>
                     <th>Fecha</th>
                     <th>Estado</th>
-                    <th>Códigos de Productos</th>
                     <th>Acciones</th>
                 </tr>
             </thead>
@@ -105,11 +104,10 @@ $resultadoPedidos = $stmt->get_result();
                     <?php while ($pedido = $resultadoPedidos->fetch_assoc()) : ?>
                         <tr>
                             <td><?= htmlspecialchars($pedido['id_pedido']) ?></td>
-                            <td><?= htmlspecialchars($pedido['cliente']) ?></td>
+                            <td><?= htmlspecialchars($pedido['codigos_productos']) ?></td>
                             <td><?= htmlspecialchars($pedido['local']) ?></td>
                             <td><?= htmlspecialchars($pedido['fecha_pedido']) ?></td>
                             <td><?= htmlspecialchars($pedido['estado']) ?></td>
-                            <td><?= htmlspecialchars($pedido['codigos_productos']) ?></td>
                             <td>
                                 <a href="editar_pedido.php?id=<?= $pedido['id_pedido'] ?>" style="margin-right: 10px;">Editar</a>
                                 <a href="eliminar_pedido.php?id=<?= $pedido['id_pedido'] ?>"
