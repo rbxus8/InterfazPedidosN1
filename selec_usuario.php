@@ -1,6 +1,10 @@
 <?php
 session_start();
 
+// Inicializar variables para mensajes de error
+$error_correo = '';
+$error_contrasena = '';
+
 $host = "b1xbvdktlo20sdr39wbi-mysql.services.clever-cloud.com";
 $usuario = "udqgmhwed2gjzprz";
 $contrasena = "5pDRSAyLkyoXQW28HNBK";
@@ -41,11 +45,11 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
       exit();
     } else {
       // Si la contraseña es incorrecta
-      echo "<script>alert('Contraseña incorrecta');</script>";
+      $error_contrasena = "Contraseña incorrecta";
     }
   } else {
     // Si el correo no está registrado
-    echo "<script>alert('Correo no registrado');</script>";
+    $error_correo = "Correo no registrado";
   }
 
   // Cerrar la declaración
@@ -86,17 +90,26 @@ $conexion->close();
       <h5 style="color: #64748b">Iniciar sesión</h5>
       <form action="#" method="post">
         <input
-          class="input"
+          class="input <?php if (!empty($error_correo)) echo 'input-error'; ?>"
           type="email"
           name="correo"
           placeholder="Correo electrónico"
+          value="<?php echo htmlspecialchars($_POST['correo'] ?? ''); ?>"
           required />
+        <?php if (!empty($error_correo)): ?>
+          <p class="error-message"><?php echo $error_correo; ?></p>
+        <?php endif; ?>
+
         <input
-          class="input"
+          class="input <?php if (!empty($error_contrasena)) echo 'input-error'; ?>"
           type="password"
           name="contraseña"
           placeholder="Contraseña"
           required />
+        <?php if (!empty($error_contrasena)): ?>
+          <p class="error-message"><?php echo $error_contrasena; ?></p>
+        <?php endif; ?>
+
         <button class="btn" type="submit">Entrar</button>
       </form>
     </div>

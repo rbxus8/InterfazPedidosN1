@@ -230,6 +230,16 @@ button.btn:hover {
 
 /*inicio_sesion*/
 
+.error-message {
+    color: #ff0000;
+    font-size: 0.8em;
+    margin-top: 0.2em;
+}
+
+.input-error {
+    border: 1px solid #ff0000 !important;
+}
+
 .body_inicio{
     background-color: #f4f4f4;
 }
