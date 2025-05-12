@@ -38,9 +38,9 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     if (password_verify($contraseña, $hash)) {
       // Si la contraseña es correcta, redirigir según el dominio del correo
       if (str_ends_with($correo, '@pan.com')) {
-        header("Location: pan_section.php"); // Redirige a la página especial
+        header("Location: index.php"); // Redirige a la página especial
       } else {
-        header("Location: index.php"); // Redirige a la página normal
+        header("Location: seccion_cliente.html"); // Redirige a la página normal
       }
       exit();
     } else {
