@@ -27,7 +27,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
   $stmt = $conexion->prepare("SELECT contraseña FROM usuarios WHERE correo = ?");
   $stmt->bind_param("s", $correo);
   $stmt->execute();
-  $stmt->store_result();
+  $stmt->store_result(); // Almacenar el resultado
 
   // Verificar si el usuario existe
   if ($stmt->num_rows === 1) {
