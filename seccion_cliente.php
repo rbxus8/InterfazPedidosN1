@@ -39,7 +39,17 @@ if ($conexion->connect_error) {
     <div>
       <p>Hola (nombre), bienvenido al sistema de solicitud de pedidos</p>
     </div>
-    <h1>clientes</h1>
+    <h1>Pedidos</h1>
+    <table>
+      <thead>
+        <tr>
+          <th>Id pedido</th>
+          <th>Id local</th>
+          <th>Fecha_pedido</th>
+          <th>Estado</th>
+        </tr>
+      </thead>
+    </table>
     <div class="formulario">
       <form action="" class="form-group">
         <div class="form-group">
