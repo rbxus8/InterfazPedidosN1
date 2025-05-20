@@ -66,7 +66,7 @@ $resultadoPedidos = $stmt->get_result();
 
 <body>
     <header>
-        <div><a href="#" style="color: white; text-decoration: none;">Juli's</a></div>
+        <div><a href="#" style="color: white; text-decoration: none;">Julis's</a></div>
     </header>
     <div class="espacio"></div>
     <section class="container">
@@ -86,41 +86,40 @@ $resultadoPedidos = $stmt->get_result();
                 <option value="cancelado" <?= $filtroEstado === "cancelado" ? "selected" : "" ?>>Cancelado</option>
             </select>
         </form>
-
         <h2>Pedidos Existentes</h2>
         <table>
             <thead>
                 <tr>
                     <th>ID Pedido</th>
-                    <th>Codigos de Productos</th>
+                    <th>ID cliente</th>
                     <th>Local</th>
                     <th>Fecha</th>
                     <th>Estado</th>
                     <th>Acciones</th>
                 </tr>
             </thead>
-            <tbody>
-                <?php if ($resultadoPedidos->num_rows > 0) : ?>
-                    <?php while ($pedido = $resultadoPedidos->fetch_assoc()) : ?>
-                        <tr>
-                            <td><?= htmlspecialchars($pedido['id_pedido']) ?></td>
-                            <td><?= htmlspecialchars($pedido['codigos_productos']) ?></td>
-                            <td><?= htmlspecialchars($pedido['local']) ?></td>
-                            <td><?= htmlspecialchars($pedido['fecha_pedido']) ?></td>
-                            <td><?= htmlspecialchars($pedido['estado']) ?></td>
-                            <td>
-                                <a href="editar_pedido.php?id=<?= $pedido['id_pedido'] ?>" style="margin-right: 10px;">Editar</a>
-                                <a href="eliminar_pedido.php?id=<?= $pedido['id_pedido'] ?>"
-                                    class="btn-delete" onclick="return confirm4('¿Está seguro de eliminar este pedido?');">Eliminar</a>
-                            </td>
-                        </tr>
-                    <?php endwhile; ?>
-                <?php else : ?>
+            <?php
+            $sql = "SELECT * from pedidos";
+            $result = mysqli_query($conexion, $sql);
+            while ($mostrar = mysqli_fetch_array($result)) {
+            ?>
+                <tbody>
                     <tr>
-                        <td colspan="7">No hay pedidos disponibles.</td>
+                        <td><?php echo $mostrar['id_pedido'] ?></td>
+                        <td><?php echo $mostrar['id_cliente'] ?></td>
+                        <td><?php echo $mostrar['id_local'] ?></td>
+                        <td><?php echo $mostrar['fecha_pedido'] ?></td>
+                        <td><?php echo $mostrar['estado'] ?></td>
+                        <td>
+                            <a href="editar_pedido.php?id=<?= $pedidos['id_pedido'] ?>" style="margin-right: 10px;">Editar</a>
+                            <a href="eliminar_pedido.php?id=<?= $pedidos['id_pedido'] ?>"
+                                class="btn-delete" onclick="return confirm4('¿Está seguro de eliminar este pedido?');">Eliminar</a>
+                        </td>
                     </tr>
-                <?php endif; ?>
-            </tbody>
+                <?php
+            }
+                ?>
+                </tbody>
         </table>
     </section>
     <div class="espacio"></div>

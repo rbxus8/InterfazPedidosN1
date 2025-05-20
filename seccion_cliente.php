@@ -49,6 +49,23 @@ if ($conexion->connect_error) {
           <th>Estado</th>
         </tr>
       </thead>
+      <?php
+      $sql = "SELECT * from pedidos";
+      $result = mysqli_query($conexion, $sql);
+      while ($mostrar = mysqli_fetch_array($result)) {
+
+      ?>
+        <tbody>
+          <tr>
+            <td><?php echo $mostrar['id_pedido'] ?></td>
+            <td><?php echo $mostrar['id_local'] ?></td>
+            <td><?php echo $mostrar['fecha_pedido'] ?></td>
+            <td><?php echo $mostrar['estado'] ?></td>
+          </tr>
+        <?php
+      }
+        ?>
+        </tbody>
     </table>
     <div class="formulario">
       <form action="" class="form-group">
