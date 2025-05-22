@@ -73,7 +73,6 @@ $resultadoPedidos = $stmt->get_result();
         <h1>Gestión de Pedidos</h1>
 
         <div class="form-group">
-            <a href="crear_pedido.php" class="btn">Agregar Nuevo Pedido</a>
             <a href="gestionar_productos.php" class="btn">Gestionar Productos</a>
         </div>
 

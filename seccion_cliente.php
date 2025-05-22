@@ -39,6 +39,9 @@ if ($conexion->connect_error) {
     <div>
       <p>Hola (nombre), bienvenido al sistema de solicitud de pedidos</p>
     </div>
+    <div class="form-group">
+      <a href="crear_pedido.php" class="btn">Agregar Nuevo Pedido</a>
+    </div>
     <h1>Pedidos</h1>
     <table>
       <thead>
