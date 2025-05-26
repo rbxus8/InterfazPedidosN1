@@ -2,18 +2,7 @@
 
 session_start();
 
-$host = "b1xbvdktlo20sdr39wbi-mysql.services.clever-cloud.com";
-$user = "udqgmhwed2gjzprz";
-$password = "5pDRSAyLkyoXQW28HNBK";
-$bd = "b1xbvdktlo20sdr39wbi";
-
-$conexion = new mysqli($host, $user, $password, $bd);
-
-
-if ($conexion->connect_error) {
-  die("error de conexion:" . $conexion->connect_error);
-}
-
+include 'conexion.php';
 ?>
 
 <!DOCTYPE html>

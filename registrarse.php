@@ -1,14 +1,5 @@
 <?php
-// Conexión a la base de datos
-$host = "b1xbvdktlo20sdr39wbi-mysql.services.clever-cloud.com";
-$usuario = "udqgmhwed2gjzprz";
-$contrasena = "5pDRSAyLkyoXQW28HNBK";
-$baseDatos = "b1xbvdktlo20sdr39wbi";
-
-$conexion = new mysqli($host, $usuario, $contrasena, $baseDatos);
-if ($conexion->connect_error) {
-  die("Error de conexión: " . $conexion->connect_error);
-}
+include 'conexion.php';
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
   // Recibir y validar los datos

@@ -71,11 +71,9 @@ $resultadoPedidos = $stmt->get_result();
     <div class="espacio"></div>
     <section class="container">
         <h1>Gestión de Pedidos</h1>
-
         <div class="form-group">
             <a href="gestionar_productos.php" class="btn">Gestionar Productos</a>
         </div>
-
         <form method="GET" class="form-group">
             <label for="estado">Filtrar por Estado:</label>
             <select class="select" name="estado" id="estado" onchange="this.form.submit()">

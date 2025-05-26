@@ -1,15 +1,5 @@
 <?php
-$host = "b1xbvdktlo20sdr39wbi-mysql.services.clever-cloud.com";
-$usuario = "udqgmhwed2gjzprz";         // Cambia esto por el usuario real
-$contrasena = "5pDRSAyLkyoXQW28HNBK";   // Nunca publiques esto en Git o público
-$baseDatos = "b1xbvdktlo20sdr39wbi"; // Ej: b1xbvdktlo20sdr39wbi
-
-// Crear conexión
-$conexion = new mysqli($host, $usuario, $contrasena, $baseDatos);
-
-if ($conexion->connect_error) {
-    die("Error de conexión: " . $conexion->connect_error);
-}
+include 'conexion.php';
 
 // Obtener productos de Negocio A
 $productosA = $conexion->query("SELECT p.id_producto, p.nombre, p.codigo_producto, p.unidad_medida, b.cantidad_producto 
