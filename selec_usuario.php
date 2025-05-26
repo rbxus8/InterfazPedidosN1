@@ -28,7 +28,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     // Verificar la contraseña
     if (password_verify($contraseña, $hash)) {
       // Si la contraseña es correcta, redirigir según el dominio del correo
-      if (str_ends_with($correo, '@pan.com')) {
+      if (str_ends_with($correo, '@rbxus.com')) {
         header("Location: index.php"); // Redirige a la página especial
       } else {
         header("Location: seccion_cliente.html"); // Redirige a la página normal

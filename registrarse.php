@@ -87,15 +87,31 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         <div class="telefono_reg">
           <select class="select1" name="cod_region" id="cod_region_reg" required>
             <option value="">Cod. Región*</option>
-            <option value="+54">+54</option>
-            <option value="+591">+591</option>
-            <option value="+56">+56</option>
-            <option value="+57">+57</option>
-            <option value="+593">+593</option>
-            <option value="+595">+595</option>
-            <option value="+51">+51</option>
-            <option value="+598">+598</option>
-            <option value="+58">+58</option>
+            <option value="estados unidos">+1</option>
+            <option value="España">+34</option>
+            <option value="Francia">+33</option>
+            <option value="Alemania">+49</option>
+            <option value="Italia">+39</option>
+            <option value="Reino unido">+44</option>
+            <option value="Portugal">+351</option>
+            <option value="Mexico">+52</option>
+            <option value="Cuba">+53</option>
+            <option value="Argentina">+54</option>
+            <option value="Brasil">+55</option>
+            <option value="Chile">+56</option>
+            <option value="57">Colombia-+57</option>
+            <option value="Venezuela">+58</option>
+            <option value="Bolivia">+591</option>
+            <option value="Ecuador">+593</option>
+            <option value="Peru">+51</option>
+            <option value="Paraguay">+595</option>
+            <option value="Uruguay">+598</option>
+            <option value="Costa Rica">+506</option>
+            <option value="El Salvador">+503</option>
+            <option value="Guatemala">+502</option>
+            <option value="Honduras ">+504</option>
+            <option value="Nicaragua ">+505</option>
+            <option value="Panamá ">+507</option>
           </select>
           <input
             class="input"
