@@ -1,15 +1,5 @@
 <?php
-$host = "b1xbvdktlo20sdr39wbi-mysql.services.clever-cloud.com";
-$usuario = "udqgmhwed2gjzprz";
-$contrasena = "5pDRSAyLkyoXQW28HNBK";
-$baseDatos = "b1xbvdktlo20sdr39wbi";
-
-// Crear conexión
-$conexion = new mysqli($host, $usuario, $contrasena, $baseDatos);
-
-if ($conexion->connect_error) {
-    die("Error de conexión: " . $conexion->connect_error);
-}
+include 'conexion.php'; // Asegúrate de que la conexión a la base de datos esté establecida
 
 // Obtener filtro de estado
 $filtroEstado = isset($_GET['estado']) ? $_GET['estado'] : ""; //operador ternario.
@@ -96,7 +86,7 @@ $resultadoPedidos = $stmt->get_result();
                 </tr>
             </thead>
             <?php
-            $sql = "SELECT * from pedidos";
+            $sql = "SELECT * from pedidos limit 10"; // Limitamos a 10 pedidos para evitar sobrecarga
             $result = mysqli_query($conexion, $sql);
             while ($mostrar = mysqli_fetch_array($result)) {
             ?>
