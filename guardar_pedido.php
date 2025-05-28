@@ -1,6 +1,13 @@
 <?php
 include 'conexion.php';
 
+session_start();
+
+if (session_status() === PHP_SESSION_NONE || session_status() === PHP_SESSION_DISABLED) {
+    header("Location: login.php"); // Redirige a la página de inicio de sesión
+    exit;
+}
+
 // Obtener el ID del cliente y el local desde el formulario
 $idCliente = $_POST['cliente'];
 $idLocal = $_POST['local'];
