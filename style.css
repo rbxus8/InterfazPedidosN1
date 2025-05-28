@@ -12,74 +12,83 @@ body{
     width: 100%;
     height: 100vh;
     font-family: 'Arial', sans-serif;
-    background-color: #f4f4f4;
-    color: #333;
+    background-color: #141414;
+    color: #ffffff;
     line-height: 1.6;
 }
 
 /* ENCABEZADO */
 header {
-    background-color: rgb(0, 0, 0);
+    background-color: #5f8fa0;
     padding: 1em;
     position: fixed;
     width: 100%;
 }
 
 header a {
-    color: #fff;
+    color: #141414;
     text-decoration: none;
     font-size: 1.2em;
     margin: 0 15px;
 }
 
+/* CHECKbox */
+
+.capchan{
+    height: 20px;
+    width: 20px;
+}
 
 
 /*espacio*/
-
 .espacio{
     height: 80px;
 }
 
 /* CONTAINER PRINCIPAL */
-.container {
+.container{
     width: 90%;
     margin: 0 auto;
-    background-color: #fff;
+   background-color: #5f8fa0f0;
     padding: 30px;
     border-radius: 8px;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
     display: flex;
     flex-direction: column;
     overflow: auto; /*scrollbar si el contenido es muy largo*/
+    align-items: center;
+    justify-content: center;
+    gap: 20px;
+    height: 100vh;
 }
 
 
 /* TITULOS */
 h1, h2, h3 {
-    color: #333;
+    color: #D1BF77;
     font-weight: bold;
     margin-bottom: 20px;
 }
 
 h2, h3 {
     margin-top: 40px;
-    border-top: 2px solid #ddd;
+    border-top: 2px solid #141414;
     padding-top: 20px;
 }
 
 h2 {
-    border-bottom: 2px solid #ddd;
+    border-bottom: 2px solid #141414;
     padding-bottom: 10px;
 }
 
 /* ENLACES */
 a {
     text-decoration: none;
-    color: #007BFF;
+    color: #D1BF77;
 }
 
 a:hover {
-    color: #0056b3;
+    color: #141414;
 }
 
 /* TABLAS */
@@ -142,7 +151,9 @@ table form {
     flex-wrap: wrap;
     gap: 10px;
     flex-direction: column;
-    max-width: 500px;
+    max-width: 600px;
+    width: 100%;
+    align-items: center;
 }
 
 .form-group label {
@@ -194,7 +205,7 @@ form button {
 /* BOTONES */
 .btn, button.btn {
     display: inline-block;
-    background-color: #007BFF;
+    background-color: #D1BF77;
     color: #fff;
     padding: 10px 15px;
     border: none;
@@ -208,7 +219,7 @@ form button {
 
 .btn:hover,
 button.btn:hover {
-    background-color: #0056b3;
+    background-color: #141414;
 }
 
 .btn-delete {
@@ -242,25 +253,13 @@ button.btn:hover {
     border: 1px solid #ff0000 !important;
 }
 
-.body_inicio{
-    background-color: #f4f4f4;
+.sesion_ops{
+    display: flex;
+    justify-content: center;
+    gap: 80px;
+    margin-top: 20px;
 }
 
-.container_usuario{
-    width: 90%;
-    margin: 0 auto;
-   background-color: #fff;
-    padding: 30px;
-    border-radius: 8px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-    display: flex;
-    flex-direction: column;
-    overflow: auto; /*scrollbar si el contenido es muy largo*/
-    align-items: center;
-    justify-content: center;
-    gap: 20px;
-    height: 100vh;
-}
 
 
 
@@ -290,14 +289,21 @@ button.btn:hover {
 .telefono_reg{
     display: flex;
     gap: 10px;
+    width: 100%;
 }
 
-
+.terminos_reg{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 10px;
+    margin-top: 15px;
+}
 
 /*footer*/
 footer{
-    background-color: rgb(0, 0, 0);
-    color: #fff;
+    background-color: #5F8FA0;
+    color: #333;
     text-align: center;
     padding: 20px 0;
     bottom: 0;

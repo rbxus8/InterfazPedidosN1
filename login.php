@@ -60,16 +60,16 @@ $conexion->close();
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>User_select</title>
+  <title>Login</title>
   <link rel="stylesheet" href="style.css" />
 </head>
 
-<body class="body_inicio">
+<body>
   <header>
     <div><a href="#">Juli's</a></div>
   </header>
   <div class="espacio"></div>
-  <section class="container_usuario">
+  <section class="container">
     <div class="img_inicio">
       <img
         src="img/Carrito de Compras GoShop.png"
@@ -78,7 +78,7 @@ $conexion->close();
     </div>
 
     <div class="cuerpo_form">
-      <h5 style="color: #64748b">Iniciar sesión</h5>
+      <h5>Iniciar sesión</h5>
       <form action="#" method="post">
         <input
           class="input <?php if (!empty($error_correo)) echo 'input-error'; ?>"
@@ -105,7 +105,6 @@ $conexion->close();
       </form>
     </div>
 
-    <div class="espacio"></div>
     <div class="sesion_ops">
       <a href="#">Recuperar cuenta</a>
       <a href="registrarse.php">Registrar cuenta</a>

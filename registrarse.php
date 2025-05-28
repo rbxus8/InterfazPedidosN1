@@ -65,7 +65,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     <div><a href="#">Juli's</a></div>
   </header>
   <div class="espacio"></div>
-  <div class="espacio"></div>
   <section class="formulario_reg">
     <div class="container">
       <h1>CREAR PERFIL</h1>
@@ -138,11 +137,11 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
           placeholder="Confirmar contraseña*"
           required />
         <div class="terminos_reg">
-          <input type="checkbox" name="terminos_reg" id="terminos_reg" />
+          <input class="capchan" type="checkbox" name="terminos_reg" id="terminos_reg" />
           <label for="terminos_reg">Acepto los terminos y condiciones</label>
         </div>
         <div class="boton_reg">
-          <a href="selec_usuario.php"><button type="button" class="btn">BACK</button></a>
+          <a href="login.php"><button type="button" class="btn">BACK</button></a>
           <button class="btn" type="submit">REGISTRARSE</button>
         </div>
       </form>
