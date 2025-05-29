@@ -1,6 +1,10 @@
 <?php
+// login.php
+// Iniciar sesión y regenerar ID de sesión para mayor seguridad
 session_start();
+session_regenerate_id(true); // Regenerar ID de sesión para mayor seguridad
 
+// Incluir el archivo de conexión a la base de datos
 include 'conexion.php';
 
 // Inicializar variables para mensajes de error
