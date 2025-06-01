@@ -1,6 +1,6 @@
 
 
-
+// este script se encarga de cargar los productos disponibles para un local seleccionado
 function cargarProductos(localId) {
     if (localId) {
         fetch('obtener_productos.php?local_id=' + localId)
@@ -32,4 +32,11 @@ function cargarProductos(localId) {
     }
 }
 
+//boton para cambiar el color del tema
+function cambiarColorTema() {
+    const boton = document.getElementById('chance_color');
+    if (boton) {
+        boton.style.backgroundColor = '#4CAF50'; // Cambia el color de fondo a verde
+    }
 
+    }

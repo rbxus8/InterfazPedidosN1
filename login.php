@@ -55,9 +55,6 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 $conexion->close();
 ?>
 
-
-
-
 <!DOCTYPE html>
 <html lang="en">
 
@@ -70,13 +67,22 @@ $conexion->close();
 
 <body>
   <header>
-    <div><a href="#">Juli's</a></div>
+    <a href="login.php"><img
+        src="img/Carrito_de_Compras.png"
+        alt="nombre_icon_goshop"
+        style="height: 1.5em ; ">
+    </a>
+    <button onclick="cambiarColorTema()" class="chance_color" id="chance_color">
+      <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" class="bi bi-brightness-high" viewBox="0 0 16 16">
+        <path d="M8 11a3 3 0 1 1 0-6 3 3 0 0 1 0 6m0 1a4 4 0 1 0 0-8 4 4 0 0 0 0 8M8 0a.5.5 0 0 1 .5.5v2a.5.5 0 0 1-1 0v-2A.5.5 0 0 1 8 0m0 13a.5.5 0 0 1 .5.5v2a.5.5 0 0 1-1 0v-2A.5.5 0 0 1 8 13m8-5a.5.5 0 0 1-.5.5h-2a.5.5 0 0 1 0-1h2a.5.5 0 0 1 .5.5M3 8a.5.5 0 0 1-.5.5h-2a.5.5 0 0 1 0-1h2A.5.5 0 0 1 3 8m10.657-5.657a.5.5 0 0 1 0 .707l-1.414 1.415a.5.5 0 1 1-.707-.708l1.414-1.414a.5.5 0 0 1 .707 0m-9.193 9.193a.5.5 0 0 1 0 .707L3.05 13.657a.5.5 0 0 1-.707-.707l1.414-1.414a.5.5 0 0 1 .707 0m9.193 2.121a.5.5 0 0 1-.707 0l-1.414-1.414a.5.5 0 0 1 .707-.707l1.414 1.414a.5.5 0 0 1 0 .707M4.464 4.465a.5.5 0 0 1-.707 0L2.343 3.05a.5.5 0 1 1 .707-.707l1.414 1.414a.5.5 0 0 1 0 .708" />
+      </svg>
+    </button>
   </header>
   <div class="espacio"></div>
   <section class="container">
     <div class="img_inicio">
       <img
-        src="img/Carrito de Compras GoShop.png"
+        src="img/Carrito_de_Compras_GoShop-removebg-preview.png"
         alt="Imagen de sitio de compras_goshop"
         style="width: 10em; height: 10em" />
     </div>

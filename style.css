@@ -1,3 +1,16 @@
+/*colores css*/
+:root{
+    --color-fondo: #141414; /* Color de fondo principal */
+    --color-texto: #ffffff; /* Color del texto principal */
+    --color-encabezado: #5f8fa0;    /* Color del encabezado */
+    --color-enlace: #D1BF77; /* Color de los enlaces */
+    --color-enlace-hover: #141414; /* Color de los enlaces al pasar el mouse */
+    --color-boton: #D1BF77; /* Color para los botones */
+    --btn-delete:#dc3545; /* Color para el botón y delete de eliminar */
+    --color-boton-hover: #141414; /* Color de los botones al pasar el mouse */
+    --color-tabla-fondo: #f9f9f9;   /* Color de fondo de las tablas */
+    --color-tabla-fila-hover: #f1f1f1;  /* Color de fondo de las filas de la tabla al pasar el mouse */
+}
 
 * {
     margin: 0;
@@ -12,24 +25,38 @@ body{
     width: 100%;
     height: 100vh;
     font-family: 'Arial', sans-serif;
-    background-color: #141414;
-    color: #ffffff;
+    background-color: var(--color-fondo);
+    color: var(--color-texto);
     line-height: 1.6;
 }
 
 /* ENCABEZADO */
 header {
-    background-color: #5f8fa0;
+    background-color: var(--color-encabezado);
     padding: 1em;
     position: fixed;
     width: 100%;
+    display: flex;
+    align-items: center;
 }
 
 header a {
-    color: #141414;
+    color: #9a1e1e;
     text-decoration: none;
     font-size: 1.2em;
     margin: 0 15px;
+}
+
+.chance_color{
+    cursor: pointer;
+    width: 30px;
+    height: 30px;
+    background-color: #ffffff;
+    border-radius: 50%;
+    margin-left: auto;
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }
 
 /* CHECKbox */
@@ -84,7 +111,7 @@ h2 {
 /* ENLACES */
 a {
     text-decoration: none;
-    color: #D1BF77;
+    color: var(--color-enlace);
 }
 
 a:hover {
@@ -224,7 +251,7 @@ button.btn:hover {
 
 .btn-delete {
     color: #fff;
-    background-color: #dc3545;
+    background-color: var(--btn-delete);
     padding: 5px 10px;
     text-decoration: none;
     border-radius: 5px;
@@ -244,13 +271,13 @@ button.btn:hover {
 /*inicio_sesion*/
 
 .error-message {
-    color: #ff0000;
+    color: var(--btn-delete);
     font-size: 0.8em;
     margin-top: 0.2em;
 }
 
 .input-error {
-    border: 1px solid #ff0000 !important;
+    border: 1px solid var(--btn-delete) !important;
 }
 
 .sesion_ops{
@@ -302,7 +329,7 @@ button.btn:hover {
 
 /*footer*/
 footer{
-    background-color: #5F8FA0;
+    background-color: var(--color-encabezado);
     color: #333;
     text-align: center;
     padding: 20px 0;
