@@ -122,7 +122,9 @@ $conexion->close();
       <a href="registrarse.php">Registrar cuenta</a>
     </div>
   </section>
+
   <div class="espacio"></div>
+
   <footer class="footer">
     <p>&copy; 2023 Juli's. Todos los derechos reservados.</p>
     <p>Desarrollado por Julián</p>
