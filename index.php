@@ -55,7 +55,7 @@ $resultadoPedidos = $stmt->get_result();
 </head>
 
 <body>
-    <header>
+    <header class="header">
         <a href="#"><img
                 src="img/Carrito_de_Compras.png"
                 alt="nombre_icon_goshop"
@@ -119,7 +119,7 @@ $resultadoPedidos = $stmt->get_result();
         </table>
     </section>
     <div class="espacio"></div>
-    <footer>
+    <footer class="footer">
         <p>&copy; 2023 Juli's. Todos los derechos reservados.</p>
         <p>Desarrollado por Julián</p>
     </footer>

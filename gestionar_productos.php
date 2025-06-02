@@ -25,7 +25,7 @@ $productosB = $conexion->query("SELECT p.id_producto, p.nombre, p.codigo_product
 </head>
 
 <body>
-    <header>
+    <header class="header">
         <a href="#"><img
                 src="img/Carrito_de_Compras.png"
                 alt="nombre_icon_goshop"
@@ -38,7 +38,7 @@ $productosB = $conexion->query("SELECT p.id_producto, p.nombre, p.codigo_product
         </button>
     </header>
     <div class="espacio"></div>
-    <div class="container">
+    <section class="container">
         <h1>Gestión de Productos</h1>
 
         <!-- Botón de Regresar a Gestión de Pedidos -->
@@ -146,9 +146,9 @@ $productosB = $conexion->query("SELECT p.id_producto, p.nombre, p.codigo_product
             </div>
             <button type="submit" class="btn">Agregar Producto</button>
         </form>
-    </div>
+    </section>
     <div class="espacio"></div>
-    <footer>
+    <footer class="footer">
         <p>&copy; 2023 Juli's. Todos los derechos reservados.</p>
         <p>Desarrollado por Julián</p>
     </footer>

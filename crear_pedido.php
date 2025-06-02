@@ -64,7 +64,7 @@ $locales = $conexion->query("SELECT id_local, nombre FROM locales");
 </head>
 
 <body>
-    <header>
+    <header class="header">
         <a href="#"><img
                 src="img/Carrito_de_Compras.png"
                 alt="nombre_icon_goshop"
@@ -77,7 +77,7 @@ $locales = $conexion->query("SELECT id_local, nombre FROM locales");
         </button>
     </header>
     <div class="espacio"></div>
-    <div class="container">
+    <section class="container">
         <h1>Crear Nuevo Pedido</h1>
         <form action="guardar_pedido.php" method="POST">
             <!-- Seleccionar Cliente -->
@@ -123,9 +123,9 @@ $locales = $conexion->query("SELECT id_local, nombre FROM locales");
             </div>
 
         </form>
-    </div>
+    </section>
     <div class="espacio"></div>
-    <footer>
+    <footer class="footer">
         <p>&copy; 2023 Juli's. Todos los derechos reservados.</p>
         <p>Desarrollado por Julián</p>
     </footer>
