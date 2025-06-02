@@ -32,11 +32,29 @@ function cargarProductos(localId) {
     }
 }
 
-//boton para cambiar el color del tema
 function cambiarColorTema() {
-    const boton = document.getElementById('chance_color');
-    if (boton) {
-        boton.style.backgroundColor = '#4CAF50'; // Cambia el color de fondo a verde
-    }
+    const header = document.getElementsByClassName('header')[0]; //variable que almacena el header
+    const chanceColorButton = document.getElementById('chance_color'); // variable que almacena el botón de cambio de color
+    const container = document.getElementsByClassName('container')[0]; // variable que almacena el contenedor principal
+    const footer = document.getElementsByClassName('footer')[0]; // variable que almacena el footer
 
+    // Alterna el color de fondo del header entre blanco y azul claro
+    if (header.style.backgroundColor === 'white' && 
+        chanceColorButton.style.backgroundColor === 'red' &&
+        container.style.backgroundColor === 'white' &&
+        footer.style.backgroundColor === 'white') {
+
+        header.style.backgroundColor = '#5f8fa0'; 
+        chanceColorButton.style.backgroundColor = 'white';
+        container.style.backgroundColor = '#5f8fa0f0'; // Cambia el color del contenedor principal
+        footer.style.backgroundColor = '#5f8fa0'; // Cambia el color del footer
+
+    } else {
+        header.style.backgroundColor = 'white';
+        chanceColorButton.style.backgroundColor = 'red';
+        container.style.backgroundColor = 'white'; // Cambia el color del contenedor principal
+        footer.style.backgroundColor = 'white'; // Cambia el color del footer
     }
+}
+
+ 

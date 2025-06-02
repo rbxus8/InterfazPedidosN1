@@ -3,6 +3,8 @@
     --color-fondo: #141414; /* Color de fondo principal */
     --color-texto: #ffffff; /* Color del texto principal */
     --color-encabezado: #5f8fa0;    /* Color del encabezado */
+    --color-container: #5f8fa0f0; /* Color del contenedor principal */
+    --color-titulo: #D1BF77; /* Color de los títulos */
     --color-enlace: #D1BF77; /* Color de los enlaces */
     --color-enlace-hover: #141414; /* Color de los enlaces al pasar el mouse */
     --color-boton: #D1BF77; /* Color para los botones */
@@ -76,7 +78,7 @@ header a {
 .container{
     width: 90%;
     margin: 0 auto;
-   background-color: #5f8fa0f0;
+   background-color: var(--color-container);
     padding: 30px;
     border-radius: 8px;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);

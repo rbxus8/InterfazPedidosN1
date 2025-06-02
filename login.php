@@ -66,7 +66,7 @@ $conexion->close();
 </head>
 
 <body>
-  <header>
+  <header class="header">
     <a href="login.php"><img
         src="img/Carrito_de_Compras.png"
         alt="nombre_icon_goshop"
@@ -121,11 +121,11 @@ $conexion->close();
     </div>
   </section>
   <div class="espacio"></div>
-  <footer>
+  <footer class="footer">
     <p>&copy; 2023 Juli's. Todos los derechos reservados.</p>
     <p>Desarrollado por Julián</p>
   </footer>
-
+  <script src="script.js"></script>
 </body>
 
 </html>
