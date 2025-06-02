@@ -152,6 +152,7 @@ $productosB = $conexion->query("SELECT p.id_producto, p.nombre, p.codigo_product
         <p>&copy; 2023 Juli's. Todos los derechos reservados.</p>
         <p>Desarrollado por Julián</p>
     </footer>
+    <script src="script.js"></script>
 </body>
 
 </html>

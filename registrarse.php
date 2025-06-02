@@ -157,6 +157,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
       </form>
     </div>
   </section>
+  <script src="script.js"></script>
 </body>
 <div class="espacio"></div>
 <footer>

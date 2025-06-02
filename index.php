@@ -123,6 +123,7 @@ $resultadoPedidos = $stmt->get_result();
         <p>&copy; 2023 Juli's. Todos los derechos reservados.</p>
         <p>Desarrollado por Julián</p>
     </footer>
+    <script src="script.js"></script>
 </body>
 
 </html>
