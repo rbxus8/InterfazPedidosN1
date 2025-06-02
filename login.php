@@ -32,7 +32,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     // Verificar la contraseña
     if (password_verify($contraseña, $hash)) {
       // Si la contraseña es correcta, redirigir según el dominio del correo
-      if (str_ends_with($correo, '@rbxus.com')) {
+      if (str_ends_with($correo, '@admin.com')) {
         header("Location: index.php"); // Redirige a la página especial
       } else {
         header("Location: seccion_cliente.html"); // Redirige a la página normal
@@ -67,7 +67,7 @@ $conexion->close();
 
 <body>
   <header class="header">
-    <a href="login.php"><img
+    <a href="#"><img
         src="img/Carrito_de_Compras.png"
         alt="nombre_icon_goshop"
         style="height: 1.5em ; ">
@@ -78,7 +78,9 @@ $conexion->close();
       </svg>
     </button>
   </header>
+
   <div class="espacio"></div>
+
   <section class="container">
     <div class="img_inicio">
       <img
