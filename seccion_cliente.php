@@ -28,59 +28,61 @@ include 'conexion.php';
       </svg>
     </button>
   </header>
-  <div class="espacio"></div>
 
-  <section class="container">
-    <div>
-      <p>Hola (nombre), bienvenido al sistema de solicitud de pedidos</p>
-    </div>
-    <div class="form-group">
-      <a href="crear_pedido.php" class="btn">Agregar Nuevo Pedido</a>
-    </div>
-    <h1>Pedidos</h1>
-    <table>
-      <thead>
-        <tr>
-          <th>Id pedido</th>
-          <th>Id local</th>
-          <th>Fecha_pedido</th>
-          <th>Estado</th>
-        </tr>
-      </thead>
-      <?php
-      $sql = "SELECT * from pedidos";
-      $result = mysqli_query($conexion, $sql);
-      while ($mostrar = mysqli_fetch_array($result)) {
+  <main class="main">
 
-      ?>
-        <tbody>
+    <section class="container">
+      <div>
+        <p>Hola (nombre), bienvenido al sistema de solicitud de pedidos</p>
+      </div>
+      <div class="form-group">
+        <a href="crear_pedido.php" class="btn">Agregar Nuevo Pedido</a>
+      </div>
+      <h1>Pedidos</h1>
+      <table>
+        <thead>
           <tr>
-            <td><?php echo $mostrar['id_pedido'] ?></td>
-            <td><?php echo $mostrar['id_local'] ?></td>
-            <td><?php echo $mostrar['fecha_pedido'] ?></td>
-            <td><?php echo $mostrar['estado'] ?></td>
+            <th>Id pedido</th>
+            <th>Id local</th>
+            <th>Fecha_pedido</th>
+            <th>Estado</th>
           </tr>
+        </thead>
         <?php
-      }
-        ?>
-        </tbody>
-    </table>
-    <div class="formulario">
-      <form action="" class="form-group">
-        <div class="form-group">
-          <label for="local">Seleccionar local</label>
-          <select name="" id=""></select>
-        </div>
-      </form>
-    </div>
-  </section>
+        $sql = "SELECT * from pedidos";
+        $result = mysqli_query($conexion, $sql);
+        while ($mostrar = mysqli_fetch_array($result)) {
 
-  <div class="espacio"></div>
-  <footer class="footer">
-    <p>&copy; 2023 Juli's. Todos los derechos reservados.</p>
-    <p>Desarrollado por Julián</p>
-  </footer>
-  <script src="script.js"></script>
+        ?>
+          <tbody>
+            <tr>
+              <td><?php echo $mostrar['id_pedido'] ?></td>
+              <td><?php echo $mostrar['id_local'] ?></td>
+              <td><?php echo $mostrar['fecha_pedido'] ?></td>
+              <td><?php echo $mostrar['estado'] ?></td>
+            </tr>
+          <?php
+        }
+          ?>
+          </tbody>
+      </table>
+      <div class="formulario">
+        <form action="" class="form-group">
+          <div class="form-group">
+            <label for="local">Seleccionar local</label>
+            <select name="" id=""></select>
+          </div>
+        </form>
+      </div>
+    </section>
+
+    <main>
+
+      <footer class="footer">
+        <p>&copy; 2023 Juli's. Todos los derechos reservados.</p>
+        <p>Desarrollado por Julián</p>
+      </footer>
+      <script src="script.js"></script>
 </body>
 
 </html>
