@@ -31,10 +31,17 @@ body{
     background-color: var(--color-fondo);
     color: var(--color-texto);
     line-height: 1.6;
+    display: grid;
+    grid-template-areas: 
+        "header"
+        "main"
+        "footer";
+    
 }
 
 /* ENCABEZADO */
 header {
+    grid-area: header;
     background-color: var(--color-encabezado);
     padding: 1em;
     position: fixed;
@@ -44,6 +51,34 @@ header {
     border-bottom: #141414;
     border-bottom-style: solid;
 }
+
+/*=======main======*/
+
+main {
+    grid-area: main;
+    padding: 2em;
+    margin-top: 60px; /* Espacio para el encabezado fijo */
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+
+/*footer*/
+footer{
+    grid-area: footer;
+    background-color: var(--color-encabezado);
+    color: #333;
+    text-align: center;
+    padding: 20px 0;
+    bottom: 0;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    padding: 2em;
+    position: relative;
+}
+
 
 header a {
     color: #9a1e1e;
@@ -72,10 +107,6 @@ header a {
 }
 
 
-/*espacio*/
-.espacio{
-    height: 80px;
-}
 
 /* CONTAINER PRINCIPAL */
 .container{
@@ -333,17 +364,4 @@ button.btn:hover {
     margin-top: 15px;
 }
 
-/*footer*/
-footer{
-    background-color: var(--color-encabezado);
-    color: #333;
-    text-align: center;
-    padding: 20px 0;
-    bottom: 0;
-    width: 100%;
-    display: flex;
-    justify-content: center;
-    padding: 2em;
-    position: relative;
-}
 

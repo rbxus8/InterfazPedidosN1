@@ -14,21 +14,28 @@ $consultaPedidos = "
     ped.estado,
     GROUP_CONCAT(DISTINCT prod.codigo_producto SEPARATOR ', ') AS codigos_productos
     FROM pedidos ped
-    JOIN usuarios usu ON ped.id_cliente = usu.id /* Cambiado de id_usuario a id_cliente */
+    JOIN usuarios usu ON ped.id_cliente = usu.id                /* Cambiado de id_usuario a id_cliente */
     JOIN locales loc ON ped.id_local = loc.id_local
     JOIN historial_productos hp ON hp.id_pedido = ped.id_pedido
     JOIN productos prod ON hp.id_producto = prod.id_producto";
 
 // Agregar filtro de estado si existe
+// Si el filtro de estado no está vacío, agrega una cláusula WHERE a la consulta SQL
 if (!empty($filtroEstado)) {
+    // Esto permite filtrar los pedidos por el estado seleccionado (pendiente, completado, cancelado)
     $consultaPedidos .= " WHERE ped.estado = ?";
 }
 
+// Agrupa los resultados por id_pedido y los ordena por fecha de pedido descendente
 $consultaPedidos .= " GROUP BY ped.id_pedido ORDER BY ped.fecha_pedido DESC";
 
-// Preparar la consulta con manejo de errores
+// Preparar la consulta SQL utilizando el método prepare() de mysqli
+// Esto permite ejecutar consultas seguras y evitar inyecciones SQL
 $stmt = $conexion->prepare($consultaPedidos);
+
+// Verifica si la preparación de la consulta fue exitosa
 if (!$stmt) {
+    // Si hay un error al preparar la consulta, muestra el mensaje de error y detiene la ejecución
     die("Error al preparar la consulta: " . $conexion->error);
 }
 
@@ -67,58 +74,58 @@ $resultadoPedidos = $stmt->get_result();
             </svg>
         </button>
     </header>
-    <div class="espacio"></div>
-    <section class="container">
-        <h1>Gestión de Pedidos</h1>
-        <div class="form-group">
-            <a href="gestionar_productos.php" class="btn">Gestionar Productos</a>
-        </div>
-        <form method="GET" class="form-group">
-            <label for="estado">Filtrar por Estado:</label>
-            <select class="select" name="estado" id="estado" onchange="this.form.submit()">
-                <option value="">Todos</option>
-                <option value="pendiente" <?= $filtroEstado === "pendiente" ? "selected" : "" ?>>Pendiente</option>
-                <option value="completado" <?= $filtroEstado === "completado" ? "selected" : "" ?>>Completado</option>
-                <option value="cancelado" <?= $filtroEstado === "cancelado" ? "selected" : "" ?>>Cancelado</option>
-            </select>
-        </form>
-        <h2>Pedidos Existentes</h2>
-        <table>
-            <thead>
-                <tr>
-                    <th>ID Pedido</th>
-                    <th>ID cliente</th>
-                    <th>Local</th>
-                    <th>Fecha</th>
-                    <th>Estado</th>
-                    <th>Acciones</th>
-                </tr>
-            </thead>
-            <?php
-            $sql = "SELECT * from pedidos limit 10"; // Limitamos a 10 pedidos para evitar sobrecarga
-            $result = mysqli_query($conexion, $sql);
-            while ($mostrar = mysqli_fetch_array($result)) {
-            ?>
-                <tbody>
+    <main>
+        <section class="container">
+            <h1>Gestión de Pedidos</h1>
+            <div class="form-group">
+                <a href="gestionar_productos.php" class="btn">Gestionar Productos</a>
+            </div>
+            <form method="GET" class="form-group">
+                <label for="estado">Filtrar por Estado:</label>
+                <select class="select" name="estado" id="estado" onchange="this.form.submit()">
+                    <option value="">Todos</option>
+                    <option value="pendiente" <?= $filtroEstado === "pendiente" ? "selected" : "" ?>>Pendiente</option>
+                    <option value="completado" <?= $filtroEstado === "completado" ? "selected" : "" ?>>Completado</option>
+                    <option value="cancelado" <?= $filtroEstado === "cancelado" ? "selected" : "" ?>>Cancelado</option>
+                </select>
+            </form>
+            <h2>Pedidos Existentes</h2>
+            <table>
+                <thead>
                     <tr>
-                        <td><?php echo $mostrar['id_pedido'] ?></td>
-                        <td><?php echo $mostrar['id_cliente'] ?></td>
-                        <td><?php echo $mostrar['id_local'] ?></td>
-                        <td><?php echo $mostrar['fecha_pedido'] ?></td>
-                        <td><?php echo $mostrar['estado'] ?></td>
-                        <td>
-                            <a href="editar_pedido.php?id=<?= $pedidos['id_pedido'] ?>" style="margin-right: 10px;">Editar</a>
-                            <a href="eliminar_pedido.php?id=<?= $pedidos['id_pedido'] ?>"
-                                class="btn-delete" onclick="return confirm4('¿Está seguro de eliminar este pedido?');">Eliminar</a>
-                        </td>
+                        <th>ID Pedido</th>
+                        <th>ID cliente</th>
+                        <th>Local</th>
+                        <th>Fecha</th>
+                        <th>Estado</th>
+                        <th>Acciones</th>
                     </tr>
+                </thead>
                 <?php
-            }
+                $sql = "SELECT * from pedidos limit 10"; // Limitamos a 10 pedidos para evitar sobrecarga
+                $result = mysqli_query($conexion, $sql);
+                while ($mostrar = mysqli_fetch_array($result)) {
                 ?>
-                </tbody>
-        </table>
-    </section>
-    <div class="espacio"></div>
+                    <tbody>
+                        <tr>
+                            <td><?php echo $mostrar['id_pedido'] ?></td>
+                            <td><?php echo $mostrar['id_cliente'] ?></td>
+                            <td><?php echo $mostrar['id_local'] ?></td>
+                            <td><?php echo $mostrar['fecha_pedido'] ?></td>
+                            <td><?php echo $mostrar['estado'] ?></td>
+                            <td>
+                                <a href="editar_pedido.php?id=<?= $pedidos['id_pedido'] ?>" style="margin-right: 10px;">Editar</a>
+                                <a href="eliminar_pedido.php?id=<?= $pedidos['id_pedido'] ?>"
+                                    class="btn-delete" onclick="return confirm4('¿Está seguro de eliminar este pedido?');">Eliminar</a>
+                            </td>
+                        </tr>
+                    <?php
+                }
+                    ?>
+                    </tbody>
+            </table>
+        </section>
+    </main>
     <footer class="footer">
         <p>&copy; 2023 Juli's. Todos los derechos reservados.</p>
         <p>Desarrollado por Julián</p>

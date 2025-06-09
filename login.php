@@ -79,51 +79,49 @@ $conexion->close();
     </button>
   </header>
 
-  <div class="espacio"></div>
+  <main class="main">
+    <section class="container">
+      <div class="img_inicio">
+        <img
+          src="img/Carrito_de_Compras_GoShop-removebg-preview.png"
+          alt="Imagen de sitio de compras_goshop"
+          style="width: 10em; height: 10em" />
+      </div>
 
-  <section class="container">
-    <div class="img_inicio">
-      <img
-        src="img/Carrito_de_Compras_GoShop-removebg-preview.png"
-        alt="Imagen de sitio de compras_goshop"
-        style="width: 10em; height: 10em" />
-    </div>
+      <div class="cuerpo_form">
+        <h5>Iniciar sesión</h5>
+        <form action="#" method="post">
+          <input
+            class="input <?php if (!empty($error_correo)) echo 'input-error'; ?>"
+            type="email"
+            name="correo"
+            placeholder="Correo electrónico"
+            value="<?php echo htmlspecialchars($_POST['correo'] ?? ''); ?>"
+            required />
+          <?php if (!empty($error_correo)): ?>
+            <p class="error-message"><?php echo $error_correo; ?></p>
+          <?php endif; ?>
 
-    <div class="cuerpo_form">
-      <h5>Iniciar sesión</h5>
-      <form action="#" method="post">
-        <input
-          class="input <?php if (!empty($error_correo)) echo 'input-error'; ?>"
-          type="email"
-          name="correo"
-          placeholder="Correo electrónico"
-          value="<?php echo htmlspecialchars($_POST['correo'] ?? ''); ?>"
-          required />
-        <?php if (!empty($error_correo)): ?>
-          <p class="error-message"><?php echo $error_correo; ?></p>
-        <?php endif; ?>
+          <input
+            class="input <?php if (!empty($error_contrasena)) echo 'input-error'; ?>"
+            type="password"
+            name="contraseña"
+            placeholder="Contraseña"
+            required />
+          <?php if (!empty($error_contrasena)): ?>
+            <p class="error-message"><?php echo $error_contrasena; ?></p>
+          <?php endif; ?>
 
-        <input
-          class="input <?php if (!empty($error_contrasena)) echo 'input-error'; ?>"
-          type="password"
-          name="contraseña"
-          placeholder="Contraseña"
-          required />
-        <?php if (!empty($error_contrasena)): ?>
-          <p class="error-message"><?php echo $error_contrasena; ?></p>
-        <?php endif; ?>
+          <button class="btn" type="submit">Entrar</button>
+        </form>
+      </div>
 
-        <button class="btn" type="submit">Entrar</button>
-      </form>
-    </div>
-
-    <div class="sesion_ops">
-      <a href="#">Recuperar cuenta</a>
-      <a href="registrarse.php">Registrar cuenta</a>
-    </div>
-  </section>
-
-  <div class="espacio"></div>
+      <div class="sesion_ops">
+        <a href="#">Recuperar cuenta</a>
+        <a href="registrarse.php">Registrar cuenta</a>
+      </div>
+    </section>
+  </main>
 
   <footer class="footer">
     <p>&copy; 2023 Juli's. Todos los derechos reservados.</p>
