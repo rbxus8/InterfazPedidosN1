@@ -1,5 +1,5 @@
 <?php
-include 'conexion.php';
+include 'conexion/conexion.php';
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
   // Recibir y validar los datos
@@ -56,14 +56,14 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <link rel="stylesheet" href="style.css" />
+  <link rel="stylesheet" href="css/style.css" />
   <title>Registrarse</title>
 </head>
 
 <body>
   <header class="header">
     <a href="#"><img
-        src="img/Carrito_de_Compras.png"
+        src="img/iconosinfondotitulo.png"
         alt="nombre_icon_goshop"
         style="height: 1.5em ; ">
     </a>
@@ -75,7 +75,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
   </header>
 
   <main class="main">
-    <section class="container">
+    <section class="container" id="container">
       <h1>CREAR PERFIL</h1>
       <form class="form-group" action="registrarse.php" method="post">
         <input
@@ -146,11 +146,11 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
           placeholder="Confirmar contraseña*"
           required />
         <div class="terminos_reg">
-          <input class="capchan" type="checkbox" name="terminos_reg" id="terminos_reg" />
+          <input class="capchan" type="checkbox" name="terminos_reg" />
           <label for="terminos_reg">Acepto los terminos y condiciones</label>
         </div>
         <div class="boton_reg">
-          <a href="login.php"><button type="button" class="btn">BACK</button></a>
+          <a href="login.php"><button type="button" class="btn">ATRAS</button></a>
           <button class="btn" type="submit">REGISTRARSE</button>
         </div>
       </form>
@@ -160,7 +160,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     <p>&copy; 2023 Juli's. Todos los derechos reservados.</p>
     <p>Desarrollado por Julián</p>
   </footer>
-  <script src="script.js"></script>
+  <script src="js/script.js"></script>
 </body>
 
 </html>

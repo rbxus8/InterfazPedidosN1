@@ -80,7 +80,7 @@ $conexion->close();
   </header>
 
   <main class="main" id="main_login">
-    <section class="container" id="login_container">
+    <section class="container" id="container">
       <div class="img_inicio">
         <img
           src="img/iconosinfondo.png"

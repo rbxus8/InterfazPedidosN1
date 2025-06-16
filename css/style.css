@@ -103,13 +103,25 @@ header a {
 /* CHECKbox */
 
 .capchan{
-    height: 20px;
+    height: 100%;
     width: 20px;
+}
+
+.telefono_reg{
+    display: flex;
+    align-items: center;
+    
 }
 
 
 
 /* CONTAINER PRINCIPAL */
+
+#container{
+    background-color: rgba(255, 255, 255, 0.633);
+    max-width: 500px;
+}
+
 .container{
     width: 90%;
     margin: 0 auto;
@@ -310,10 +322,6 @@ button.btn:hover {
         background-image: url(../img/tienda_shop.png);
 }
 
-#login_container{
-    background-color: rgba(255, 255, 255, 0.633);
-    max-width: 500px;
-}
 
 .error-message {
     color: var(--btn-delete);
@@ -358,6 +366,7 @@ button.btn:hover {
 }
 
 /*registrarse*/
+
 
 .telefono_reg{
     display: flex;
