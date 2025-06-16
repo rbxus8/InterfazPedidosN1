@@ -5,7 +5,7 @@ session_start();
 session_regenerate_id(true); // Regenerar ID de sesión para mayor seguridad
 
 // Incluir el archivo de conexión a la base de datos
-include 'conexion.php';
+include 'conexion/conexion.php';
 
 // Inicializar variables para mensajes de error
 $error_correo = '';
@@ -62,7 +62,7 @@ $conexion->close();
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Login</title>
-  <link rel="stylesheet" href="style.css" />
+  <link rel="stylesheet" href="css/style.css" />
 </head>
 
 <body>
@@ -80,7 +80,7 @@ $conexion->close();
   </header>
 
   <main class="main">
-    <section class="container">
+    <section class="container" id="login_container">
       <div class="img_inicio">
         <img
           src="img/Carrito_de_Compras_GoShop-removebg-preview.png"
@@ -127,7 +127,7 @@ $conexion->close();
     <p>&copy; 2023 Juli's. Todos los derechos reservados.</p>
     <p>Desarrollado por Julián</p>
   </footer>
-  <script src="script.js"></script>
+  <script src="js/script.js"></script>
 </body>
 
 </html>

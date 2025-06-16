@@ -304,7 +304,11 @@ button.btn:hover {
 }
 
 
-/*inicio_sesion*/
+/*===========Login============*/
+
+#login_container{
+    width: 100%;
+}
 
 .error-message {
     color: var(--btn-delete);
@@ -320,7 +324,7 @@ button.btn:hover {
     display: flex;
     justify-content: center;
     gap: 80px;
-    margin-top: 50px;
+    margin-top: 20px;
     margin-bottom: 50px;
 }
 
