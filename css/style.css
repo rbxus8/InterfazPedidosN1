@@ -1,18 +1,19 @@
 /*colores css*/
-:root{
-    --color-fondo: #141414; /* Color de fondo principal */
-    --color-texto: #ffffff; /* Color del texto principal */
-    --color-encabezado: #5f8fa0;    /* Color del encabezado */
-    --color-container: #5f8fa0f0; /* Color del contenedor principal */
-    --color-titulo: #D1BF77; /* Color de los títulos */
-    --color-enlace: #D1BF77; /* Color de los enlaces */
-    --color-enlace-hover: #141414; /* Color de los enlaces al pasar el mouse */
-    --color-boton: #D1BF77; /* Color para los botones */
-    --btn-delete:#dc3545; /* Color para el botón y delete de eliminar */
-    --color-boton-hover: #141414; /* Color de los botones al pasar el mouse */
-    --color-tabla-fondo: #f9f9f9;   /* Color de fondo de las tablas */
-    --color-tabla-fila-hover: #f1f1f1;  /* Color de fondo de las filas de la tabla al pasar el mouse */
+:root {
+    --color-fondo: #fbe8d3;              /* Fondo general crema pastel */
+    --color-texto: #141414;              /* Texto oscuro para buena legibilidad */
+    --color-encabezado: #5f8fa0;         /* Azul verdoso principal */
+    --color-container: #ffffff;          /* Contenedor principal blanco limpio */
+    --color-titulo: #d9b382;             /* Títulos en dorado tenue */
+    --color-enlace: #f7bfc7;             /* Rosa claro para enlaces */
+    --color-enlace-hover: #5f8fa0;       /* Hover con azul verdoso */
+    --color-boton: #5f8fa0;              /* Botón principal en azul verdoso */
+    --btn-delete: #dc3545;               /* Botón eliminar sigue igual */
+    --color-boton-hover: #c7e8e0;        /* Hover en botón con verde menta */
+    --color-tabla-fondo: #ffffff;        /* Fondo de tablas blanco limpio */
+    --color-tabla-fila-hover: #f7bfc7;   /* Hover en fila con rosa pastel */
 }
+
 
 * {
     margin: 0;
@@ -145,11 +146,11 @@ h2 {
 /* ENLACES */
 a {
     text-decoration: none;
-    color: var(--color-enlace);
+    color: black;
 }
 
 a:hover {
-    color: #141414;
+    color: var(--color-enlace-hover);
 }
 
 /* TABLAS */
@@ -268,7 +269,7 @@ form button {
 /* BOTONES */
 .btn, button.btn {
     display: inline-block;
-    background-color: #D1BF77;
+    background-color: var(--color-boton);
     color: #fff;
     padding: 10px 15px;
     border: none;
@@ -282,7 +283,7 @@ form button {
 
 .btn:hover,
 button.btn:hover {
-    background-color: #141414;
+    background-color: var(--color-boton-hover);
 }
 
 .btn-delete {
@@ -305,9 +306,13 @@ button.btn:hover {
 
 
 /*===========Login============*/
+#main_login{
+        background-image: url(../img/tienda_shop.png);
+}
 
 #login_container{
-    width: 100%;
+    background-color: rgba(255, 255, 255, 0.633);
+    max-width: 500px;
 }
 
 .error-message {

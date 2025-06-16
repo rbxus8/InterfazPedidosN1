@@ -68,7 +68,7 @@ $conexion->close();
 <body>
   <header class="header">
     <a href="#"><img
-        src="img/Carrito_de_Compras.png"
+        src="img/iconosinfondotitulo.png"
         alt="nombre_icon_goshop"
         style="height: 1.5em ; ">
     </a>
@@ -79,11 +79,11 @@ $conexion->close();
     </button>
   </header>
 
-  <main class="main">
+  <main class="main" id="main_login">
     <section class="container" id="login_container">
       <div class="img_inicio">
         <img
-          src="img/Carrito_de_Compras_GoShop-removebg-preview.png"
+          src="img/iconosinfondo.png"
           alt="Imagen de sitio de compras_goshop"
           style="width: 10em; height: 10em" />
       </div>
