@@ -1,5 +1,5 @@
 <?php
-include 'conexion.php'; // Asegúrate de que la conexión a la base de datos esté establecida
+include 'conexion/conexion.php'; // Asegúrate de que la conexión a la base de datos esté establecida
 
 // Obtener filtro de estado
 $filtroEstado = isset($_GET['estado']) ? $_GET['estado'] : ""; //operador ternario.
@@ -57,14 +57,16 @@ $resultadoPedidos = $stmt->get_result();
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Gestión de Pedidos</title>
-    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="css/style.css">
+    <!-- CSS de DataTables -->
+    <link rel="stylesheet" href="https://cdn.datatables.net/1.13.4/css/jquery.dataTables.min.css">
 
 </head>
 
 <body>
     <header class="header">
         <a href="#"><img
-                src="img/Carrito_de_Compras.png"
+                src="img/iconosinfondotitulo.png"
                 alt="nombre_icon_goshop"
                 style="height: 1.5em ; ">
         </a>
@@ -80,6 +82,7 @@ $resultadoPedidos = $stmt->get_result();
             <div class="form-group">
                 <a href="gestionar_productos.php" class="btn">Gestionar Productos</a>
             </div>
+            <h1>Pedidos Existentes</h1>
             <form method="GET" class="form-group">
                 <label for="estado">Filtrar por Estado:</label>
                 <select class="select" name="estado" id="estado" onchange="this.form.submit()">
@@ -89,8 +92,7 @@ $resultadoPedidos = $stmt->get_result();
                     <option value="cancelado" <?= $filtroEstado === "cancelado" ? "selected" : "" ?>>Cancelado</option>
                 </select>
             </form>
-            <h2>Pedidos Existentes</h2>
-            <table>
+            <table id="myTable">
                 <thead>
                     <tr>
                         <th>ID Pedido</th>
@@ -101,12 +103,12 @@ $resultadoPedidos = $stmt->get_result();
                         <th>Acciones</th>
                     </tr>
                 </thead>
-                <?php
-                $sql = "SELECT * from pedidos limit 10"; // Limitamos a 10 pedidos para evitar sobrecarga
-                $result = mysqli_query($conexion, $sql);
-                while ($mostrar = mysqli_fetch_array($result)) {
-                ?>
-                    <tbody>
+                <tbody>
+                    <?php
+                    $sql = "SELECT * from pedidos"; // o puedes usar tu consulta con filtro
+                    $result = mysqli_query($conexion, $sql);
+                    while ($mostrar = mysqli_fetch_array($result)) {
+                    ?>
                         <tr>
                             <td><?php echo $mostrar['id_pedido'] ?></td>
                             <td><?php echo $mostrar['id_cliente'] ?></td>
@@ -114,15 +116,15 @@ $resultadoPedidos = $stmt->get_result();
                             <td><?php echo $mostrar['fecha_pedido'] ?></td>
                             <td><?php echo $mostrar['estado'] ?></td>
                             <td>
-                                <a href="editar_pedido.php?id=<?= $pedidos['id_pedido'] ?>" style="margin-right: 10px;">Editar</a>
-                                <a href="eliminar_pedido.php?id=<?= $pedidos['id_pedido'] ?>"
-                                    class="btn-delete" onclick="return confirm4('¿Está seguro de eliminar este pedido?');">Eliminar</a>
+                                <a href="editar_pedido.php?id=<?= $mostrar['id_pedido'] ?>" style="margin-right: 10px;">Editar</a>
+                                <a href="eliminar_pedido.php?id=<?= $mostrar['id_pedido'] ?>" class="btn-delete" onclick="return confirm('¿Está seguro de eliminar este pedido?');">Eliminar</a>
                             </td>
                         </tr>
                     <?php
-                }
+                    }
                     ?>
-                    </tbody>
+                </tbody>
+
             </table>
         </section>
     </main>
@@ -130,7 +132,23 @@ $resultadoPedidos = $stmt->get_result();
         <p>&copy; 2023 Juli's. Todos los derechos reservados.</p>
         <p>Desarrollado por Julián</p>
     </footer>
-    <script src="script.js"></script>
+    <script src="js/script.js"></script>
+    <!-- jQuery -->
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <!-- JS de DataTables -->
+    <script src="https://cdn.datatables.net/1.13.4/js/jquery.dataTables.min.js"></script>
+
+    <!-- Inicialización de DataTable -->
+    <script>
+        $(document).ready(function() {
+            $('#myTable').DataTable({
+                language: {
+                    url: "//cdn.datatables.net/plug-ins/1.13.4/i18n/es-ES.json"
+                }
+            });
+        });
+    </script>
+
 </body>
 
 </html>

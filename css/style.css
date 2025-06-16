@@ -1,3 +1,5 @@
+@import url('https://cdn.datatables.net/2.3.2/css/dataTables.dataTables.min.css');
+
 /*colores css*/
 :root {
     --color-fondo: #fbe8d3;              /* Fondo general crema pastel */
@@ -51,6 +53,7 @@ header {
     align-items: center;
     border-bottom: #141414;
     border-bottom-style: solid;
+    z-index: 1000; /* Asegura que el encabezado esté siempre encima */
 }
 
 /*=======main======*/
@@ -171,10 +174,9 @@ table {
     border-collapse: collapse;
     margin-bottom: 40px;
     border-style: groove;
-    padding: 1%;
-    table-layout: auto;
+    padding: 3%;
     border-radius: 20px;
-    color: var(--color-fondo);
+    color: black;
 }
 
 table, th, td {
@@ -182,7 +184,7 @@ table, th, td {
 }
 
 th {
-    background-color: #007BFF;
+    background-color: var(--color-encabezado);
     color: #fff;
     padding: 12px 15px;
     text-align: left;

@@ -1,3 +1,5 @@
+
+
 // Este script carga los productos disponibles para un local seleccionado de forma sencilla
 function cargarProductos(localId) {
     // Verifica que se haya seleccionado un local
