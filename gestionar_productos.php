@@ -1,5 +1,5 @@
 <?php
-include 'conexion.php';
+include 'conexion/conexion.php';
 
 // Obtener productos de Negocio A
 $productosA = $conexion->query("SELECT p.id_producto, p.nombre, p.codigo_producto, p.unidad_medida, b.cantidad_producto 
@@ -21,13 +21,14 @@ $productosB = $conexion->query("SELECT p.id_producto, p.nombre, p.codigo_product
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Gestión de Productos</title>
-    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="css/style.css">
 </head>
 
 <body>
     <header class="header">
-        <a href="#"><img
-                src="img/Carrito_de_Compras.png"
+        <a href="#">
+            <img
+                src="img/iconosinfondotitulo.png"
                 alt="nombre_icon_goshop"
                 style="height: 1.5em ; ">
         </a>
@@ -152,7 +153,7 @@ $productosB = $conexion->query("SELECT p.id_producto, p.nombre, p.codigo_product
         <p>&copy; 2023 Juli's. Todos los derechos reservados.</p>
         <p>Desarrollado por Julián</p>
     </footer>
-    <script src="script.js"></script>
+    <script src="js/script.js"></script>
 </body>
 
 </html>

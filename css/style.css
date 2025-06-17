@@ -184,7 +184,13 @@ table {
     border-style: solid;
     border-color: var(--color-encabezado);
     border-width: 1px;
-    padding: 10px; ;
+    padding: 10px;
+    text-align: center;
+}
+
+th, td {
+    padding: 12px;
+    border: 1px solid var(--color-encabezado);
 }
 
 /* FORMULARIOS */
@@ -261,7 +267,7 @@ form button {
     transition: background-color 0.3s ease;
 }
 
-.btn:hover,|
+.btn:hover,
 button.btn:hover {
     background-color: var(--color-boton-hover);
 }
