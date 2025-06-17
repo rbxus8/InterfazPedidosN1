@@ -1,8 +1,8 @@
 <?php
-
+include 'conexion/conexion.php';
 session_start();
 
-include 'conexion.php';
+
 ?>
 
 <!DOCTYPE html>
@@ -12,13 +12,13 @@ include 'conexion.php';
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Clientes</title>
-  <link rel="stylesheet" href="style.css" />
+  <link rel="stylesheet" href="css/style.css" />
 </head>
 
 <body>
   <header class="header">
     <a href="#"><img
-        src="img/Carrito_de_Compras.png"
+        src="img/iconosinfondotitulo.png"
         alt="nombre_icon_goshop"
         style="height: 1.5em ; ">
     </a>
@@ -30,59 +30,24 @@ include 'conexion.php';
   </header>
 
   <main class="main">
-
-    <section class="container">
+    <section class="portada_cliente">
       <div>
-        <p>Hola (nombre), bienvenido al sistema de solicitud de pedidos</p>
-      </div>
-      <div class="form-group">
-        <a href="crear_pedido.php" class="btn">Agregar Nuevo Pedido</a>
-      </div>
-      <h1>Pedidos</h1>
-      <table>
-        <thead>
-          <tr>
-            <th>Id pedido</th>
-            <th>Id local</th>
-            <th>Fecha_pedido</th>
-            <th>Estado</th>
-          </tr>
-        </thead>
-        <?php
-        $sql = "SELECT * from pedidos";
-        $result = mysqli_query($conexion, $sql);
-        while ($mostrar = mysqli_fetch_array($result)) {
-
-        ?>
-          <tbody>
-            <tr>
-              <td><?php echo $mostrar['id_pedido'] ?></td>
-              <td><?php echo $mostrar['id_local'] ?></td>
-              <td><?php echo $mostrar['fecha_pedido'] ?></td>
-              <td><?php echo $mostrar['estado'] ?></td>
-            </tr>
-          <?php
-        }
-          ?>
-          </tbody>
-      </table>
-      <div class="formulario">
-        <form action="" class="form-group">
-          <div class="form-group">
-            <label for="local">Seleccionar local</label>
-            <select name="" id=""></select>
-          </div>
-        </form>
+        <img src="img/Post_de_Instagram_Vertical_Frase_Acuarela_Azul-removebg-preview.png" alt="">
       </div>
     </section>
+    <section class="container_saludo">
+      <span>
+        <h5>Bienvenido, <?php echo htmlspecialchars($_SESSION['nombre'] ?? ''); ?>!</h5>
+        <p>​​​Los pedidos que realices en esta web los entregaremos al segundo día después de hacer la compra o en la fecha indicada. Ten en cuenta que tu pedido no será entregado hoy ni mañana, recibirás tus delicias en dos días hábiles.</p>
+      </span>
+    </section>
+  </main>
 
-    <main>
-
-      <footer class="footer">
-        <p>&copy; 2023 Juli's. Todos los derechos reservados.</p>
-        <p>Desarrollado por Julián</p>
-      </footer>
-      <script src="script.js"></script>
+  <footer class="footer">
+    <p>&copy; 2023 Juli's. Todos los derechos reservados.</p>
+    <p>Desarrollado por Julián</p>
+  </footer>
+  <script src="script.js"></script>
 </body>
 
 </html>
