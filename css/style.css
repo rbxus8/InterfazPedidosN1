@@ -59,6 +59,7 @@ header {
 /*=======main======*/
 
 main {
+    background-color: var(--color-fondo);
     grid-area: main;
     padding: 2em;
     margin-top: 60px; /* Espacio para el encabezado fijo */
@@ -125,6 +126,12 @@ header a {
     max-width: 500px;
 }
 
+#container_index{
+    max-width: 900px;
+    padding: 20px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
 .container{
     width: 90%;
     margin: 0 auto;
@@ -169,56 +176,15 @@ a:hover {
 }
 
 /* TABLAS */
+
 table {
     width: 100%;
     border-collapse: collapse;
-    margin-bottom: 40px;
-    border-style: groove;
-    padding: 3%;
-    border-radius: 20px;
-    color: black;
-}
-
-table, th, td {
-    border: 1px solid #030303;
-}
-
-th {
-    background-color: var(--color-encabezado);
-    color: #fff;
-    padding: 12px 15px;
-    text-align: left;
-}
-
-td {
-    padding: 12px 15px;
-    text-align: left;
-}
-
-table th, table td {
-    font-size: 14px;
-    text-align: center;
-}
-
-table td input[type="number"] {
-    padding: 5px;
-    border-radius: 5px;
-    border: 1px solid #ddd;
-    width: 100px;
-    text-align: center;
-}
-
-table tbody tr:nth-child(odd) {
-    background-color: #f9f9f9;
-}
-
-table tbody tr:hover {
-    background-color: #f1f1f1;
-}
-
-
-table form {
-    display: inline;
+    margin: 20px;
+    border-style: solid;
+    border-color: var(--color-encabezado);
+    border-width: 1px;
+    padding: 10px; ;
 }
 
 /* FORMULARIOS */
@@ -284,7 +250,7 @@ form button {
 .btn, button.btn {
     display: inline-block;
     background-color: var(--color-boton);
-    color: #fff;
+    color: #000000;
     padding: 10px 15px;
     border: none;
     border-radius: 5px;
@@ -295,7 +261,7 @@ form button {
     transition: background-color 0.3s ease;
 }
 
-.btn:hover,
+.btn:hover,|
 button.btn:hover {
     background-color: var(--color-boton-hover);
 }
@@ -321,7 +287,7 @@ button.btn:hover {
 
 /*===========Login============*/
 #main_login{
-        background-image: url(../img/tienda_shop.png);
+       background-image: url(../img/tienda_shop.png);
 }
 
 

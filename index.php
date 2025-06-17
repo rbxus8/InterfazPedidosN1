@@ -60,7 +60,6 @@ $resultadoPedidos = $stmt->get_result();
     <link rel="stylesheet" href="css/style.css">
     <!-- CSS de DataTables -->
     <link rel="stylesheet" href="https://cdn.datatables.net/1.13.4/css/jquery.dataTables.min.css">
-
 </head>
 
 <body>
@@ -77,7 +76,7 @@ $resultadoPedidos = $stmt->get_result();
         </button>
     </header>
     <main>
-        <section class="container">
+        <section class="container" id="container_index">
             <h1>Gestión de Pedidos</h1>
             <div class="form-group">
                 <a href="gestionar_productos.php" class="btn">Gestionar Productos</a>
@@ -92,7 +91,7 @@ $resultadoPedidos = $stmt->get_result();
                     <option value="cancelado" <?= $filtroEstado === "cancelado" ? "selected" : "" ?>>Cancelado</option>
                 </select>
             </form>
-            <table id="myTable">
+            <table id="myTable" class="table table-dark">
                 <thead>
                     <tr>
                         <th>ID Pedido</th>
