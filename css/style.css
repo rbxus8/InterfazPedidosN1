@@ -3,6 +3,7 @@
 /*colores css*/
 :root {
     --color-fondo: #fbe8d3;              /* Fondo general crema pastel */
+    --color-card: #f7f7f7;              /* Fondo de tarjetas gris claro */
     --color-texto: #141414;              /* Texto oscuro para buena legibilidad */
     --color-encabezado: #5f8fa0;         /* Azul verdoso principal */
     --color-container: #ffffff;          /* Contenedor principal blanco limpio */
@@ -368,4 +369,44 @@ button.btn:hover {
     text-align: center; /* Para que se superponga ligeramente a la portada */
 }
 
+.container_productos{
+    background-color:   var(--color-container);
+    flex-direction: column;
+    padding: 20px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    margin-top: 20px;
+    margin-bottom: 20px;
+    width: 90%;
+    align-items: center;
+    gap: 20px;
 
+}
+
+.categoria_productos{
+    display: flex;
+    flex-direction: row;
+    gap: 20px;
+}
+
+.productos_cards{
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+    gap: 20px;
+    width: 80%;
+
+}
+
+.card{
+    background-color: var(--color-card);
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    text-align: center;
+    transition: transform 0.3s ease;
+    align-items: center;
+    display: flex;
+    flex-direction: column;
+}

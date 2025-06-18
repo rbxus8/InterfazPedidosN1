@@ -41,6 +41,46 @@ session_start();
         <p>​​​Los pedidos que realices en esta web los entregaremos al segundo día después de hacer la compra o en la fecha indicada. Ten en cuenta que tu pedido no será entregado hoy ni mañana, recibirás tus delicias en dos días hábiles.</p>
       </span>
     </section>
+    <section class="container_productos">
+      <h2>Productos</h2>
+      <p>Elige tus productos favoritos y agrégales al carrito de compras.</p>
+      <div class="categoria_productos">
+        <button class="btn">Empanadas</button>
+        <button class="btn">Bebidas</button>
+        <button class="btn">Postres</button>
+        <button class="btn">Otros</button>
+      </div>
+      <div class="productos_cards">
+        <div class="card">
+          <img src="img/empanada_de_carne.jpg" alt="Empanada de Carne">
+          <h3>Empanada de Carne</h3>
+          <p>Deliciosa empanada rellena de carne jugosa.</p>
+          <span>$1500</span>
+          <button class="btn">Comprar</button>
+        </div>
+        <div class="card">
+          <img src="img/empanada_de_carne.jpg" alt="Empanada de Carne">
+          <h3>Empanada de Carne</h3>
+          <p>Deliciosa empanada rellena de carne jugosa.</p>
+          <span>$1500</span>
+          <button class="btn">Comprar</button>
+        </div>
+        <div class="card">
+          <img src="img/empanada_de_carne.jpg" alt="Empanada de Carne">
+          <h3>Empanada de Carne</h3>
+          <p>Deliciosa empanada rellena de carne jugosa.</p>
+          <span>$1500</span>
+          <button class="btn">Comprar</button>
+        </div>
+        <div class="card">
+          <img src="img/empanada_de_carne.jpg" alt="Empanada de Carne">
+          <h3>Empanada de Carne</h3>
+          <p>Deliciosa empanada rellena de carne jugosa.</p>
+          <span>$1500</span>
+          <button class="btn">Comprar</button>
+        </div>
+
+    </section>
   </main>
 
   <footer class="footer">
