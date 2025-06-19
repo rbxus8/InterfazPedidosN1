@@ -45,40 +45,41 @@ session_start();
       <h2>Productos</h2>
       <p>Elige tus productos favoritos y agrégales al carrito de compras.</p>
       <div class="categoria_productos">
-        <button class="btn">Empanadas</button>
-        <button class="btn">Bebidas</button>
-        <button class="btn">Postres</button>
-        <button class="btn">Otros</button>
+        <button type="button" onclick="mostrar('bebidas')" class="btn">Bebidas</button>
+        <button type="button" onclick="mostrar('postres')" class="btn">Postres</button>
+        <button type="button" onclick="mostrar('todos')" class="btn">Todos</button>
       </div>
+
       <div class="productos_cards">
-        <div class="card">
-          <img src="img/empanada_de_carne.jpg" alt="Empanada de Carne">
-          <h3>Empanada de Carne</h3>
-          <p>Deliciosa empanada rellena de carne jugosa.</p>
+        <div class="card item bebidas">
+          <img src="img/bebida_de_fresas.jpg" alt="Bebida de Fresas">
+          <h3>Bebida de fresas</h3>
+          <p>Deliciosa bebida de fresas naturales.</p>
           <span>$1500</span>
           <button class="btn">Comprar</button>
         </div>
-        <div class="card">
+        <div class="card item bebidas">
           <img src="img/empanada_de_carne.jpg" alt="Empanada de Carne">
-          <h3>Empanada de Carne</h3>
-          <p>Deliciosa empanada rellena de carne jugosa.</p>
+          <h3>Tea</h3>
+          <p>Deliciosa bebida de té helado con limón.</p>
           <span>$1500</span>
           <button class="btn">Comprar</button>
         </div>
-        <div class="card">
-          <img src="img/empanada_de_carne.jpg" alt="Empanada de Carne">
-          <h3>Empanada de Carne</h3>
-          <p>Deliciosa empanada rellena de carne jugosa.</p>
+        <div class="card item postres">
+          <img src="img/postres_de_chocolate.jpg" alt="Postres de Chocolate">
+          <h3>Postres de chocolate</h3>
+          <p>Deliciosos postres de chocolate con un toque especial.</p>
           <span>$1500</span>
           <button class="btn">Comprar</button>
         </div>
-        <div class="card">
-          <img src="img/empanada_de_carne.jpg" alt="Empanada de Carne">
-          <h3>Empanada de Carne</h3>
-          <p>Deliciosa empanada rellena de carne jugosa.</p>
+        <div class="card item postres">
+          <img src="img/postres_de_chocolate.jpg" alt="Postres de Chocolate">
+          <h3>Postres de chocolate</h3>
+          <p>Deliciosos postres de chocolate con un toque especial.</p>
           <span>$1500</span>
           <button class="btn">Comprar</button>
         </div>
+      </div>
 
     </section>
   </main>
@@ -87,7 +88,7 @@ session_start();
     <p>&copy; 2023 Juli's. Todos los derechos reservados.</p>
     <p>Desarrollado por Julián</p>
   </footer>
-  <script src="script.js"></script>
+  <script src="js/script.js"></script>
 </body>
 
 </html>

@@ -183,3 +183,30 @@ function cambiarColorTema() {
                     document.getElementById('productos-container').innerHTML = `<p>Error al cargar los productos.</p>`;
                 });
         }
+
+
+    // Función para mostrar los productos según la categoría
+        document.addEventListener('DOMContentLoaded', function() {
+          function mostrar(categoria) {
+            const cards = document.querySelectorAll('.productos_cards .card');
+            cards.forEach(card => {
+              if (categoria === 'todos') {
+                card.style.display = 'block';
+              } else if (card.classList.contains(categoria)) {
+                card.style.display = 'block';
+              } else {
+                card.style.display = 'none';
+              }
+            });
+          }
+          // Mostrar todos por defecto al cargar la página
+          mostrar('todos');
+          // Asignar eventos a los botones
+          document.querySelectorAll('.categoria_productos .btn').forEach(btn => {
+            btn.addEventListener('click', function() {
+              const categoria = this.getAttribute('onclick').match(/'([^']+)'/)[1];
+              mostrar(categoria);
+            });
+          });
+        });
+    
