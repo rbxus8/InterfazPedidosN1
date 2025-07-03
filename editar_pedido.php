@@ -1,5 +1,5 @@
 <?php
-include 'conexion.php';
+include 'conexion/conexion.php';
 
 // Obtener el ID del pedido
 $idPedido = isset($_GET['id']) ? intval($_GET['id']) : 0;
@@ -11,6 +11,7 @@ $consultaPedido = "
     JOIN clientes ON pedidos.id_cliente = clientes.id_cliente
     JOIN locales ON pedidos.id_local = locales.id_local
     WHERE pedidos.id_pedido = ?";
+
 $stmtPedido = $conexion->prepare($consultaPedido);
 $stmtPedido->bind_param("i", $idPedido);
 $stmtPedido->execute();

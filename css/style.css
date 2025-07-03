@@ -66,6 +66,7 @@ main {
     display: flex;
     flex-direction: column;
     align-items: center;
+    justify-content: center;
 }
 
 
@@ -124,17 +125,20 @@ header a {
 #container{
     background-color: rgba(255, 255, 255, 0.633);
     max-width: 500px;
-    margin: 2em;
+
 }
 
 #container_index{
     max-width: 900px;
     padding: 20px;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        margin-top: 50px;
+                margin-bottom: 50px;
 }
 
 .container{
     width: 90%;
+    height: 100%;
     margin: 0 auto;
    background-color: var(--color-container);
     padding: 30px;
@@ -145,7 +149,8 @@ header a {
     align-items: center;
     justify-content: center;
     gap: 20px;
-}
+
+}   
 
 /*=====span=====*/
 span {
@@ -167,12 +172,8 @@ a:hover {
 
 table {
     width: 100%;
-    border-collapse: collapse;
-    margin: 20px;
     border-style: solid;
     border-color: var(--color-encabezado);
-    border-width: 1px;
-    padding: 10px;
     text-align: center;
 }
 
@@ -183,7 +184,6 @@ th, td {
 
 /* FORMULARIOS */
 .form-group {
-    margin-bottom: 20px;
     text-align: left;
     display: flex;
     flex-wrap: wrap;

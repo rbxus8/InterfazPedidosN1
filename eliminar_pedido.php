@@ -1,5 +1,5 @@
 <?php
-include 'conexion.php';
+include 'conexion/conexion.php';
 
 // Obtener el ID del pedido a eliminar
 $idPedido = isset($_GET['id']) ? $_GET['id'] : null;

@@ -1,5 +1,5 @@
 <?php
-include 'conexion.php';
+include 'conexion/conexion.php';
 
 // Obtener el ID del local
 $idLocal = isset($_GET['local']) ? intval($_GET['local']) : 0;
