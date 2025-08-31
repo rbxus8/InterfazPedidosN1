@@ -6,9 +6,9 @@ $idPedido = isset($_GET['id']) ? intval($_GET['id']) : 0;
 
 // Obtener datos del pedido
 $consultaPedido = "
-    SELECT pedidos.*, clientes.nombre AS cliente, locales.nombre AS local 
+    SELECT pedidos.*, usuarios.nombre AS usuario, locales.nombre AS local 
     FROM pedidos
-    JOIN clientes ON pedidos.id_cliente = clientes.id_cliente
+    JOIN usuarios ON pedidos.id_cliente = usuarios.id
     JOIN locales ON pedidos.id_local = locales.id_local
     WHERE pedidos.id_pedido = ?";
 
@@ -16,6 +16,11 @@ $stmtPedido = $conexion->prepare($consultaPedido);
 $stmtPedido->bind_param("i", $idPedido);
 $stmtPedido->execute();
 $pedido = $stmtPedido->get_result()->fetch_assoc();
+
+if (!$pedido) {
+    echo "<p>No se encontró el pedido solicitado.</p>";
+    exit;
+}
 
 // Obtener los productos del pedido
 $consultaProductos = "
@@ -59,7 +64,8 @@ $productosDisponibles = $conexion->query("
                 <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" class="bi bi-brightness-high" viewBox="0 0 16 16">
                     <path d="M8 11a3 3 0 1 1 0-6 3 3 0 0 1 0 6m0 1a4 4 0 1 0 0-8 4 4 0 0 0 0 8M8 0a.5.5 0 0 1 .5.5v2a.5.5 0 0 1-1 0v-2A.5.5 0 0 1 8 0m0 13a.5.5 0 0 1 .5.5v2a.5.5 0 0 1-1 0v-2A.5.5 0 0 1 8 13m8-5a.5.5 0 0 1-.5.5h-2a.5.5 0 0 1 0-1h2a.5.5 0 0 1 .5.5M3 8a.5.5 0 0 1-.5.5h-2a.5.5 0 0 1 0-1h2A.5.5 0 0 1 3 8m10.657-5.657a.5.5 0 0 1 0 .707l-1.414 1.415a.5.5 0 1 1-.707-.708l1.414-1.414a.5.5 0 0 1 .707 0m-9.193 9.193a.5.5 0 0 1 0 .707L3.05 13.657a.5.5 0 0 1-.707-.707l1.414-1.414a.5.5 0 0 1 .707 0m9.193 2.121a.5.5 0 0 1-.707 0l-1.414-1.414a.5.5 0 0 1 .707-.707l1.414 1.414a.5.5 0 0 1 0 .707M4.464 4.465a.5.5 0 0 1-.707 0L2.343 3.05a.5.5 0 1 1 .707-.707l1.414 1.414a.5.5 0 0 1 0 .708" />
                 </svg>
-            </button>>
+            </button>
+        </div>
     </header>
     <main>
         <div class="container">
@@ -69,7 +75,7 @@ $productosDisponibles = $conexion->query("
 
                 <!-- Información del pedido -->
                 <div class="form-group">
-                    <p><strong>Cliente:</strong> <?= $pedido['cliente'] ?></p>
+                    <p><strong>Usuario:</strong> <?= $pedido['usuario'] ?></p>
                     <p><strong>Local:</strong> <?= $pedido['local'] ?></p>
                     <p><strong>Fecha:</strong> <?= $pedido['fecha_pedido'] ?></p>
                 </div>
