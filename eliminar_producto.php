@@ -1,5 +1,5 @@
 <?php
-include 'conexion.php';
+include 'conexion/conexion.php';
 
 // Obtener datos del producto y pedido
 $idPedido = intval($_POST['id_pedido']);

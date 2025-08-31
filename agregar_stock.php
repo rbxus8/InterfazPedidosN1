@@ -1,5 +1,5 @@
 <?php
-include 'conexion.php';
+include 'conexion/conexion.php';
 
 // Obtener los datos del formulario
 $idProducto = $_POST['id_producto'];

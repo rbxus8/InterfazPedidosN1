@@ -1,5 +1,5 @@
 <?php
-include 'conexion.php';
+include 'conexion/conexion.php';
 
 // Obtener el ID del pedido desde el formulario
 $idPedido = $_POST['id_pedido'];  // ID del pedido

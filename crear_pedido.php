@@ -1,5 +1,5 @@
 <?php
-include 'conexion.php';
+include 'conexion/conexion.php';
 
 // Consultar datos de clientes y locales
 $usuarios = $conexion->query("SELECT id, nombre, telefono FROM usuarios");

@@ -1,5 +1,5 @@
 <?php
-include 'conexion/conexion.php'; // Asegúrate de que la conexión a la base de datos esté establecida
+include 'conexion/conexion.php';
 
 // Obtener filtro de estado
 $filtroEstado = isset($_GET['estado']) ? $_GET['estado'] : ""; //operador ternario.

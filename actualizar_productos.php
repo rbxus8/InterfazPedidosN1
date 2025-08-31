@@ -1,5 +1,5 @@
 <?php
-include 'conexion.php';
+include 'conexion/conexion.php';
 
 // Obtener los datos enviados por AJAX
 $datos = json_decode(file_get_contents("php://input"), true);

@@ -1,5 +1,5 @@
 <?php
-include 'conexion.php';
+include 'conexion/conexion.php';
 
 if (isset($_POST['id_producto']) && isset($_POST['cantidad'])) {
     $idProducto = $_POST['id_producto'];
