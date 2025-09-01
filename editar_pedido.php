@@ -1,6 +1,6 @@
 <?php
 include 'conexion/conexion.php';
-
+//
 // Obtener el ID del pedido
 $idPedido = isset($_GET['id']) ? intval($_GET['id']) : 0;
 
