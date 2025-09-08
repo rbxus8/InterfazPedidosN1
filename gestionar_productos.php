@@ -139,6 +139,10 @@ $productosB = $conexion->query("SELECT p.id_producto, p.nombre, p.codigo_product
                     <input class="select1" type="number" name="stock" id="stock" min="1" required>
                 </div>
                 <div class="form-group">
+                    <label for="precio">Precio</label>
+                    <input class="select1" type="number" name="precio" placeholder="Precio" step="0.01" required>
+                </div>
+                <div class="form-group">
                     <label for="local">Seleccionar Local:</label>
                     <select class="select1" name="local" id="local" required>
                         <option value="1">Negocio A</option>
