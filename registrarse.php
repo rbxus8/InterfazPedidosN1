@@ -5,7 +5,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
   // Recibir y validar los datos
   $nombre     = $_POST['nombre_reg'] ?? '';
   $apellido   = $_POST['apellido_reg'] ?? '';
-  $codigo = str_replace('+', '', $_POST['cod_region'] ?? '');
+  $codigo     = str_replace('+', '', $_POST['cod_region'] ?? '');
   $celular    = $_POST['celular_reg'] ?? '';
   $telefono   = $codigo . $celular;
   $correo     = $_POST['correo_reg'] ?? '';
@@ -13,25 +13,36 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
   $clave2     = $_POST['confirmar_contraseña_reg'] ?? '';
   $terminos   = isset($_POST['terminos_reg']) ? 1 : 0;
 
-
+  // Validaciones
   if ($clave1 !== $clave2) {
-    echo "Las contraseñas no coinciden.";
+    echo "<script>alert('Las contraseñas no coinciden.'); window.history.back();</script>";
     exit;
   }
 
-  if ($codigo === 'none') {
-    echo "Debe seleccionar un código de región válido.";
+  if ($codigo === 'none' || empty($codigo)) {
+    echo "<script>alert('Debe seleccionar un código de región válido.'); window.history.back();</script>";
     exit;
   }
 
+  // Verificar si el correo ya existe
+  $checkSql = "SELECT id FROM usuarios WHERE correo = ?";
+  $checkStmt = $conexion->prepare($checkSql);
+  $checkStmt->bind_param("s", $correo);
+  $checkStmt->execute();
+  $checkStmt->store_result();
 
-  // Encriptar la contraseña (opcional pero recomendado)
+  if ($checkStmt->num_rows > 0) {
+    echo "<script>alert('El correo ya está registrado. Usa otro.'); window.history.back();</script>";
+    exit;
+  }
+  $checkStmt->close();
+
+  // Encriptar la contraseña
   $claveHash = password_hash($clave1, PASSWORD_DEFAULT);
 
   // Insertar en la tabla usuarios
   $sql = "INSERT INTO usuarios (nombre, apellido, telefono, correo, contraseña)
-            VALUES (?, ?, ?, ?, ?)";
-
+          VALUES (?, ?, ?, ?, ?)";
   $stmt = $conexion->prepare($sql);
   $stmt->bind_param("sssss", $nombre, $apellido, $telefono, $correo, $claveHash);
 
@@ -44,6 +55,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
   $stmt->close();
 }
 ?>
+
 
 
 <!DOCTYPE html>
