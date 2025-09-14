@@ -13,10 +13,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
   $clave2     = $_POST['confirmar_contraseña_reg'] ?? '';
   $terminos   = isset($_POST['terminos_reg']) ? 1 : 0;
 
-  if (!$terminos) {
-    echo "Debe aceptar los términos y condiciones.";
-    exit;
-  }
 
   if ($clave1 !== $clave2) {
     echo "Las contraseñas no coinciden.";
@@ -40,7 +36,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
   $stmt->bind_param("sssss", $nombre, $apellido, $telefono, $correo, $claveHash);
 
   if ($stmt->execute()) {
-    echo "<script>alert('Registro exitoso.'); window.location.href='selec_usuario.php';</script>";
+    echo "<script>alert('Registro exitoso.'); window.location.href='login.php';</script>";
   } else {
     echo "Error al registrar: " . $stmt->error;
   }
@@ -95,32 +91,33 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         <div class="telefono_reg">
           <select class="select1" name="cod_region" id="cod_region_reg" required>
             <option value="">Cod. Región*</option>
-            <option value="estados unidos">+1</option>
-            <option value="España">+34</option>
-            <option value="Francia">+33</option>
-            <option value="Alemania">+49</option>
-            <option value="Italia">+39</option>
-            <option value="Reino unido">+44</option>
-            <option value="Portugal">+351</option>
-            <option value="Mexico">+52</option>
-            <option value="Cuba">+53</option>
-            <option value="Argentina">+54</option>
-            <option value="Brasil">+55</option>
-            <option value="Chile">+56</option>
-            <option value="57">Colombia-+57</option>
-            <option value="Venezuela">+58</option>
-            <option value="Bolivia">+591</option>
-            <option value="Ecuador">+593</option>
-            <option value="Peru">+51</option>
-            <option value="Paraguay">+595</option>
-            <option value="Uruguay">+598</option>
-            <option value="Costa Rica">+506</option>
-            <option value="El Salvador">+503</option>
-            <option value="Guatemala">+502</option>
-            <option value="Honduras ">+504</option>
-            <option value="Nicaragua ">+505</option>
-            <option value="Panamá ">+507</option>
+            <option value="1">Estados Unidos (+1)</option>
+            <option value="34">España (+34)</option>
+            <option value="33">Francia (+33)</option>
+            <option value="49">Alemania (+49)</option>
+            <option value="39">Italia (+39)</option>
+            <option value="44">Reino Unido (+44)</option>
+            <option value="351">Portugal (+351)</option>
+            <option value="52">México (+52)</option>
+            <option value="53">Cuba (+53)</option>
+            <option value="54">Argentina (+54)</option>
+            <option value="55">Brasil (+55)</option>
+            <option value="56">Chile (+56)</option>
+            <option value="57">Colombia (+57)</option>
+            <option value="58">Venezuela (+58)</option>
+            <option value="591">Bolivia (+591)</option>
+            <option value="593">Ecuador (+593)</option>
+            <option value="51">Perú (+51)</option>
+            <option value="595">Paraguay (+595)</option>
+            <option value="598">Uruguay (+598)</option>
+            <option value="506">Costa Rica (+506)</option>
+            <option value="503">El Salvador (+503)</option>
+            <option value="502">Guatemala (+502)</option>
+            <option value="504">Honduras (+504)</option>
+            <option value="505">Nicaragua (+505)</option>
+            <option value="507">Panamá (+507)</option>
           </select>
+
           <input
             class="input"
             type="number"
@@ -146,7 +143,11 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
           placeholder="Confirmar contraseña*"
           required />
         <div class="terminos_reg">
-          <input class="capchan" type="checkbox" name="terminos_reg" />
+          <input
+            class="capchan"
+            type="checkbox"
+            name="terminos_reg"
+            required />
           <label for="terminos_reg">Acepto los terminos y condiciones</label>
         </div>
         <div class="boton_reg">
