@@ -6,11 +6,14 @@ $idPedido = isset($_GET['id']) ? intval($_GET['id']) : 0;
 
 // Obtener datos del pedido
 $consultaPedido = "
-    SELECT pedidos.*, usuarios.nombre AS usuario, locales.nombre AS local 
+    SELECT pedidos.*, 
+           usuarios.nombre AS usuario, 
+           locales.nombre AS local 
     FROM pedidos
-    JOIN usuarios ON pedidos.id_cliente = usuarios.id
-    JOIN locales ON pedidos.id_local = locales.id_local
+    LEFT JOIN usuarios ON pedidos.id_cliente = usuarios.id
+    LEFT JOIN locales ON pedidos.id_local = locales.id_local
     WHERE pedidos.id_pedido = ?";
+
 
 $stmtPedido = $conexion->prepare($consultaPedido);
 $stmtPedido->bind_param("i", $idPedido);
@@ -50,22 +53,21 @@ $productosDisponibles = $conexion->query("
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Editar Pedido</title>
-    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="css/style.css">
 </head>
 
 <body>
-    <header>
-        <div><a href="#">Juli's</a></ <a href="#"><img
-                src="img/Carrito_de_Compras.png"
+    <header class="header">
+        <a href="#"><img
+                src="img/iconosinfondotitulo.png"
                 alt="nombre_icon_goshop"
                 style="height: 1.5em ; ">
-            </a>
-            <button onclick="cambiarColorTema()" class="chance_color" id="chance_color">
-                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" class="bi bi-brightness-high" viewBox="0 0 16 16">
-                    <path d="M8 11a3 3 0 1 1 0-6 3 3 0 0 1 0 6m0 1a4 4 0 1 0 0-8 4 4 0 0 0 0 8M8 0a.5.5 0 0 1 .5.5v2a.5.5 0 0 1-1 0v-2A.5.5 0 0 1 8 0m0 13a.5.5 0 0 1 .5.5v2a.5.5 0 0 1-1 0v-2A.5.5 0 0 1 8 13m8-5a.5.5 0 0 1-.5.5h-2a.5.5 0 0 1 0-1h2a.5.5 0 0 1 .5.5M3 8a.5.5 0 0 1-.5.5h-2a.5.5 0 0 1 0-1h2A.5.5 0 0 1 3 8m10.657-5.657a.5.5 0 0 1 0 .707l-1.414 1.415a.5.5 0 1 1-.707-.708l1.414-1.414a.5.5 0 0 1 .707 0m-9.193 9.193a.5.5 0 0 1 0 .707L3.05 13.657a.5.5 0 0 1-.707-.707l1.414-1.414a.5.5 0 0 1 .707 0m9.193 2.121a.5.5 0 0 1-.707 0l-1.414-1.414a.5.5 0 0 1 .707-.707l1.414 1.414a.5.5 0 0 1 0 .707M4.464 4.465a.5.5 0 0 1-.707 0L2.343 3.05a.5.5 0 1 1 .707-.707l1.414 1.414a.5.5 0 0 1 0 .708" />
-                </svg>
-            </button>
-        </div>
+        </a>
+        <button onclick="cambiarColorTema()" class="chance_color" id="chance_color">
+            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" class="bi bi-brightness-high" viewBox="0 0 16 16">
+                <path d="M8 11a3 3 0 1 1 0-6 3 3 0 0 1 0 6m0 1a4 4 0 1 0 0-8 4 4 0 0 0 0 8M8 0a.5.5 0 0 1 .5.5v2a.5.5 0 0 1-1 0v-2A.5.5 0 0 1 8 0m0 13a.5.5 0 0 1 .5.5v2a.5.5 0 0 1-1 0v-2A.5.5 0 0 1 8 13m8-5a.5.5 0 0 1-.5.5h-2a.5.5 0 0 1 0-1h2a.5.5 0 0 1 .5.5M3 8a.5.5 0 0 1-.5.5h-2a.5.5 0 0 1 0-1h2A.5.5 0 0 1 3 8m10.657-5.657a.5.5 0 0 1 0 .707l-1.414 1.415a.5.5 0 1 1-.707-.708l1.414-1.414a.5.5 0 0 1 .707 0m-9.193 9.193a.5.5 0 0 1 0 .707L3.05 13.657a.5.5 0 0 1-.707-.707l1.414-1.414a.5.5 0 0 1 .707 0m9.193 2.121a.5.5 0 0 1-.707 0l-1.414-1.414a.5.5 0 0 1 .707-.707l1.414 1.414a.5.5 0 0 1 0 .707M4.464 4.465a.5.5 0 0 1-.707 0L2.343 3.05a.5.5 0 1 1 .707-.707l1.414 1.414a.5.5 0 0 1 0 .708" />
+            </svg>
+        </button>
     </header>
     <main>
         <div class="container">
@@ -83,12 +85,16 @@ $productosDisponibles = $conexion->query("
                 <!-- Cambiar estado del pedido -->
                 <div class="form-group">
                     <label for="estado">Estado del Pedido:</label>
-                    <select name="estado" id="estado" required>
+                    <select name="estado" id="estado" required <?= $pedido['estado'] === "cancelado" ? "disabled" : "" ?>>
                         <option value="pendiente" <?= $pedido['estado'] === "pendiente" ? "selected" : "" ?>>Pendiente</option>
                         <option value="completado" <?= $pedido['estado'] === "completado" ? "selected" : "" ?>>Completado</option>
                         <option value="cancelado" <?= $pedido['estado'] === "cancelado" ? "selected" : "" ?>>Cancelado</option>
                     </select>
+                    <?php if ($pedido['estado'] === "cancelado"): ?>
+                        <input type="hidden" name="estado" value="cancelado">
+                    <?php endif; ?>
                 </div>
+
 
                 <!-- Productos actuales del pedido -->
                 <div class="form-group">
@@ -122,24 +128,28 @@ $productosDisponibles = $conexion->query("
                             <li>
                                 <label>
                                     <div>
-                                        <input type="checkbox" name="nuevos_productos[<?= $productoDisponible['id_producto'] ?>][seleccionado]"
+                                        <input type="checkbox"
+                                            name="nuevos_productos[<?= $productoDisponible['id_producto'] ?>][seleccionado]"
                                             value="1"
-                                            onchange="habilitarCantidad(<?= $productoDisponible['id_producto'] ?>)">
+                                            onchange="habilitarCantidad(<?= $productoDisponible['id_producto'] ?>)"
+                                            <?= $pedido['estado'] === "cancelado" ? "disabled" : "" ?>>
                                         <?= $productoDisponible['nombre'] ?>
                                         (Stock disponible: <?= $productoDisponible['cantidad_producto'] ?>)
                                     </div>
-                                    <input type="number" name="nuevos_productos[<?= $productoDisponible['id_producto'] ?>][cantidad]"
+                                    <input type="number"
+                                        name="nuevos_productos[<?= $productoDisponible['id_producto'] ?>][cantidad]"
                                         placeholder="Cantidad"
                                         min="1"
                                         max="<?= $productoDisponible['cantidad_producto'] ?>"
-                                        disabled id="cantidad_<?= $productoDisponible['id_producto'] ?>">
+                                        disabled
+                                        id="cantidad_<?= $productoDisponible['id_producto'] ?>"
+                                        <?= $pedido['estado'] === "cancelado" ? "disabled" : "" ?>>
                                 </label>
-
-
                             </li>
                         <?php endwhile; ?>
                     </ul>
                 </div>
+
 
 
 
