@@ -1,22 +1,28 @@
 <?php
 include 'conexion/conexion.php';
 
-// Obtener datos del producto y pedido
-$idPedido = intval($_POST['id_pedido']);
-$idProducto = intval($_POST['id_producto']);
+if (isset($_POST['id_producto'])) {
+    $idProducto = intval($_POST['id_producto']);
 
-try {
-    // Eliminar el producto del pedido
-    $consultaEliminar = "DELETE FROM historial_productos WHERE id_pedido = ? AND id_producto = ?";
-    $stmtEliminar = $conexion->prepare($consultaEliminar);
-    $stmtEliminar->bind_param("ii", $idPedido, $idProducto);
+    try {
+        // Eliminar primero de bodega
+        $stmtBodega = $conexion->prepare("DELETE FROM bodega WHERE id_producto = ?");
+        $stmtBodega->bind_param("i", $idProducto);
+        $stmtBodega->execute();
 
-    if (!$stmtEliminar->execute()) {
-        throw new Exception("Error al eliminar el producto.");
+        // Luego eliminar de productos
+        $stmtProducto = $conexion->prepare("DELETE FROM productos WHERE id_producto = ?");
+        $stmtProducto->bind_param("i", $idProducto);
+        $stmtProducto->execute();
+
+        // Redirigir a la misma página sin mensaje
+        header("Location: " . $_SERVER['HTTP_REFERER']);
+        exit();
+    } catch (Exception $e) {
+        header("Location: " . $_SERVER['HTTP_REFERER']);
+        exit();
     }
-
-    // Redirigir de vuelta a la página de edición
-    header("Location: editar_pedido.php?id=$idPedido&mensaje=Producto eliminado correctamente");
-} catch (Exception $e) {
-    echo "Error: " . $e->getMessage();
+} else {
+    header("Location: " . $_SERVER['HTTP_REFERER']);
+    exit();
 }
