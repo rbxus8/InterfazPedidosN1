@@ -1,53 +1,44 @@
 <?php
 include 'conexion/conexion.php';
 
-// Obtener filtro de estado
-$filtroEstado = isset($_GET['estado']) ? $_GET['estado'] : ""; //operador ternario.
+$filtroEstado = isset($_GET['estado']) ? $_GET['estado'] : "";
 
-// CONSULTA CORREGIDA - VERIFICAR NOMBRES EXACTOS DE COLUMNAS
 $consultaPedidos = "
-    SELECT
+SELECT
     ped.id_pedido,
     usu.nombre AS cliente,
     loc.nombre AS local,
     ped.fecha_pedido,
     ped.estado,
     GROUP_CONCAT(DISTINCT prod.codigo_producto SEPARATOR ', ') AS codigos_productos
-    FROM pedidos ped
-    JOIN usuarios usu ON ped.id_cliente = usu.id                /* Cambiado de id_usuario a id_cliente */
-    JOIN locales loc ON ped.id_local = loc.id_local
-    JOIN historial_productos hp ON hp.id_pedido = ped.id_pedido
-    JOIN productos prod ON hp.id_producto = prod.id_producto";
+FROM pedidos ped
+LEFT JOIN usuarios usu ON ped.id_cliente = usu.id
+LEFT JOIN locales loc ON ped.id_local = loc.id_local
+LEFT JOIN historial_productos hp ON hp.id_pedido = ped.id_pedido
+LEFT JOIN productos prod ON hp.id_producto = prod.id_producto
+";
 
-// Agregar filtro de estado si existe
-// Si el filtro de estado no está vacío, agrega una cláusula WHERE a la consulta SQL
+$params = [];
+$tipos = "";
+
+// Agregar filtro si hay estado
 if (!empty($filtroEstado)) {
-    // Esto permite filtrar los pedidos por el estado seleccionado (pendiente, completado, cancelado)
-    $consultaPedidos .= " WHERE ped.estado = ?";
+    $consultaPedidos .= " WHERE LOWER(ped.estado) = ?";
+    $params[] = strtolower($filtroEstado);
+    $tipos .= "s";
 }
 
-// Agrupa los resultados por id_pedido y los ordena por fecha de pedido descendente
 $consultaPedidos .= " GROUP BY ped.id_pedido ORDER BY ped.fecha_pedido DESC";
 
-// Preparar la consulta SQL utilizando el método prepare() de mysqli
-// Esto permite ejecutar consultas seguras y evitar inyecciones SQL
-$stmt = $conexion->prepare($consultaPedidos);
-
-// Verifica si la preparación de la consulta fue exitosa
-if (!$stmt) {
-    // Si hay un error al preparar la consulta, muestra el mensaje de error y detiene la ejecución
-    die("Error al preparar la consulta: " . $conexion->error);
+// Ejecutar consulta
+if (!empty($params)) {
+    $stmt = $conexion->prepare($consultaPedidos);
+    $stmt->bind_param($tipos, ...$params);
+    $stmt->execute();
+    $resultadoPedidos = $stmt->get_result();
+} else {
+    $resultadoPedidos = $conexion->query($consultaPedidos);
 }
-
-if (!empty($filtroEstado)) {
-    $stmt->bind_param("s", $filtroEstado);
-}
-
-if (!$stmt->execute()) {
-    die("Error al ejecutar la consulta: " . $stmt->error);
-}
-
-$resultadoPedidos = $stmt->get_result();
 ?>
 
 <!DOCTYPE html>
@@ -104,16 +95,14 @@ $resultadoPedidos = $stmt->get_result();
                 </thead>
                 <tbody>
                     <?php
-                    $sql = "SELECT * from pedidos"; // o puedes usar tu consulta con filtro
-                    $result = mysqli_query($conexion, $sql);
-                    while ($mostrar = mysqli_fetch_array($result)) {
+                    while ($mostrar = $resultadoPedidos->fetch_assoc()) {
                     ?>
                         <tr>
-                            <td><?php echo $mostrar['id_pedido'] ?></td>
-                            <td><?php echo $mostrar['id_cliente'] ?></td>
-                            <td><?php echo $mostrar['id_local'] ?></td>
-                            <td><?php echo $mostrar['fecha_pedido'] ?></td>
-                            <td><?php echo $mostrar['estado'] ?></td>
+                            <td><?= $mostrar['id_pedido'] ?></td>
+                            <td><?= $mostrar['cliente'] ?></td> <!-- Nombre del cliente -->
+                            <td><?= $mostrar['local'] ?></td> <!-- Nombre del local -->
+                            <td><?= $mostrar['fecha_pedido'] ?></td>
+                            <td><?= $mostrar['estado'] ?></td>
                             <td>
                                 <a href="editar_pedido.php?id=<?= $mostrar['id_pedido'] ?>" style="margin-right: 10px;">Editar</a>
                                 <a href="eliminar_pedido.php?id=<?= $mostrar['id_pedido'] ?>" class="btn-delete" onclick="return confirm('¿Está seguro de eliminar este pedido?');">Eliminar</a>
@@ -123,6 +112,7 @@ $resultadoPedidos = $stmt->get_result();
                     }
                     ?>
                 </tbody>
+
 
             </table>
         </section>

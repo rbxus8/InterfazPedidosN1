@@ -106,14 +106,21 @@ $productosDisponibles = $conexion->query("
                                     <?= $producto['nombre'] ?>
                                     (Stock disponible: <?= $producto['stock_disponible'] ?>)
                                     - Cantidad actual:
-                                    <input type="number" name="productos[<?= $producto['id_producto'] ?>][cantidad]"
+                                    <?php
+                                    // Calcular el máximo permitido = lo ya pedido + stock disponible
+                                    $maxCantidad = $producto['cantidad_seleccionada'] + $producto['stock_disponible'];
+                                    ?>
+                                    <input type="number"
+                                        name="productos[<?= $producto['id_producto'] ?>][cantidad]"
                                         value="<?= $producto['cantidad_seleccionada'] ?>"
-                                        min="1" max="<?= $producto['stock_disponible'] ?>" required>
+                                        min="1" max="<?= $maxCantidad ?>" required>
                                     <div>
-                                        <input type="checkbox" name="productos[<?= $producto['id_producto'] ?>][eliminar]" value="1">
-                                        <span>Eliminar Producto</span>
+                                        <button type="submit" name="eliminar_producto" value="<?= $producto['id_producto'] ?>" class="btn-eliminar">
+                                            Eliminar Producto
+                                        </button>
                                     </div>
                                 </label>
+
 
                             </li>
                         <?php endwhile; ?>

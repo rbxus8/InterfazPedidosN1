@@ -89,16 +89,29 @@ function cambiarColorTema() {
 
 // Función para habilitar el campo de cantidad al seleccionar un producto
 function habilitarCantidad(idProducto) {
-    // Obtiene el input de cantidad para el producto seleccionado
-    var cantidadInput = document.getElementById('cantidad_' + idProducto);
+    const cantidadInput = document.getElementById('cantidad_' + idProducto);
+    const botonAgregar = document.getElementById('agregar_' + idProducto);
+    const checkbox = document.querySelector(
+        'input[name="productos[' + idProducto + '][seleccionado]"]:checked'
+    );
 
-    // Si la casilla está marcada, habilita el campo de cantidad
-    if (document.querySelector('input[name="nuevos_productos[' + idProducto + '][seleccionado]"]:checked')) {
+    if (checkbox) {
         cantidadInput.disabled = false;
     } else {
         cantidadInput.disabled = true;
+        botonAgregar.disabled = true;
+        return;
     }
+
+    cantidadInput.addEventListener('input', function () {
+        if (cantidadInput.value > 0 && cantidadInput.value <= parseInt(cantidadInput.max)) {
+            botonAgregar.disabled = false;
+        } else {
+            botonAgregar.disabled = true;
+        }
+    });
 }
+
 
 
 // Función que habilita la cantidad y el botón de agregar
@@ -185,48 +198,48 @@ function mostrarTelefono() {
  * @param {number|string} idLocal - El ID del local seleccionado.
  */
 function cargarProductos(idLocal) {
-    // Realiza una petición fetch para obtener los productos del local seleccionado
     fetch(`obtener_productos.php?local=${idLocal}`)
-        .then(response => response.json()) // Convierte la respuesta a JSON
+        .then(response => response.json())
         .then(data => {
-            // Obtiene el contenedor donde se mostrarán los productos
             const contenedor = document.getElementById('productos-container');
             if (data.success) {
-                // Si la respuesta es exitosa, genera el HTML de la lista de productos
                 let html = '<ul>';
                 data.productos.forEach(producto => {
                     html += `
                     <li>
                         <label>
-                        <input  type="checkbox" name="productos[${producto.id_producto}][seleccionado]" value="1">
-                        ${producto.nombre} (Stock: ${producto.cantidad_producto})
+                            <input type="checkbox" 
+                                   name="productos[${producto.id_producto}][seleccionado]" 
+                                   value="1"
+                                   onchange="habilitarCantidad(${producto.id_producto})">
+                            ${producto.nombre} (Stock: ${producto.cantidad_producto})
                         </label>
-                        <input  type="number" name="productos[${producto.id_producto}][cantidad]" 
-                           placeholder="Cantidad" min="1" max="${producto.cantidad_producto}" disabled>
-                    </li>
-                    `;
+                        <input type="number" 
+                               id="cantidad_${producto.id_producto}" 
+                               name="productos[${producto.id_producto}][cantidad]" 
+                               placeholder="Cantidad" 
+                               min="1" 
+                               max="${producto.cantidad_producto}" 
+                               disabled>
+                        <button type="button" 
+                                id="agregar_${producto.id_producto}" 
+                                onclick="agregarProducto(${producto.id_producto})" 
+                                disabled>Agregar</button>
+                    </li>`;
                 });
                 html += '</ul>';
                 contenedor.innerHTML = html;
-
-                // Habilita el input de cantidad solo si el checkbox está seleccionado
-                document.querySelectorAll('input[type="checkbox"]').forEach(checkbox => {
-                    checkbox.addEventListener('change', function () {
-                        const cantidadInput = this.closest('li').querySelector('input[type="number"]');
-                        cantidadInput.disabled = !this.checked;
-                    });
-                });
             } else {
-                // Si no hay productos, muestra el mensaje recibido del servidor
                 contenedor.innerHTML = `<p>${data.message}</p>`;
             }
         })
         .catch(error => {
-            // Si ocurre un error, lo muestra en consola y en el contenedor
             console.error('Error al cargar los productos:', error);
-            document.getElementById('productos-container').innerHTML = `<p>Error al cargar los productos.</p>`;
+            document.getElementById('productos-container').innerHTML =
+                `<p>Error al cargar los productos.</p>`;
         });
 }
+
 
 
 // Función para mostrar los productos según la categoría
