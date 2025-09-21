@@ -174,7 +174,7 @@ $productosDisponibles = $conexion->query("
         <p>&copy; 2023 Juli's. Todos los derechos reservados.</p>
         <p>Desarrollado por Julián</p>
     </footer>
-    <script src="script.js"></script>
+    <script src="js/script.js"></script>
 </body>
 
 </html>

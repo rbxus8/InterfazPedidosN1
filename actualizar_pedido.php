@@ -96,7 +96,7 @@ if (!empty($_POST['eliminar_producto'])) {
     }
 }
 
-// 3. Insertar nuevos productos
+// 3. Insertar o actualizar nuevos productos
 if (!empty($_POST['nuevos_productos'])) {
     foreach ($_POST['nuevos_productos'] as $idProducto => $productoData) {
         if (isset($productoData['seleccionado']) && intval($productoData['cantidad']) > 0) {
@@ -111,18 +111,37 @@ if (!empty($_POST['nuevos_productos'])) {
             $rowStock = $resStock->fetch_assoc();
             $stockDisponible = intval($rowStock['cantidad_producto']);
 
-            // Limitar cantidad al stock
             if ($cantidadNueva > $stockDisponible) {
                 $cantidadNueva = $stockDisponible;
             }
 
             if ($cantidadNueva > 0) {
-                // Insertar en historial
-                $sql = "INSERT INTO historial_productos (id_pedido, id_producto, accion) 
-                        VALUES (?, ?, ?)";
-                $stmt = $conexion->prepare($sql);
-                $stmt->bind_param("iii", $idPedido, $idProducto, $cantidadNueva);
+                // Verificar si el producto ya existe en el pedido
+                $sqlCheck = "SELECT accion FROM historial_productos WHERE id_pedido = ? AND id_producto = ?";
+                $stmt = $conexion->prepare($sqlCheck);
+                $stmt->bind_param("ii", $idPedido, $idProducto);
                 $stmt->execute();
+                $resCheck = $stmt->get_result();
+
+                if ($resCheck->num_rows > 0) {
+                    // Ya existe → sumamos cantidades
+                    $row = $resCheck->fetch_assoc();
+                    $cantidadTotal = $row['accion'] + $cantidadNueva;
+
+                    $sqlUpdate = "UPDATE historial_productos 
+                                  SET accion = ? 
+                                  WHERE id_pedido = ? AND id_producto = ?";
+                    $stmt = $conexion->prepare($sqlUpdate);
+                    $stmt->bind_param("iii", $cantidadTotal, $idPedido, $idProducto);
+                    $stmt->execute();
+                } else {
+                    // No existe → lo insertamos
+                    $sqlInsert = "INSERT INTO historial_productos (id_pedido, id_producto, accion) 
+                                  VALUES (?, ?, ?)";
+                    $stmt = $conexion->prepare($sqlInsert);
+                    $stmt->bind_param("iii", $idPedido, $idProducto, $cantidadNueva);
+                    $stmt->execute();
+                }
 
                 // Descontar stock
                 $sqlStock = "UPDATE bodega 
@@ -135,6 +154,7 @@ if (!empty($_POST['nuevos_productos'])) {
         }
     }
 }
+
 
 // 4. Estado del pedido
 if (isset($_POST['estado'])) {
