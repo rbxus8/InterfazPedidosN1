@@ -71,6 +71,7 @@ if (!empty($params)) {
             <h1>Gestión de Pedidos</h1>
             <div class="form-group">
                 <a href="gestionar_productos.php" class="btn">Gestionar Productos</a>
+                <a href="crear_pedido.php" class="btn">Crear Pedido</a>
             </div>
             <h1>Pedidos Existentes</h1>
             <form method="GET" class="form-group">
