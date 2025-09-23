@@ -194,6 +194,17 @@ th, td {
     align-items: center;
 }
 
+form-group1{
+    text-align: left;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    flex-direction: column;
+    max-width: 300px;
+    width: 100%;
+    align-items: center;
+}
+
 .form-group label {
     display: flex;
     flex-wrap: wrap;
@@ -214,6 +225,25 @@ th, td {
 form button {
     margin-top: 20px;
 }
+
+/*form-crear usuarioo*/
+
+.form-container {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+    width: 100%;
+    max-width: 600px;
+    align-items: center;
+}
+
+.form-row {
+    display: flex;
+    gap: 10px;
+    width: 100%;
+}
+
+
 
 /* SELECTORES INDIVIDUALES */
 .select0 {
