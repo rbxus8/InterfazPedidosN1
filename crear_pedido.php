@@ -103,13 +103,10 @@ if (isset($_POST['buscar'])) {
                     <div class="form-group"><label>Correo:</label><input class="input" type="email" name="correo" value="<?= $correo ?>"></div>
                     <div class="form-group"><label>Contraseña:</label><input class="input" type="password" name="contraseña" value="<?= $contrasena ?>"></div>
                 </div>
-                <div class="form-group"><label>Tipo Usuario:</label>
-                    <select class="select1" name="tipo_usuario">
-                        <option <?= $tipo_usuario == "Básico" ? "selected" : "" ?>>Básico</option>
-                        <option <?= $tipo_usuario == "Admin" ? "selected" : "" ?>>Admin</option>
-                    </select>
-                </div>
-                <div class="form-group"><label>Nivel Acceso:</label><input class="input" type="text" name="nivel_acceso" value="<?= $nivel_acceso ?>"></div>
+                <input type="hidden" name="tipo_usuario" value="cliente">
+
+
+                <input type="hidden" name="nivel_acceso" value="basico">
                 <div class="form-group"><label>Fecha Creación:</label><input class="input" type="text" name="fecha_creacion" value="<?= $fecha_creacion ?: date('Y-m-d H:i:s') ?>" readonly></div>
                 <div class="form-row">
                     <div class="form-group"><label>Código Región:</label><input class="input" type="text" name="codigo_region" value="<?= $codigo_region ?: '+57' ?>"></div>
@@ -132,13 +129,10 @@ if (isset($_POST['buscar'])) {
                         <div class="form-group"><label>Apellido:</label><input class="input" type="text" name="apellido" required></div>
                         <div class="form-group"><label>Correo:</label><input class="input" type="email" name="correo" required></div>
                         <div class="form-group"><label>Contraseña:</label><input class="input" type="password" name="contraseña" required></div>
-                        <div class="form-group"><label>Tipo Usuario:</label>
-                            <select class="select1" name="tipo_usuario">
-                                <option value="Básico" selected>Básico</option>
-                                <option value="Admin">Admin</option>
-                            </select>
-                        </div>
-                        <div class="form-group"><label>Nivel Acceso:</label><input class="input" type="text" name="nivel_acceso"></div>
+                        <input type="hidden" name="tipo_usuario" value="cliente">
+
+
+                        <input type="hidden" name="nivel_acceso" value="basico">
                         <div class="form-group"><label>Teléfono:</label><input class="input" type="text" name="telefono"></div>
                         <div class="form-group"><label>Código Región:</label><input class="input" type="text" name="codigo_region" value="+57" readonly></div>
 
