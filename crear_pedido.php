@@ -143,6 +143,21 @@ if (isset($_POST['buscar'])) {
             </div>
         </section>
     </main>
+    <script>
+        document.addEventListener("DOMContentLoaded", function() {
+            const formActualizar = document.querySelector('form[action="guardar_usuario.php"][class="form-container"]');
+
+            formActualizar.addEventListener("submit", function(event) {
+                const idUsuario = formActualizar.querySelector('input[name="id"]').value.trim();
+
+                if (!idUsuario || idUsuario === "0") {
+                    event.preventDefault(); // Evita que se envíe el formulario
+                    alert("⚠️ Primero debe realizar una búsqueda de ID de usuario antes de actualizar.");
+                }
+            });
+        });
+    </script>
+
 </body>
 
 </html>
