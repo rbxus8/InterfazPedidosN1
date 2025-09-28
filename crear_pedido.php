@@ -14,13 +14,15 @@ if (isset($_POST['buscar'])) {
         $usuario = $resultado->fetch_assoc();
         $nombre = $usuario['nombre'];
         $correo = $usuario['correo'];
-        $contrasena = $usuario['contraseña'];
         $tipo_usuario = $usuario['tipo_usuario'];
         $nivel_acceso = $usuario['nivel_acceso'];
         $fecha_creacion = $usuario['fecha_creacion'];
         $telefono = $usuario['telefono'];
         $codigo_region = $usuario['codigo_region'];
-        $apellido = $usuario['apellido'];
+        $apellido = $usuario['Apellido'];
+
+        // 🚀 Mostrar modal con datos del usuario
+        $mostrarModal = true;
     } else {
         $mostrarModal = true;
         $codigo_region = "+57";
@@ -86,7 +88,12 @@ if (isset($_POST['buscar'])) {
                 <div class="form-group">
                     <label for="id">ID Usuario:</label>
                     <input type="number" class="input" name="id" id="id" value="<?= $id ?>">
+
+                    <!-- Botón Buscar -->
                     <button type="submit" name="buscar" class="btn">Buscar</button>
+
+                    <!-- Botón editar -->
+                    <button type="button" class="btn btn-create" onclick="abrirModal()">Editar</button>
                 </div>
             </form>
 
@@ -96,51 +103,104 @@ if (isset($_POST['buscar'])) {
                 <input type="hidden" name="id" value="<?= $id ?>">
 
                 <div class="form-row">
-                    <div class="form-group1"><label>Nombre:</label><input class="input" type="text" name="nombre" value="<?= $nombre ?>"></div>
-                    <div class="form-group1"><label>Apellido:</label><input class="input" type="text" name="apellido" value="<?= $apellido ?>"></div>
+                    <div class="form-group1">
+                        <label>Nombre:</label>
+                        <input class="input" type="text" name="nombre" value="<?= $nombre ?>">
+                    </div>
+                    <div class="form-group1">
+                        <label>Apellido:</label>
+                        <input class="input" type="text" name="apellido" value="<?= $apellido ?>">
+                    </div>
                 </div>
+
                 <div class="form-row">
-                    <div class="form-group"><label>Correo:</label><input class="input" type="email" name="correo" value="<?= $correo ?>"></div>
-                    <div class="form-group"><label>Contraseña:</label><input class="input" type="password" name="contraseña" value="<?= $contrasena ?>"></div>
+                    <div class="form-group">
+                        <label>Correo:</label>
+                        <input class="input" type="email" name="correo" value="<?= $correo ?>">
+                    </div>
                 </div>
+
+                <!-- Campos ocultos -->
                 <input type="hidden" name="tipo_usuario" value="cliente">
-
-
                 <input type="hidden" name="nivel_acceso" value="basico">
-                <div class="form-group"><label>Fecha Creación:</label><input class="input" type="text" name="fecha_creacion" value="<?= $fecha_creacion ?: date('Y-m-d H:i:s') ?>" readonly></div>
-                <div class="form-row">
-                    <div class="form-group"><label>Código Región:</label><input class="input" type="text" name="codigo_region" value="<?= $codigo_region ?: '+57' ?>"></div>
-                    <div class="form-group"><label>Teléfono:</label><input class="input" type="text" name="telefono" value="<?= $telefono ?>"></div>
+
+                <div class="form-group">
+                    <label>Fecha Creación:</label>
+                    <input class="input" type="text" name="fecha_creacion"
+                        value="<?= $fecha_creacion ?: date('Y-m-d H:i:s') ?>" readonly>
                 </div>
-                <button type="submit" class="btn">Actualizar</button>
+
+                <div class="form-row">
+                    <div class="form-group">
+                        <label>Código Región:</label>
+                        <input class="input" type="text" name="codigo_region"
+                            value="<?= $codigo_region ?: '+57' ?>">
+                    </div>
+                    <div class="form-group">
+                        <label>Teléfono:</label>
+                        <input class="input" type="text" name="telefono" value="<?= $telefono ?>">
+                    </div>
+                </div>
+
             </form>
 
-            <!-- Modal Crear Usuario -->
-            <div class="modal">
+
+            <!-- Modal Crear/Editar Usuario -->
+            <div class="modal" id="modalCrear" style="display: <?= $mostrarModal ? 'block' : 'none' ?>;">
                 <div class="modal-content">
-                    <h3>Usuario no encontrado</h3>
-                    <p>No existe un usuario con ese ID. ¿Desea crearlo?</p>
+                    <h3><?= $id ? 'Editar Usuario' : 'Crear Usuario' ?></h3>
+                    <p>Ingrese la información del usuario:</p>
 
-                    <form method="POST" action="guardar_usuario.php">
-                        <input type="hidden" name="accion" value="crear">
-                        <input type="hidden" name="fecha_creacion" value="<?= date('Y-m-d H:i:s') ?>">
-
-                        <div class="form-group"><label>Nombre:</label><input class="input" type="text" name="nombre" required></div>
-                        <div class="form-group"><label>Apellido:</label><input class="input" type="text" name="apellido" required></div>
-                        <div class="form-group"><label>Correo:</label><input class="input" type="email" name="correo" required></div>
-                        <div class="form-group"><label>Contraseña:</label><input class="input" type="password" name="contraseña" required></div>
+                    <form method="POST" action="crear_usuario.php">
+                        <!-- Acción: crear o actualizar -->
+                        <input type="hidden" name="accion" value="<?= $id ? 'actualizar' : 'crear' ?>">
+                        <input type="hidden" name="fecha_creacion" value="<?= $fecha_creacion ?>">
                         <input type="hidden" name="tipo_usuario" value="cliente">
-
-
                         <input type="hidden" name="nivel_acceso" value="basico">
-                        <div class="form-group"><label>Teléfono:</label><input class="input" type="text" name="telefono"></div>
-                        <div class="form-group"><label>Código Región:</label><input class="input" type="text" name="codigo_region" value="+57" readonly></div>
 
-                        <button type="submit" class="btn">Crear Usuario</button>
-                        <button type="button" class="btn btn-delete" onclick="document.querySelector('.modal').style.display='none'">Cancelar</button>
+                        <div class="form-group">
+                            <label>ID Usuario:</label>
+                            <input class="input" type="number" name="id" value="<?= $id ?>" <?= $id ? 'readonly' : '' ?>>
+                        </div>
+
+                        <div class="form-group">
+                            <label>Nombre:</label>
+                            <input class="input" type="text" name="nombre" value="<?= $nombre ?>">
+                        </div>
+
+                        <div class="form-group">
+                            <label>Apellido:</label>
+                            <input class="input" type="text" name="apellido" value="<?= $apellido ?>">
+                        </div>
+
+                        <div class="form-group">
+                            <label>Correo:</label>
+                            <input class="input" type="email" name="correo" value="<?= $correo ?>">
+                        </div>
+
+                        <div class="form-group">
+                            <label>Teléfono:</label>
+                            <input class="input" type="text" name="telefono" value="<?= $telefono ?>">
+                        </div>
+
+                        <div class="form-group">
+                            <label>Código Región:</label>
+                            <input class="input" type="text" name="codigo_region" value="<?= $codigo_region ?: '+57' ?>">
+                        </div>
+
+                        <button type="submit" class="btn"><?= $id ? 'Actualizar Usuario' : 'Crear Usuario' ?></button>
+                        <button type="button" class="btn btn-delete" onclick="cerrarModal()">Cancelar</button>
                     </form>
                 </div>
             </div>
+
+
+
+
+
+
+
+
         </section>
     </main>
     <script>
@@ -156,6 +216,14 @@ if (isset($_POST['buscar'])) {
                 }
             });
         });
+
+        function abrirModal() {
+            document.getElementById('modalCrear').style.display = 'block';
+        }
+
+        function cerrarModal() {
+            document.getElementById('modalCrear').style.display = 'none';
+        }
     </script>
 
 </body>
