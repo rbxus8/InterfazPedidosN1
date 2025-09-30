@@ -9,8 +9,9 @@ if (session_status() === PHP_SESSION_NONE || session_status() === PHP_SESSION_DI
 }
 
 // Obtener el ID del cliente y el local desde el formulario
-$idCliente = $_POST['cliente'];
-$idLocal = $_POST['local'];
+$idCliente = $_POST['id_cliente'];
+$idLocal   = $_POST['id_local'];
+
 
 // Insertar el nuevo pedido
 $consultaPedido = "INSERT INTO pedidos (id_cliente, id_local, fecha_pedido, estado) VALUES (?, ?, NOW(), 'pendiente')";
