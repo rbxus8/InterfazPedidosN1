@@ -39,6 +39,34 @@ if (!empty($params)) {
 } else {
     $resultadoPedidos = $conexion->query($consultaPedidos);
 }
+
+// Consulta resumen de pedidos por estado
+$consultaResumen = "
+SELECT estado, COUNT(*) AS cantidad 
+FROM pedidos 
+GROUP BY estado
+";
+$resultadoResumen = $conexion->query($consultaResumen);
+
+$estados = [];
+$cantidades = [];
+$totalPedidos = 0;
+
+while ($row = $resultadoResumen->fetch_assoc()) {
+    $estados[] = ucfirst($row['estado']);
+    $cantidades[] = (int)$row['cantidad'];
+    $totalPedidos += $row['cantidad'];
+}
+
+// Últimos pedidos
+$consultaUltimos = "
+SELECT ped.id_pedido, usu.nombre AS cliente, ped.estado, ped.fecha_pedido
+FROM pedidos ped
+LEFT JOIN usuarios usu ON ped.id_cliente = usu.id
+ORDER BY ped.fecha_pedido DESC
+LIMIT 5
+";
+$ultimosPedidos = $conexion->query($consultaUltimos);
 ?>
 
 <!DOCTYPE html>
@@ -67,6 +95,7 @@ if (!empty($params)) {
         </button>
     </header>
     <main>
+
         <section class="container" id="container_index">
             <h1>Gestión de Pedidos</h1>
             <div class="form-group">
@@ -116,6 +145,95 @@ if (!empty($params)) {
 
 
             </table>
+        </section>
+        <section class="container" id="dashboard_pedidos">
+            <h1 class="titulo_hog" style="color: var(--color-titulo); margin-bottom: 1rem;">📊 Panel Informativo de Pedidos</h1>
+
+            <!-- Tarjetas de resumen -->
+            <div class="dashboard-cards">
+                <div class="card">
+                    <h2>Total de Pedidos</h2>
+                    <span style="color: var(--color-encabezado); font-size: 1.8em;">
+                        <?= $totalPedidos ?>
+                    </span>
+                </div>
+                <div class="card">
+                    <h2>Pendientes</h2>
+                    <span style="color: #ffc107; font-size: 1.8em;">
+                        <?= $cantidades[array_search('Pendiente', $estados)] ?? 0 ?>
+                    </span>
+                </div>
+                <div class="card">
+                    <h2>Completados</h2>
+                    <span style="color: #28a745; font-size: 1.8em;">
+                        <?= $cantidades[array_search('Completado', $estados)] ?? 0 ?>
+                    </span>
+                </div>
+                <div class="card">
+                    <h2>Cancelados</h2>
+                    <span style="color: #dc3545; font-size: 1.8em;">
+                        <?= $cantidades[array_search('Cancelado', $estados)] ?? 0 ?>
+                    </span>
+                </div>
+            </div>
+
+            <!-- Gráfico -->
+            <div class="card grafico-card">
+                <h2 style="color: var(--color-encabezado); margin-bottom: 1rem;">Distribución de Estados</h2>
+                <canvas id="chartEstados" style="width:100%; height:300px;"></canvas>
+            </div>
+
+            <!-- Últimos pedidos -->
+            <div class="card">
+                <h2 style="color: var(--color-encabezado); margin-bottom: 1rem;">Últimos Pedidos</h2>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>ID</th>
+                            <th>Cliente</th>
+                            <th>Estado</th>
+                            <th>Fecha</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <?php while ($p = $ultimosPedidos->fetch_assoc()) { ?>
+                            <tr>
+                                <td><?= $p['id_pedido'] ?></td>
+                                <td><?= $p['cliente'] ?></td>
+                                <td><?= ucfirst($p['estado']) ?></td>
+                                <td><?= $p['fecha_pedido'] ?></td>
+                            </tr>
+                        <?php } ?>
+                    </tbody>
+                </table>
+            </div>
+
+            <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+            <script>
+                const ctx = document.getElementById('chartEstados');
+                new Chart(ctx, {
+                    type: 'doughnut',
+                    data: {
+                        labels: <?= json_encode($estados) ?>,
+                        datasets: [{
+                            data: <?= json_encode($cantidades) ?>,
+                            backgroundColor: [
+                                '#ffc107',
+                                '#28a745',
+                                '#dc3545',
+                                '#5f8fa0'
+                            ]
+                        }]
+                    },
+                    options: {
+                        plugins: {
+                            legend: {
+                                position: 'bottom'
+                            }
+                        }
+                    }
+                });
+            </script>
         </section>
     </main>
     <footer class="footer">
