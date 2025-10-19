@@ -15,7 +15,7 @@ session_start();
   <link rel="stylesheet" href="css/style.css" />
 </head>
 
-<body>
+<body class="body_cliente">
   <header class="header">
     <a href="#"><img
         src="img/iconosinfondotitulo.png"
@@ -32,7 +32,7 @@ session_start();
     </button>
   </header>
 
-  <main class="main">
+  <main class="main_cliente">
     <section class="portada_cliente">
       <div>
         <img src="img/Post_de_Instagram_Vertical_Frase_Acuarela_Azul-removebg-preview.png" alt="">
@@ -40,13 +40,13 @@ session_start();
     </section>
     <section class="container_saludo">
       <span>
-        <h5>Bienvenido, <?php echo htmlspecialchars($_SESSION['nombre'] ?? ''); ?>!</h5>
+        <h1>Bienvenido, <?php echo htmlspecialchars($_SESSION['nombre'] ?? ''); ?>!</h1>
         <p>​​​Los pedidos que realices en esta web los entregaremos al segundo día después de hacer la compra o en la fecha indicada. Ten en cuenta que tu pedido no será entregado hoy ni mañana, recibirás tus delicias en dos días hábiles.</p>
       </span>
     </section>
     <section class="container_productos">
-      <h2>Productos</h2>
-      <p>Elige tus productos favoritos y agrégales al carrito de compras.</p>
+      <h1>Productos</h1>
+      <h3>Elige tus productos favoritos y agrégales al carrito de compras.</h3>
       <div class="categoria_productos">
         <button type="button" onclick="mostrar('bebidas')" class="btn">Bebidas</button>
         <button type="button" onclick="mostrar('postres')" class="btn">Postres</button>

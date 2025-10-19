@@ -43,6 +43,8 @@ body{
     
 }
 
+
+
 /* ENCABEZADO */
 header {
     grid-area: header;
@@ -69,6 +71,9 @@ main {
     justify-content: center;
 }
 
+.main_cliente{
+    background-color: #110e0e;
+}
 
 /*footer*/
 footer{
@@ -384,6 +389,7 @@ button.btn:hover {
     display: flex;
     align-items: center;
     justify-content: center;
+    backdrop-filter: var(--color-texto);
 }
 .portada_cliente div{
     background-color: rgba(0, 0, 0, 0.596);
@@ -393,7 +399,9 @@ button.btn:hover {
 }
 
 .container_saludo{
-    background-color: var(--color-container);
+    color: #ffffff;
+    border-radius: 10px;
+    margin-top: 50px; /* Para que se superponga ligeramente a la portada */
     padding: 20px;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
     text-align: center; /* Para que se superponga ligeramente a la portada */
@@ -409,7 +417,7 @@ button.btn:hover {
     justify-content: center;
     margin-top: 20px;
     margin-bottom: 20px;
-    width: 90%;
+    width: 98.5%;
     align-items: center;
     gap: 20px;
 
