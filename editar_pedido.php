@@ -70,106 +70,107 @@ $productosDisponibles = $conexion->query("
         </button>
     </header>
     <main>
-        <div class="container">
-            <h1>Editar Pedido</h1>
-            <form action="actualizar_pedido.php" method="POST">
+        <div class="editar-pedido-container">
+            <h1 class="titulo-pedido">✏️ Editar Pedido</h1>
+
+            <form action="actualizar_pedido.php" method="POST" class="editar-pedido-form">
                 <input type="hidden" name="id_pedido" value="<?= $idPedido ?>">
 
                 <!-- Información del pedido -->
-                <div class="form-group">
-                    <p><strong>Usuario:</strong> <?= $pedido['usuario'] ?></p>
-                    <p><strong>Local:</strong> <?= $pedido['local'] ?></p>
-                    <p><strong>Fecha:</strong> <?= $pedido['fecha_pedido'] ?></p>
-                </div>
+                <section class="card-seccion">
+                    <h2 class="seccion-titulo">📋 Información del Pedido</h2>
+                    <div class="info-grid">
+                        <p><strong>Usuario:</strong> <?= $pedido['usuario'] ?></p>
+                        <p><strong>Local:</strong> <?= $pedido['local'] ?></p>
+                        <p><strong>Fecha:</strong> <?= $pedido['fecha_pedido'] ?></p>
+                    </div>
+                </section>
 
                 <!-- Cambiar estado del pedido -->
-                <div class="form-group">
-                    <label for="estado">Estado del Pedido:</label>
-                    <select name="estado" id="estado" required <?= $pedido['estado'] === "cancelado" ? "disabled" : "" ?>>
+                <section class="card-seccion">
+                    <h2 class="seccion-titulo">⚙️ Estado del Pedido</h2>
+                    <label for="estado">Seleccionar estado:</label>
+                    <select name="estado" id="estado" class="select-estado"
+                        required <?= $pedido['estado'] === "cancelado" ? "disabled" : "" ?>>
                         <option value="pendiente" <?= $pedido['estado'] === "pendiente" ? "selected" : "" ?>>Pendiente</option>
                         <option value="completado" <?= $pedido['estado'] === "completado" ? "selected" : "" ?>>Completado</option>
                         <option value="cancelado" <?= $pedido['estado'] === "cancelado" ? "selected" : "" ?>>Cancelado</option>
                     </select>
+
                     <?php if ($pedido['estado'] === "cancelado"): ?>
                         <input type="hidden" name="estado" value="cancelado">
+                        <p class="mensaje-cancelado">🚫 Este pedido está cancelado y no puede modificarse.</p>
                     <?php endif; ?>
-                </div>
+                </section>
 
-
-                <!-- Productos actuales del pedido -->
-                <div class="form-group">
-                    <h3>Productos del Pedido</h3>
-                    <ul>
+                <!-- Productos actuales -->
+                <section class="card-seccion">
+                    <h2 class="seccion-titulo">🛒 Productos del Pedido</h2>
+                    <ul class="lista-productos">
                         <?php while ($producto = $productos->fetch_assoc()) : ?>
-                            <li>
-                                <label>
-                                    <?= $producto['nombre'] ?>
-                                    (Stock disponible: <?= $producto['stock_disponible'] ?>)
-                                    - Cantidad actual:
-                                    <?php
-                                    // Calcular el máximo permitido = lo ya pedido + stock disponible
-                                    $maxCantidad = $producto['cantidad_seleccionada'] + $producto['stock_disponible'];
-                                    ?>
+                            <li class="producto-item">
+                                <div class="producto-info">
+                                    <span class="producto-nombre"><?= $producto['nombre'] ?></span>
+                                    <small>(Stock: <?= $producto['stock_disponible'] ?>)</small>
+                                </div>
+                                <?php $maxCantidad = $producto['cantidad_seleccionada'] + $producto['stock_disponible']; ?>
+                                <div class="producto-controles">
                                     <input type="number"
                                         name="productos[<?= $producto['id_producto'] ?>][cantidad]"
                                         value="<?= $producto['cantidad_seleccionada'] ?>"
-                                        min="1" max="<?= $maxCantidad ?>" required>
-                                    <div>
-                                        <button type="submit" name="eliminar_producto" value="<?= $producto['id_producto'] ?>" class="btn-eliminar">
-                                            Eliminar Producto
-                                        </button>
-                                    </div>
-                                </label>
-
-
+                                        min="1"
+                                        max="<?= $maxCantidad ?>"
+                                        class="input-cantidad"
+                                        required>
+                                    <button type="submit"
+                                        name="eliminar_producto"
+                                        value="<?= $producto['id_producto'] ?>"
+                                        class="btn-eliminar">
+                                        🗑 Eliminar
+                                    </button>
+                                </div>
                             </li>
                         <?php endwhile; ?>
                     </ul>
-                </div>
+                </section>
 
                 <!-- Agregar nuevos productos -->
-                <div class="form-group">
-                    <h3>Agregar Nuevos Productos</h3>
-                    <ul>
+                <section class="card-seccion">
+                    <h2 class="seccion-titulo">➕ Agregar Nuevos Productos</h2>
+                    <ul class="lista-nuevos">
                         <?php while ($productoDisponible = $productosDisponibles->fetch_assoc()) : ?>
-                            <li>
+                            <li class="producto-nuevo">
                                 <label>
-                                    <div>
-                                        <input type="checkbox"
-                                            name="nuevos_productos[<?= $productoDisponible['id_producto'] ?>][seleccionado]"
-                                            value="1"
-                                            onchange="habilitarCantidad(<?= $productoDisponible['id_producto'] ?>)"
-                                            <?= $pedido['estado'] === "cancelado" ? "disabled" : "" ?>>
-                                        <?= $productoDisponible['nombre'] ?>
-                                        (Stock disponible: <?= $productoDisponible['cantidad_producto'] ?>)
-                                    </div>
-                                    <input type="number"
-                                        name="nuevos_productos[<?= $productoDisponible['id_producto'] ?>][cantidad]"
-                                        placeholder="Cantidad"
-                                        min="1"
-                                        max="<?= $productoDisponible['cantidad_producto'] ?>"
-                                        disabled
-                                        id="cantidad_<?= $productoDisponible['id_producto'] ?>"
+                                    <input type="checkbox"
+                                        name="nuevos_productos[<?= $productoDisponible['id_producto'] ?>][seleccionado]"
+                                        value="1"
+                                        onchange="habilitarCantidad(<?= $productoDisponible['id_producto'] ?>)"
                                         <?= $pedido['estado'] === "cancelado" ? "disabled" : "" ?>>
+                                    <span><?= $productoDisponible['nombre'] ?> (Stock: <?= $productoDisponible['cantidad_producto'] ?>)</span>
                                 </label>
+                                <input type="number"
+                                    name="nuevos_productos[<?= $productoDisponible['id_producto'] ?>][cantidad]"
+                                    placeholder="Cantidad"
+                                    min="1"
+                                    max="<?= $productoDisponible['cantidad_producto'] ?>"
+                                    disabled
+                                    id="cantidad_<?= $productoDisponible['id_producto'] ?>"
+                                    class="input-cantidad"
+                                    <?= $pedido['estado'] === "cancelado" ? "disabled" : "" ?>>
                             </li>
                         <?php endwhile; ?>
                     </ul>
+                </section>
+
+                <!-- Botones de acción -->
+                <div class="acciones">
+                    <button type="submit" class="btn-guardar">💾 Guardar Cambios</button>
+                    <a href="index.php" class="btn-volver">⬅ Regresar</a>
                 </div>
-
-
-
-
-                <div>
-                    <button type="submit" class="btn">Actualizar Pedido</button><!-- Botón Guardar -->
-                    <a href="index.php" class="btn">Regresar a Pedidos Existentes</a> <!-- Botón Regresar a Pedidos Existentes -->
-                </div>
-
-
-
             </form>
         </div>
     </main>
+
     <footer>
         <p>&copy; 2023 Juli's. Todos los derechos reservados.</p>
         <p>Desarrollado por Julián</p>
