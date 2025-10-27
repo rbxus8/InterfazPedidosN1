@@ -14,6 +14,5 @@ if (!isset($conexion) || $conexion === null) {
         die("Error de conexión: " . $conexion->connect_error);
     }
 
-    // Opcional: define un charset por defecto (UTF-8 recomendado)
-    $conexion->set_charset("utf8mb4");
+  
 }
