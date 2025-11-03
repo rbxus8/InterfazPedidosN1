@@ -15,6 +15,15 @@ session_start();
   <link rel="stylesheet" href="css/style.css" />
 </head>
 
+<div class="cart-panel" id="cartPanel">
+  <h2>Carrito</h2>
+  <ul id="cartItems"></ul>
+  <h3>Total: $<span id="cartTotal">0</span></h3>
+  <button id="checkoutBtn">Finalizar pedido</button>
+  <button id="closeCart">Cerrar</button>
+</div>
+
+
 <body class="body_cliente">
   <header class="header">
     <a href="#"><img
@@ -30,6 +39,12 @@ session_start();
     <button class="user">
       <img src="img/user_icon.png" alt="User Icon" style="height: 1.5em;">
     </button>
+    <!-- Botón Carrito fijo -->
+    <button class="cart-btn" id="cartBtn">
+      <img src="https://cdn-icons-png.flaticon.com/512/107/107831.png" style="height: 22px;">
+      <span id="cartCount">0</span>
+    </button>
+
   </header>
 
   <main class="main_cliente">

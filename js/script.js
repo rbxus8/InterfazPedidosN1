@@ -278,3 +278,51 @@ document.addEventListener('DOMContentLoaded', function () {
         });
     });
 });
+
+
+let cart = [];
+const cartBtn = document.getElementById("cartBtn");
+const cartPanel = document.getElementById("cartPanel");
+const cartCount = document.getElementById("cartCount");
+const cartItems = document.getElementById("cartItems");
+const cartTotal = document.getElementById("cartTotal");
+const closeCart = document.getElementById("closeCart");
+
+cartBtn.onclick = () => {
+  cartPanel.style.display = (cartPanel.style.display === "block") ? "none" : "block";
+};
+
+closeCart.onclick = () => cartPanel.style.display = "none";
+
+// Botones comprar
+document.querySelectorAll(".card button").forEach(btn => {
+  btn.addEventListener("click", () => {
+    const card = btn.parentElement;
+    const name = card.querySelector("h3").innerText;
+    const price = parseInt(card.querySelector("span").innerText.replace("$",""));
+
+    cart.push({name, price});
+    updateCart();
+  });
+});
+
+function updateCart() {
+  cartCount.innerText = cart.length;
+
+  cartItems.innerHTML = "";
+  let total = 0;
+
+  cart.forEach(item => {
+    total += item.price;
+    cartItems.innerHTML += `<li>${item.name} - $${item.price}</li>`;
+  });
+
+  cartTotal.innerText = total;
+}
+
+document.getElementById("checkoutBtn").addEventListener("click", () => {
+  alert("✅ Pedido realizado");
+  cart = [];
+  updateCart();
+  cartPanel.style.display = "none";
+});
