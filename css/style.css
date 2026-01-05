@@ -71,9 +71,184 @@ main {
     justify-content: center;
 }
 
-.main_cliente{
-    background-color: #110e0e;
+/* ===== SECCIÓN CLIENTE MODERNA ===== */
+
+.main_cliente {
+  background-color: var(--color-fondo);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 }
+
+/* --- Portada --- */
+.portada_cliente {
+  width: 100%;
+  height: 35rem;
+  background-image: url('../img/tort.jpg');
+  background-size: cover;
+  background-position: center;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  overflow: hidden;
+}
+
+.portada_cliente::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.4);
+}
+
+.portada_cliente div {
+  position: relative;
+  z-index: 1;
+  color: #fff;
+  text-align: center;
+  padding: 2rem;
+  background: rgba(255, 255, 255, 0.15);
+  backdrop-filter: blur(8px);
+  border-radius: 15px;
+  max-width: 80%;
+}
+
+.portada_cliente div h1 {
+  font-size: 2.5rem;
+  color: var(--color-titulo);
+  margin-bottom: 1rem;
+}
+
+/* --- Saludo --- */
+.container_saludo {
+  background-color: var(--color-card);
+  color: var(--color-texto);
+  margin-top: -40px;
+  border-radius: 15px;
+  padding: 25px 35px;
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+  text-align: center;
+  width: 85%;
+  max-width: 900px;
+}
+
+.container_saludo h1 {
+  color: var(--color-encabezado);
+  margin-bottom: 0.5em;
+}
+
+/* --- Contenedor de productos --- */
+.container_productos {
+  margin-top: 40px;
+  background-color: var(--color-container);
+  width: 90%;
+  border-radius: 15px;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+  padding: 40px 30px;
+  text-align: center;
+}
+
+.categoria_productos {
+  display: flex;
+  justify-content: center;
+  gap: 15px;
+  flex-wrap: wrap;
+  margin-bottom: 30px;
+}
+
+.categoria_productos .btn {
+  background: var(--color-encabezado);
+  color: #fff;
+  border-radius: 30px;
+  padding: 10px 20px;
+  transition: transform 0.2s ease, background 0.3s ease;
+}
+
+.categoria_productos .btn:hover {
+  background: var(--color-titulo);
+  transform: scale(1.05);
+}
+
+/* --- Grid de productos --- */
+.productos_cards {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+  gap: 25px;
+  justify-content: center;
+}
+
+/* --- Tarjetas de productos --- */
+.card {
+  background-color: var(--color-card);
+  border-radius: 15px;
+  padding: 20px;
+  box-shadow: 0 3px 8px rgba(0, 0, 0, 0.1);
+  text-align: center;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 6px 18px rgba(0, 0, 0, 0.15);
+}
+
+.card img {
+  width: 100%;
+  height: 180px;
+  object-fit: cover;
+  border-radius: 12px;
+  margin-bottom: 15px;
+}
+
+.card h3 {
+  color: var(--color-encabezado);
+  margin-bottom: 8px;
+  font-size: 1.1rem;
+}
+
+.card p {
+  color: #666;
+  font-size: 0.9rem;
+  margin-bottom: 10px;
+}
+
+.card span {
+  display: block;
+  color: var(--color-titulo);
+  font-weight: bold;
+  margin-bottom: 10px;
+}
+
+.card button {
+  background-color: var(--color-boton);
+  color: white;
+  border: none;
+  border-radius: 25px;
+  padding: 8px 16px;
+  cursor: pointer;
+  transition: background 0.3s ease;
+}
+
+.card button:hover {
+  background-color: var(--color-boton-hover);
+  color: #000;
+}
+
+/* --- Responsivo --- */
+@media (max-width: 768px) {
+  .portada_cliente {
+    height: 25rem;
+  }
+
+  .portada_cliente div h1 {
+    font-size: 1.8rem;
+  }
+
+  .container_productos {
+    padding: 20px;
+  }
+}
+
 
 /*footer*/
 footer{
@@ -488,4 +663,205 @@ button.btn:hover {
 .grafico-card {
     width: 100%;
     max-width: 700px;
+}
+
+/* ==== Estilos página editar pedido ==== */
+.editar-pedido-container {
+    background: var(--color-container);
+    border-radius: 15px;
+    padding: 40px;
+    margin: 50px auto;
+    width: 90%;
+    max-width: 900px;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+}
+
+.titulo-pedido {
+    text-align: center;
+    color: var(--color-encabezado);
+    margin-bottom: 25px;
+}
+
+.card-seccion {
+    background: var(--color-card);
+    padding: 20px;
+    border-radius: 10px;
+    margin-bottom: 25px;
+    box-shadow: 0 2px 6px rgba(0,0,0,0.05);
+}
+
+.seccion-titulo {
+    color: var(--color-titulo);
+    margin-bottom: 15px;
+    font-size: 1.2em;
+    border-bottom: 2px solid var(--color-encabezado);
+    padding-bottom: 5px;
+}
+
+.info-grid {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 15px;
+    justify-content: space-between;
+}
+
+.select-estado {
+    padding: 8px 10px;
+    border-radius: 6px;
+    border: 1px solid #bbb;
+    background-color: #fff;
+    margin-top: 10px;
+}
+
+.mensaje-cancelado {
+    color: var(--btn-delete);
+    font-weight: bold;
+    margin-top: 10px;
+}
+
+.lista-productos, .lista-nuevos {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+    padding: 0;
+}
+
+.producto-item, .producto-nuevo {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    background: var(--color-fondo);
+    padding: 12px 15px;
+    border-radius: 8px;
+    transition: background 0.3s ease;
+}
+
+.producto-item:hover, .producto-nuevo:hover {
+    background: var(--color-tabla-fila-hover);
+}
+
+.producto-info {
+    display: flex;
+    flex-direction: column;
+    gap: 3px;
+}
+
+.producto-nombre {
+    font-weight: bold;
+    color: var(--color-texto);
+}
+
+.producto-controles {
+    display: flex;
+    gap: 10px;
+    align-items: center;
+}
+
+.input-cantidad {
+    width: 70px;
+    padding: 6px;
+    text-align: center;
+    border-radius: 5px;
+    border: 1px solid #ccc;
+}
+
+.btn-eliminar {
+    background: var(--btn-delete);
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    padding: 5px 10px;
+    cursor: pointer;
+    transition: background 0.3s;
+}
+
+.btn-eliminar:hover {
+    background: #b92030;
+}
+
+.acciones {
+    display: flex;
+    justify-content: center;
+    gap: 20px;
+    margin-top: 30px;
+}
+
+.btn-guardar, .btn-volver {
+    padding: 10px 20px;
+    border-radius: 8px;
+    font-weight: bold;
+    text-decoration: none;
+    cursor: pointer;
+    transition: background 0.3s ease;
+}
+
+.btn-guardar {
+    background: var(--color-boton);
+    color: #fff;
+    border: none;
+}
+
+.btn-guardar:hover {
+    background: var(--color-boton-hover);
+    color: #000;
+}
+
+.btn-volver {
+    background: #ddd;
+    color: #333;
+}
+
+.btn-volver:hover {
+    background: #bbb;
+}
+
+/* --- CARRITO FIJO SUPERIOR DERECHA --- */
+.cart-btn {
+  position: fixed;
+  top: 10px;
+  right: 15px;
+  background: #ffffff;
+  border: 1px solid #ccc;
+  border-radius: 50%;
+  padding: 8px;
+  cursor: pointer;
+  z-index: 9998; /* Debajo del header */
+}
+
+.cart-btn span {
+  position: absolute;
+  top: -6px;
+  right: -6px;
+  background: red;
+  color: white;
+  font-size: 10px;
+  padding: 2px 6px;
+  border-radius: 50%;
+  font-weight: bold;
+}
+
+/* PANEL CARRITO */
+.cart-panel {
+  display: none;
+  position: fixed;
+  top: 0;
+  right: 0;
+  width: 320px;
+  height: 100vh;
+  background: white;
+  box-shadow: -2px 0 10px rgba(0, 0, 0, .2);
+  padding: 20px;
+  z-index: 9999;
+  overflow-y: auto;
+}
+
+/* MOBILE */
+@media(max-width: 600px) {
+  .cart-panel {
+    width: 100%;
+  }
+  .cart-btn {
+    top: 12px;
+    right: 12px;
+  }
 }
