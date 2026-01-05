@@ -194,9 +194,8 @@ if (isset($_POST['buscar'])) {
                                 <label>Estado:</label>
                                 <select name="estado" class="input">
                                     <option value="pendiente">Pendiente</option>
-                                    <option value="procesando">Procesando</option>
-                                    <option value="enviado">Enviado</option>
-                                    <option value="entregado">Entregado</option>
+                                    <option value="Completado">Completado</option>
+                                    <option value="Cancelado">Cancelado</option>
                                 </select>
                             </div>
                         </div>

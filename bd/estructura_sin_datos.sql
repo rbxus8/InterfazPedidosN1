@@ -18,7 +18,7 @@ CREATE TABLE `categorias` (
 
 CREATE TABLE `facturas` (
   `id_factura` int NOT NULL AUTO_INCREMENT,
-  `id_cliente` int NOT NULL,
+  `id_cliente` int NOT                                                    NULL,
   `id_pedido` int NOT NULL,
   `fecha_emision` date NOT NULL,
   `total` decimal(10,2) NOT NULL,

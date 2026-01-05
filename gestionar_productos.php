@@ -1,17 +1,47 @@
 <?php
 include 'conexion/conexion.php';
+$categorias = $conexion->query("SELECT id_categoria, nombre FROM categorias");
+
 
 // Obtener productos de Negocio A
-$productosA = $conexion->query("SELECT p.id_producto, p.nombre, p.codigo_producto, p.unidad_medida, b.cantidad_producto 
-                                FROM productos p
-                                INNER JOIN bodega b ON p.id_producto = b.id_producto
-                                WHERE b.id_local = 1"); // 1 es el ID de Negocio A
+$productosA = $conexion->query("
+SELECT 
+    p.id_producto, 
+    p.nombre, 
+    p.codigo_producto, 
+    p.unidad_medida, 
+    b.cantidad_producto,
+    c.nombre AS categoria
+FROM productos p
+INNER JOIN bodega b 
+    ON p.id_producto = b.id_producto
+LEFT JOIN categorias c 
+    ON p.categoria = c.id_categoria
+WHERE b.id_local = 1
+");
+
+
+
 
 // Obtener productos de Negocio B
-$productosB = $conexion->query("SELECT p.id_producto, p.nombre, p.codigo_producto, p.unidad_medida, b.cantidad_producto 
-                                FROM productos p
-                                INNER JOIN bodega b ON p.id_producto = b.id_producto
-                                WHERE b.id_local = 2"); // 2 es el ID de Negocio B
+$productosB = $conexion->query("
+SELECT 
+    p.id_producto, 
+    p.nombre, 
+    p.codigo_producto, 
+    p.unidad_medida, 
+    b.cantidad_producto,
+    c.nombre AS categoria
+FROM productos p
+INNER JOIN bodega b 
+    ON p.id_producto = b.id_producto
+LEFT JOIN categorias c 
+    ON p.categoria = c.id_categoria
+WHERE b.id_local = 2
+");
+
+
+
 ?>
 
 <!DOCTYPE html>
@@ -54,6 +84,7 @@ $productosB = $conexion->query("SELECT p.id_producto, p.nombre, p.codigo_product
                     <tr>
                         <th>ID Producto</th>
                         <th>Código Producto</th>
+                        <th>Categoría</th>
                         <th>Nombre</th>
                         <th>Unidad</th> <!-- Columna para Unidad -->
                         <th>Stock Disponible</th>
@@ -66,6 +97,7 @@ $productosB = $conexion->query("SELECT p.id_producto, p.nombre, p.codigo_product
                         <tr>
                             <td><?= $producto['id_producto'] ?></td>
                             <td><?= $producto['codigo_producto'] ?></td>
+                            <td><?= $producto['categoria'] ?></td>
                             <td><?= $producto['nombre'] ?></td>
                             <td><?= $producto['unidad_medida'] ?></td> <!-- Mostrar la unidad -->
                             <td><?= $producto['cantidad_producto'] ?></td>
@@ -96,6 +128,7 @@ $productosB = $conexion->query("SELECT p.id_producto, p.nombre, p.codigo_product
                         <th>Código Producto</th>
                         <th>Nombre</th>
                         <th>Unidad</th> <!-- Columna para Unidad -->
+                        <th>Categoría</th>
                         <th>Stock Disponible</th>
                         <th>Agregar Stock</th>
                         <th>Eliminar Producto</th>
@@ -107,6 +140,8 @@ $productosB = $conexion->query("SELECT p.id_producto, p.nombre, p.codigo_product
                             <td><?= $producto['id_producto'] ?></td>
                             <td><?= $producto['codigo_producto'] ?></td>
                             <td><?= $producto['nombre'] ?></td>
+                            <td><?= $producto['categoria'] ?></td>
+
                             <td><?= $producto['unidad_medida'] ?></td> <!-- Mostrar la unidad -->
                             <td><?= $producto['cantidad_producto'] ?></td>
                             <td>
@@ -142,6 +177,7 @@ $productosB = $conexion->query("SELECT p.id_producto, p.nombre, p.codigo_product
                     <label for="precio">Precio</label>
                     <input class="select1" type="number" name="precio" placeholder="Precio" step="0.01" required>
                 </div>
+
                 <div class="form-group">
                     <label for="local">Seleccionar Local:</label>
                     <select class="select1" name="local" id="local" required>
@@ -149,6 +185,18 @@ $productosB = $conexion->query("SELECT p.id_producto, p.nombre, p.codigo_product
                         <option value="2">Negocio B</option>
                     </select>
                 </div>
+                <div class="form-group">
+                    <label for="categoria">Categoría:</label>
+                    <select class="select1" name="categoria" id="categoria" required>
+                        <option value="">Seleccione...</option>
+                        <?php while ($cat = $categorias->fetch_assoc()) { ?>
+                            <option value="<?= $cat['id_categoria'] ?>">
+                                <?= $cat['nombre'] ?>
+                            </option>
+                        <?php } ?>
+                    </select>
+                </div>
+
                 <button type="submit" class="btn">Agregar Producto</button>
             </form>
         </section>

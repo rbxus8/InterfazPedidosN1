@@ -15,13 +15,13 @@ function cargarProductos(localId) {
             // Convierte la respuesta del servidor a formato JSON
             return response.json();
         })
-        .then(function (data) {
+        .then(function (data) {                vc 
             // Obtiene el contenedor donde se mostrarán los productos
             var productosContainer = document.getElementById('productos-container');
             // Limpia el contenido anterior del contenedor
             productosContainer.innerHTML = '';
 
-            // Si la respuesta del servidor indica éxito (data.success es true)
+            // Si la respuesta del servidor indica éxito (data.bsuccess es true)
             if (data.success) {
                 // Recorre el array de productos recibido desde el servidor
                 data.productos.forEach(function (producto) {
