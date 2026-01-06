@@ -57,7 +57,7 @@ if (isset($_POST['buscar'])) {
             left: 0;
             width: 100%;
             height: 100%;
-            background: rgba(0, 0, 0, 0.6);
+            background: rgba(0, 0, 0, 0.41);
             z-index: 2000;
         }
 
@@ -65,12 +65,13 @@ if (isset($_POST['buscar'])) {
             background: var(--color-container);
             margin: 5% auto;
             padding: 20px;
-            height: 800px;
+            height: 80%;
             overflow-x: hidden;
-            width: 1400px;
+            width: 400px;
             border-radius: 10px;
             box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
             text-align: center;
+            justify-content: center;
         }
     </style>
 </head>
