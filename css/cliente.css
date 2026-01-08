@@ -1,0 +1,449 @@
+/* ================================
+   SECCIÓN CLIENTE – GO SHOP
+================================ */
+.main_cliente {
+  padding-top: 80px; /* header height + espacio */
+}
+
+/* ================= HEADER CLIENTE ================= */
+
+.header_cliente {
+  position: fixed;
+  top: 0;
+  width: 100%;
+  height: 65px;
+  background: rgba(255,255,255,0.9);
+  backdrop-filter: blur(10px);
+  border-bottom: 1px solid rgba(0,0,0,0.08);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 25px;
+  z-index: 10000;
+}
+
+/* LOGO */
+.header_left .logo {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-weight: bold;
+  color: var(--color-encabezado);
+  font-size: 1.2rem;
+}
+
+.header_left img {
+  height: 35px;
+}
+
+/* NAV */
+.header_nav {
+  display: flex;
+  gap: 25px;
+}
+
+.header_nav a {
+  color: var(--color-texto);
+  font-weight: 500;
+  position: relative;
+}
+
+.header_nav a::after {
+  content: "";
+  height: 2px;
+  width: 0;
+  background: var(--color-encabezado);
+  position: absolute;
+  bottom: -5px;
+  left: 0;
+  transition: width .3s;
+}
+
+.header_nav a:hover::after {
+  width: 100%;
+}
+
+/* DERECHA */
+.header_right {
+  display: flex;
+  align-items: center;
+  gap: 18px;
+}
+
+/* USUARIO */
+.user-menu {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  background: rgba(0,0,0,.04);
+  padding: 6px 12px;
+  border-radius: 25px;
+  cursor: pointer;
+}
+
+.user-menu img {
+  height: 22px;
+}
+
+/* BOTÓN TEMA */
+.btn-theme {
+  border: none;
+  background: white;
+  border-radius: 50%;
+  width: 32px;
+  height: 32px;
+  cursor: pointer;
+}
+.btn-compras {
+  background: var(--color-encabezado);
+  color: white !important;
+  padding: 6px 14px;
+  border-radius: 20px;
+  font-size: 14px;
+  font-weight: bold;
+  transition: background .3s, transform .2s;
+}
+
+.btn-compras:hover {
+  background: var(--color-boton-hover);
+  transform: scale(1.05);
+}
+
+/* ===== BOTÓN LOGIN ===== */
+.btn-login {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+
+  background: linear-gradient(135deg, #ff7a18, #ffb347);
+  color: white;
+
+  padding: 9px 22px;
+  border-radius: 30px;
+
+  font-weight: 600;
+  font-size: 14px;
+  letter-spacing: .3px;
+
+  box-shadow: 0 6px 15px rgba(255,122,24,.35);
+  transition: all .3s ease;
+}
+
+/* Hover elegante */
+.btn-login:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 10px 25px rgba(255,122,24,.45);
+  background: linear-gradient(135deg, #ff6a00, #ffa733);
+}
+
+/* Click */
+.btn-login:active {
+  transform: scale(.97);
+}
+
+/* Ícono */
+.btn-login .icon {
+  font-size: 15px;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  .btn-login .text {
+    display: none;
+  }
+
+  .btn-login {
+    padding: 10px;
+    border-radius: 50%;
+    justify-content: center;
+  }
+}
+
+
+
+/* CARRITO */
+.cart-btn {
+  position: relative;
+  background: var(--color-encabezado);
+  color: white;
+  border-radius: 50%;
+  width: 38px;
+  height: 38px;
+  border: none;
+  cursor: pointer;
+}
+
+@media (max-width: 768px) {
+  .header_nav {
+    display: none;
+  }
+
+  .user-menu span {
+    display: none;
+  }
+}
+
+
+/* CONTENEDOR GENERAL */
+.main_cliente {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  background: var(--color-fondo);
+}
+
+/* ================= PORTADA ================= */
+.portada_cliente {
+  width: 100%;
+  height: 32rem;
+  background: linear-gradient(
+      rgba(0,0,0,.45),
+      rgba(0,0,0,.45)
+    ),
+    url('../img/tort.jpg') center/cover no-repeat;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.portada_cliente .hero {
+  background: rgba(255,255,255,.15);
+  backdrop-filter: blur(10px);
+  padding: 2.5rem;
+  border-radius: 18px;
+  text-align: center;
+  color: white;
+  max-width: 700px;
+}
+
+.portada_cliente h1 {
+  font-size: 2.4rem;
+  margin-bottom: 1rem;
+  color: var(--color-titulo);
+}
+
+/* ================= SALUDO ================= */
+.container_saludo {
+  background: var(--color-container);
+  margin-top: -50px;
+  padding: 30px;
+  border-radius: 18px;
+  width: 85%;
+  max-width: 900px;
+  box-shadow: 0 10px 25px rgba(0,0,0,.12);
+  text-align: center;
+}
+
+.container_saludo h1 {
+  color: var(--color-encabezado);
+}
+
+/* ================= PRODUCTOS ================= */
+.container_productos {
+  margin-top: 50px;
+  width: 90%;
+  background: var(--color-container);
+  border-radius: 18px;
+  padding: 40px;
+  box-shadow: 0 8px 20px rgba(0,0,0,.1);
+  text-align: center;
+}
+
+/* FILTROS */
+.categoria_productos {
+  display: flex;
+  justify-content: center;
+  gap: 15px;
+  margin-bottom: 35px;
+}
+
+.categoria_productos .btn {
+  border-radius: 30px;
+  padding: 10px 25px;
+  font-weight: bold;
+}
+
+/* GRID */
+.productos_cards {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(230px, 1fr));
+  gap: 30px;
+}
+
+/* ================= CARD PRODUCTO ================= */
+.card {
+  background: var(--color-card);
+  border-radius: 18px;
+  padding: 20px;
+  box-shadow: 0 5px 15px rgba(0,0,0,.1);
+  transition: all .3s ease;
+}
+
+.card:hover {
+  transform: translateY(-6px);
+}
+
+.card img {
+  width: 100%;
+  height: 190px;
+  object-fit: cover;
+  border-radius: 14px;
+}
+
+.card h3 {
+  margin-top: 15px;
+  color: var(--color-encabezado);
+}
+
+.card span {
+  display: block;
+  margin: 10px 0;
+  color: var(--color-titulo);
+  font-size: 1.1rem;
+  font-weight: bold;
+}
+
+.card button {
+  border-radius: 25px;
+  padding: 10px;
+  width: 100%;
+}
+
+
+
+/* PANEL */
+.cart-panel {
+  width: 340px;
+  background: white;
+  padding: 25px;
+  box-shadow: -5px 0 20px rgba(0,0,0,.2);
+}
+
+/* ================= RESPONSIVE ================= */
+@media (max-width: 768px) {
+  .portada_cliente {
+    height: 24rem;
+  }
+
+  .portada_cliente h1 {
+    font-size: 1.8rem;
+  }
+
+  .container_productos {
+    padding: 25px;
+  }
+}
+
+/* ===== USER MENU ===== */
+
+.user-menu {
+  position: relative;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  background: rgba(0,0,0,.04);
+  padding: 6px 12px;
+  border-radius: 25px;
+  cursor: pointer;
+}
+
+.user-menu img {
+  height: 22px;
+}
+
+.user-dropdown {
+  position: absolute;
+  top: 110%;
+  right: 0;
+  background: white;
+  border-radius: 10px;
+  box-shadow: 0 10px 25px rgba(0,0,0,.15);
+  min-width: 200px;
+  display: none;
+  flex-direction: column;
+  overflow: hidden;
+  z-index: 9999;
+}
+
+.user-dropdown a {
+  padding: 12px 15px;
+  color: #333;
+  font-size: 14px;
+  transition: background .2s;
+}
+
+.user-dropdown a:hover {
+  background: var(--color-boton-hover);
+}
+
+.user-dropdown hr {
+  margin: 5px 0;
+  border: none;
+  border-top: 1px solid #eee;
+}
+
+.user-dropdown .logout {
+  color: var(--btn-delete);
+  font-weight: bold;
+}
+
+
+.login-modal {
+  display: none;
+  position: fixed;
+  inset: 0;
+  background: rgba(0,0,0,.6);
+  z-index: 9999;
+  justify-content: center;
+  align-items: center;
+}
+
+.login-box {
+  background: #fff;
+  width: 340px;
+  padding: 25px;
+  border-radius: 14px;
+  position: relative;
+  animation: modalIn .25s ease;
+}
+
+@keyframes modalIn {
+  from { transform: scale(.9); opacity: 0; }
+  to { transform: scale(1); opacity: 1; }
+}
+
+.login-box h2 {
+  text-align: center;
+  margin-bottom: 15px;
+}
+
+.login-box input {
+  width: 100%;
+  padding: 10px;
+  margin-bottom: 12px;
+}
+
+.login-box button {
+  width: 100%;
+  padding: 10px;
+  background: #ff6b6b;
+  border: none;
+  color: white;
+  border-radius: 6px;
+  cursor: pointer;
+}
+
+.close-modal {
+  position: absolute;
+  top: 10px;
+  right: 14px;
+  font-size: 22px;
+  cursor: pointer;
+}
+
+.login-error {
+  color: red;
+  text-align: center;
+  margin-top: 10px;
+}

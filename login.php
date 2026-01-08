@@ -1,6 +1,4 @@
 <?php
-session_start();
-session_regenerate_id(true);
 
 include 'conexion/conexion.php';
 
@@ -39,25 +37,28 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
       $_SESSION['nombre']     = $nombre;
       $_SESSION['correo']     = $correo;
 
-      // 🧠 Detectar correo corporativo
-      $es_corporativo = str_ends_with($correo, '@empresa.com');
+      // 🔐 SESIONES PRINCIPALES
+      $_SESSION['id_usuario']   = $id;
+      $_SESSION['nombre']       = $nombre;
+      $_SESSION['correo']       = $correo;
+      $_SESSION['tipo_usuario'] = $tipo_usuario;
+      $_SESSION['nivel_acceso'] = $nivel_acceso;
 
-      if ($es_corporativo) {
+      // 🔁 REDIRECCIÓN SEGÚN TIPO
+      if ($tipo_usuario === 'empleado') {
 
-        // 🔑 PERSONAL INTERNO
         if ($nivel_acceso === 'admin') {
-          $_SESSION['rol'] = 'admin';
           header("Location: admin/dashboard.php");
         } else {
-          $_SESSION['rol'] = 'vendedor';
           header("Location: vendedor/pedidos.php");
         }
       } else {
-
-        // 👤 CLIENTE NORMAL
-        $_SESSION['rol'] = 'cliente';
+        // 👤 CLIENTE
         header("Location: tienda.php");
       }
+
+      exit;
+
 
       exit;
     } else {
