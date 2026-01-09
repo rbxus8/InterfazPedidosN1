@@ -68,6 +68,7 @@ if (!$categorias) {
 
       <h2>Iniciar sesión</h2>
 
+      <!-- LOGIN -->
       <form id="loginForm">
         <input type="email" name="correo" placeholder="Correo" required>
         <input type="password" name="contraseña" placeholder="Contraseña" required>
@@ -76,8 +77,39 @@ if (!$categorias) {
       </form>
 
       <p id="loginError" class="login-error"></p>
+
+      <!-- OPCIONES -->
+      <div class="login-options">
+        <a href="registrarse.php" class="btn-crear">
+          Crear cuenta
+        </a>
+
+        <a href="#" id="openRecover">¿Olvidaste tu contraseña?</a>
+      </div>
+
+      <!-- REGISTRO -->
+      <form id="registerForm" class="hidden">
+        <h3>Crear cuenta</h3>
+        <input type="text" name="nombre" placeholder="Nombre" required>
+        <input type="email" name="correo" placeholder="Correo" required>
+        <input type="password" name="password" placeholder="Contraseña" required>
+
+        <button type="submit">Registrarme</button>
+        <p class="back-login">← Volver a iniciar sesión</p>
+      </form>
+
+      <!-- RECUPERAR -->
+      <form id="recoverForm" class="hidden">
+        <h3>Recuperar contraseña</h3>
+        <input type="email" name="correo" placeholder="Correo registrado" required>
+
+        <button type="submit">Enviar enlace</button>
+        <p class="back-login">← Volver a iniciar sesión</p>
+      </form>
+
     </div>
   </div>
+
   <!-- 🛒 Panel del carrito -->
   <?php if ($puedeComprar): ?>
     <div class="cart-panel" id="cartPanel">
@@ -223,6 +255,9 @@ if (!$categorias) {
 
 
   <script>
+    /* ===============================
+   🔐 ESTADO SESIÓN
+=============================== */
     const usuarioLogueado = <?= isset($_SESSION['id_usuario']) ? 'true' : 'false' ?>;
 
     /* ===============================
@@ -250,7 +285,7 @@ if (!$categorias) {
 
     cartBtn?.addEventListener('click', () => {
       if (!usuarioLogueado) {
-        document.getElementById("loginModal").style.display = "flex";
+        loginModal.style.display = "flex";
         return;
       }
       cartPanel.style.display = 'block';
@@ -264,33 +299,14 @@ if (!$categorias) {
        ➕ AGREGAR AL CARRITO
     =============================== */
     document.addEventListener('click', e => {
-
       if (e.target.classList.contains('add-to-cart')) {
-
         if (!usuarioLogueado) {
-          document.getElementById("loginModal").style.display = "flex";
+          loginModal.style.display = "flex";
           return;
         }
-
-        // 👉 aquí va tu lógica real del carrito
         console.log("Producto agregado");
       }
     });
-
-    function actualizarCarrito() {
-      cartItems.innerHTML = '';
-      let total = 0;
-
-      cart.forEach(item => {
-        total += item.precio * item.cantidad;
-        const li = document.createElement('li');
-        li.textContent = `${item.nombre} x${item.cantidad} - $${(item.precio * item.cantidad).toFixed(2)}`;
-        cartItems.appendChild(li);
-      });
-
-      cartTotal.textContent = total.toFixed(2);
-      cartCount.textContent = cart.reduce((a, b) => a + b.cantidad, 0);
-    }
 
     /* ===============================
        👤 MENÚ USUARIO
@@ -309,26 +325,67 @@ if (!$categorias) {
     });
 
     /* ===============================
-       🔐 MODAL LOGIN (CLAVE)
+       🔐 MODAL LOGIN
     =============================== */
     const loginModal = document.getElementById("loginModal");
     const closeLogin = document.getElementById("closeLogin");
+
     const loginForm = document.getElementById("loginForm");
+    const registerForm = document.getElementById("registerForm");
+    const recoverForm = document.getElementById("recoverForm");
+
     const loginError = document.getElementById("loginError");
 
-    // ✅ EVENT DELEGATION (HEADER + PRODUCTOS)
-    document.addEventListener("click", e => {
+    const openRegister = document.getElementById("openRegister");
+    const openRecover = document.getElementById("openRecover");
 
-      if (
-        e.target.id === "openLoginModal" ||
-        e.target.classList.contains("open-login")
-      ) {
+    /* ===============================
+       🪟 ABRIR / CERRAR MODAL
+    =============================== */
+    document.addEventListener("click", e => {
+      if (e.target.id === "openLoginModal" || e.target.classList.contains("open-login")) {
         loginModal.style.display = "flex";
+        mostrarLogin();
       }
 
       if (e.target.id === "closeLogin" || e.target === loginModal) {
         loginModal.style.display = "none";
       }
+    });
+
+    /* ===============================
+       🔁 CAMBIO DE FORMULARIOS
+    =============================== */
+    function mostrarLogin() {
+      loginForm.classList.remove("hidden");
+      registerForm.classList.add("hidden");
+      recoverForm.classList.add("hidden");
+    }
+
+    function mostrarRegistro() {
+      loginForm.classList.add("hidden");
+      registerForm.classList.remove("hidden");
+      recoverForm.classList.add("hidden");
+    }
+
+    function mostrarRecuperar() {
+      loginForm.classList.add("hidden");
+      registerForm.classList.add("hidden");
+      recoverForm.classList.remove("hidden");
+    }
+
+    openRegister?.addEventListener("click", e => {
+      e.preventDefault();
+      mostrarRegistro();
+    });
+
+    openRecover?.addEventListener("click", e => {
+      e.preventDefault();
+      mostrarRecuperar();
+    });
+
+    document.querySelectorAll(".back-login").forEach(btn => {
+      btn.addEventListener("click", mostrarLogin);
     });
 
     /* ===============================
@@ -349,6 +406,37 @@ if (!$categorias) {
             loginError.textContent = data.message;
           }
         });
+    });
+
+    /* ===============================
+       📝 REGISTRO AJAX
+    =============================== */
+    registerForm?.addEventListener("submit", e => {
+      e.preventDefault();
+
+      fetch("registro_ajax.php", {
+          method: "POST",
+          body: new FormData(registerForm)
+        })
+        .then(res => res.json())
+        .then(data => {
+          alert(data.message);
+          if (data.success) mostrarLogin();
+        });
+    });
+
+    /* ===============================
+       🔁 RECUPERAR CONTRASEÑA AJAX
+    =============================== */
+    recoverForm?.addEventListener("submit", e => {
+      e.preventDefault();
+
+      fetch("recuperar_ajax.php", {
+          method: "POST",
+          body: new FormData(recoverForm)
+        })
+        .then(res => res.json())
+        .then(data => alert(data.message));
     });
   </script>
 

@@ -447,3 +447,32 @@
   text-align: center;
   margin-top: 10px;
 }
+
+.login-options {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 10px;
+}
+
+.login-options a {
+  font-size: 13px;
+  color: #ff6f6f;
+  cursor: pointer;
+  text-decoration: none;
+}
+
+.login-options a:hover {
+  text-decoration: underline;
+}
+
+.hidden {
+  display: none;
+}
+
+.back-login {
+  margin-top: 10px;
+  font-size: 13px;
+  color: #555;
+  cursor: pointer;
+  text-align: center;
+}
