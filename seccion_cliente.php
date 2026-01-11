@@ -125,17 +125,6 @@ if (!$categorias) {
     </div>
   </div>
 
-  <!-- 🛒 Panel del carrito -->
-  <?php if ($puedeComprar): ?>
-    <div class="cart-panel" id="cartPanel">
-      <h2>Carrito</h2>
-      <ul id="cartItems"></ul>
-      <h3>Total: $<span id="cartTotal">0</span></h3>
-      <button id="checkoutBtn">Finalizar pedido</button>
-      <button id="closeCart">Cerrar</button>
-    </div>
-  <?php endif; ?>
-
   <header class="header_cliente">
     <div class="header_left">
       <a href="tienda.php" class="logo">
@@ -156,6 +145,12 @@ if (!$categorias) {
 
 
     <div class="header_right">
+      <?php if ($puedeComprar): ?>
+        <button id="cartBtn" class="cart-btn">
+          🛒 <span id="cartCount">0</span>
+        </button>
+      <?php endif; ?>
+
       <button class="btn-theme" onclick="cambiarColorTema()">🌞</button>
 
       <?php if (!$usuarioLogueado): ?>
@@ -188,15 +183,22 @@ if (!$categorias) {
           </div>
         </div>
       <?php endif; ?>
-
-      <?php if ($puedeComprar): ?>
-        <button class="cart-btn" id="cartBtn">
-          🛒 <span id="cartCount">0</span>
-        </button>
-      <?php endif; ?>
     </div>
   </header>
+  <div id="cartOverlay" class="cart-overlay"></div>
 
+  <aside class="cart-panel" id="cartPanel">
+    <header class="cart-header">
+      <h2>🛒 Carrito</h2>
+      <button id="closeCart">✖</button>
+    </header>
+
+    <ul id="cartItems"></ul>
+
+    <h3>Total: $<span id="cartTotal">0</span></h3>
+
+    <button id="checkoutBtn">Finalizar pedido</button>
+  </aside>
 
   <main class="main_cliente">
     <section class="portada_cliente">
@@ -265,29 +267,43 @@ if (!$categorias) {
     </section>
   </main>
 
-<footer class="footer_cliente">
-  <div class="footer_container">
+  <footer class="footer_cliente">
+    <div class="footer_container">
 
-    <div class="footer_brand">
-      <img src="img/iconosinfondotitulo.png" alt="GoShop">
-      <h3>GoShop</h3>
-      <p>Compras rápidas, seguras y deliciosas 🍰</p>
+      <div class="footer_brand">
+        <img src="img/logo.png" alt="Go Shop">
+        <h3>Go Shop</h3>
+        <p>Tu pastelería favorita, compra fácil, rápida y con amor artesanal.</p>
+
+        <div class="footer_social">
+          <a href="#">🌐</a>
+          <a href="#">📘</a>
+          <a href="#">📸</a>
+        </div>
+      </div>
+
+      <div class="footer_links">
+        <h4>Empresa</h4>
+        <a href="#">Sobre nosotros</a>
+        <a href="#">Tiendas</a>
+        <a href="#">Contacto</a>
+      </div>
+
+      <div class="footer_links">
+        <h4>Ayuda</h4>
+        <a href="#">Soporte</a>
+        <a href="#">Políticas</a>
+        <a href="#">Términos</a>
+      </div>
+
     </div>
 
-    <div class="footer_links">
-      <h4>Enlaces</h4>
-      <a href="#">Productos</a>
-      <a href="#">Ofertas</a>
-      <a href="#">Contacto</a>
+    <div class="footer_bottom">
+      © 2026 Go Shop
+      <span>Todos los derechos reservados</span>
     </div>
+  </footer>
 
-    <div class="footer_copy">
-      <p>© 2026 GoShop</p>
-      <span>Desarrollado por Julián</span>
-    </div>
-
-  </div>
-</footer>
 
 
 
@@ -314,37 +330,115 @@ if (!$categorias) {
        🛒 CARRITO
     =============================== */
     const cart = [];
+
     const cartPanel = document.getElementById('cartPanel');
+    const cartOverlay = document.getElementById('cartOverlay');
     const cartBtn = document.getElementById('cartBtn');
     const closeCart = document.getElementById('closeCart');
     const cartItems = document.getElementById('cartItems');
     const cartTotal = document.getElementById('cartTotal');
     const cartCount = document.getElementById('cartCount');
 
+    /* Abrir carrito */
     cartBtn?.addEventListener('click', () => {
       if (!usuarioLogueado) {
         loginModal.style.display = "flex";
         return;
       }
-      cartPanel.style.display = 'block';
+      cartPanel.classList.add('activo');
+      cartOverlay.classList.add('activo');
     });
 
-    closeCart?.addEventListener('click', () => {
-      cartPanel.style.display = 'none';
-    });
+    /* Cerrar carrito */
+    function cerrarCarrito() {
+      cartPanel.classList.remove('activo');
+      cartOverlay.classList.remove('activo');
+    }
+
+    closeCart?.addEventListener('click', cerrarCarrito);
+    cartOverlay?.addEventListener('click', cerrarCarrito);
 
     /* ===============================
        ➕ AGREGAR AL CARRITO
     =============================== */
     document.addEventListener('click', e => {
       if (e.target.classList.contains('add-to-cart')) {
+
         if (!usuarioLogueado) {
           loginModal.style.display = "flex";
           return;
         }
-        console.log("Producto agregado");
+
+        const id = e.target.dataset.id;
+        const nombre = e.target.dataset.nombre;
+        const precio = parseFloat(e.target.dataset.precio);
+
+        const existente = cart.find(p => p.id === id);
+
+        if (existente) {
+          existente.cantidad++;
+        } else {
+          cart.push({
+            id,
+            nombre,
+            precio,
+            cantidad: 1
+          });
+        }
+
+        actualizarCarrito();
       }
     });
+
+    /* Actualizar carrito */
+    function actualizarCarrito() {
+      cartItems.innerHTML = '';
+      let total = 0;
+      let cantidadTotal = 0;
+
+      cart.forEach((item, index) => {
+        total += item.precio * item.cantidad;
+        cantidadTotal += item.cantidad;
+
+        const li = document.createElement('li');
+        li.classList.add('cart-item');
+
+        li.innerHTML = `
+      <div class="cart-item-info">
+        <strong>${item.nombre}</strong>
+        <small>$${item.precio.toFixed(2)}</small>
+      </div>
+
+      <div class="cart-item-controls">
+        <button onclick="cambiarCantidad(${index}, -1)">−</button>
+        <span>${item.cantidad}</span>
+        <button onclick="cambiarCantidad(${index}, 1)">+</button>
+        <button class="remove" onclick="eliminarItem(${index})">🗑</button>
+      </div>
+    `;
+
+        cartItems.appendChild(li);
+      });
+
+      cartTotal.textContent = total.toFixed(2);
+      cartCount.textContent = cantidadTotal;
+    }
+
+    function cambiarCantidad(index, cambio) {
+      cart[index].cantidad += cambio;
+
+      if (cart[index].cantidad <= 0) {
+        cart.splice(index, 1);
+      }
+
+      actualizarCarrito();
+    }
+
+    function eliminarItem(index) {
+      cart.splice(index, 1);
+      actualizarCarrito();
+    }
+
 
     /* ===============================
        👤 MENÚ USUARIO
@@ -354,12 +448,11 @@ if (!$categorias) {
 
     userMenu?.addEventListener('click', e => {
       e.stopPropagation();
-      userDropdown.style.display =
-        userDropdown.style.display === 'flex' ? 'none' : 'flex';
+      userDropdown.classList.toggle('activo');
     });
 
     document.addEventListener('click', () => {
-      if (userDropdown) userDropdown.style.display = 'none';
+      userDropdown?.classList.remove('activo');
     });
 
     /* ===============================
@@ -373,20 +466,17 @@ if (!$categorias) {
     const recoverForm = document.getElementById("recoverForm");
 
     const loginError = document.getElementById("loginError");
-
-    const openRegister = document.getElementById("openRegister");
     const openRecover = document.getElementById("openRecover");
 
-    /* ===============================
-       🪟 ABRIR / CERRAR MODAL
-    =============================== */
+    /* Abrir / cerrar modal */
     document.addEventListener("click", e => {
+
       if (e.target.id === "openLoginModal" || e.target.classList.contains("open-login")) {
         loginModal.style.display = "flex";
         mostrarLogin();
       }
 
-      if (e.target.id === "closeLogin" || e.target === loginModal) {
+      if (e.target === loginModal || e.target.id === "closeLogin") {
         loginModal.style.display = "none";
       }
     });
@@ -411,11 +501,6 @@ if (!$categorias) {
       registerForm.classList.add("hidden");
       recoverForm.classList.remove("hidden");
     }
-
-    openRegister?.addEventListener("click", e => {
-      e.preventDefault();
-      mostrarRegistro();
-    });
 
     openRecover?.addEventListener("click", e => {
       e.preventDefault();
@@ -464,7 +549,7 @@ if (!$categorias) {
     });
 
     /* ===============================
-       🔁 RECUPERAR CONTRASEÑA AJAX
+       🔁 RECUPERAR CONTRASEÑA
     =============================== */
     recoverForm?.addEventListener("submit", e => {
       e.preventDefault();
@@ -482,13 +567,13 @@ if (!$categorias) {
     =============================== */
     function scrollCategorias(dir) {
       const cont = document.getElementById('categoriaProductos');
-      const scrollAmount = 120;
       cont.scrollBy({
-        left: dir * scrollAmount,
+        left: dir * 120,
         behavior: 'smooth'
       });
     }
   </script>
+
 
 </body>
 

@@ -546,77 +546,222 @@
   cursor: pointer;
   text-align: center;
 }
-
-/* ================= FOOTER ================= */
+/* ================= FOOTER – GO SHOP ================= */
 
 .footer_cliente {
-  margin-top: 80px;
+  margin-top: 90px;
   width: 100%;
-  background: rgba(255,255,255,0.85);
-  backdrop-filter: blur(10px);
+  background: linear-gradient(
+    180deg,
+    rgba(255,255,255,0.95),
+    rgba(245,245,245,0.95)
+  );
+  backdrop-filter: blur(12px);
   border-top: 1px solid rgba(0,0,0,0.08);
 }
 
 .footer_container {
   max-width: 1200px;
   margin: auto;
-  padding: 40px 25px;
+  padding: 50px 25px 35px;
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
-  gap: 30px;
-  align-items: center;
+  gap: 35px;
+  align-items: flex-start;
 }
 
-/* BRAND */
+/* ===== BRAND ===== */
 .footer_brand img {
-  height: 40px;
-  margin-bottom: 10px;
+  height: 42px;
+  margin-bottom: 12px;
 }
 
 .footer_brand h3 {
   color: var(--color-encabezado);
-  margin-bottom: 5px;
+  margin-bottom: 8px;
+  font-size: 18px;
 }
 
 .footer_brand p {
   font-size: 14px;
   color: #666;
+  line-height: 1.6;
+  max-width: 280px;
 }
 
-/* LINKS */
+/* ===== LINKS ===== */
 .footer_links h4 {
-  margin-bottom: 12px;
+  margin-bottom: 14px;
+  font-size: 15px;
   color: var(--color-titulo);
+  font-weight: 600;
 }
 
 .footer_links a {
   display: block;
   font-size: 14px;
   color: #555;
-  margin-bottom: 6px;
-  transition: color .2s;
+  margin-bottom: 8px;
+  transition: color .2s, transform .2s;
 }
 
 .footer_links a:hover {
   color: var(--color-encabezado);
+  transform: translateX(3px);
 }
 
-/* COPY */
-.footer_copy {
-  text-align: right;
+/* ===== SOCIAL ===== */
+.footer_social {
+  display: flex;
+  gap: 12px;
+  margin-top: 10px;
+}
+
+.footer_social a {
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  background: var(--color-encabezado);
+  color: white;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 16px;
+  transition: transform .2s, background .3s;
+}
+
+.footer_social a:hover {
+  transform: translateY(-3px);
+  background: var(--color-boton-hover);
+}
+
+/* ===== COPY ===== */
+.footer_bottom {
+  border-top: 1px solid rgba(0,0,0,.08);
+  margin-top: 30px;
+  padding: 20px 25px;
+  text-align: center;
   font-size: 13px;
   color: #777;
 }
 
-.footer_copy span {
+.footer_bottom span {
   display: block;
   margin-top: 6px;
   font-weight: 500;
 }
 
-/* RESPONSIVE */
+/* ===== RESPONSIVE ===== */
 @media (max-width: 768px) {
-  .footer_copy {
-    text-align: left;
+  .footer_container {
+    padding: 40px 20px 30px;
   }
+
+  .footer_brand p {
+    max-width: 100%;
+  }
+}
+/* Fondo oscuro */
+.cart-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0,0,0,.4);
+  opacity: 0;
+  visibility: hidden;
+  transition: .3s;
+  z-index: 998;
+}
+
+/* Carrito */
+.cart-panel {
+  position: fixed;
+  top: 0;
+  right: -420px;
+  width: 380px;
+  height: 100%;
+  background: #fff;
+  box-shadow: -4px 0 15px rgba(0,0,0,.2);
+  padding: 1em;
+  transition: right .3s ease;
+  z-index: 999;
+  overflow-y: auto;
+}
+
+/* Activo */
+.cart-panel.activo {
+  right: 0;
+}
+
+.cart-overlay.activo {
+  opacity: 1;
+  visibility: visible;
+}
+
+.user-dropdown.activo {
+  display: flex;
+}
+
+.user-dropdown {
+  opacity: 0;
+  transform: translateY(10px);
+  pointer-events: none;
+  transition: .2s ease;
+}
+
+.user-dropdown.activo {
+  display: flex;
+  opacity: 1;
+  transform: translateY(0);
+  pointer-events: auto;
+}
+
+/* 🛒 ITEMS DEL CARRITO */
+#cartItems {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.cart-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 10px 0;
+  border-bottom: 1px solid #ddd;
+}
+
+.cart-item-info {
+  display: flex;
+  flex-direction: column;
+}
+
+.cart-item-info small {
+  color: #666;
+}
+
+.cart-item-controls {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.cart-item-controls button {
+  padding: 4px 8px;
+  cursor: pointer;
+  border: none;
+  background: #eee;
+  border-radius: 4px;
+}
+
+.cart-item-controls button:hover {
+  background: #ddd;
+}
+
+.cart-item-controls .remove {
+  background: #ff4d4d;
+  color: #fff;
+}
+
+.cart-item-controls .remove:hover {
+  background: #e60000;
 }
