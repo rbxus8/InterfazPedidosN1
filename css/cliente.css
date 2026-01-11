@@ -1,16 +1,33 @@
 /* ================================
    SECCIÓN CLIENTE – GO SHOP
 ================================ */
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  text-decoration: none;
+}
+
 .main_cliente {
   padding-top: 80px; /* header height + espacio */
 }
 
 /* ================= HEADER CLIENTE ================= */
 
+:root {
+  --ancho-contenido: 1200px;
+}
+
 .header_cliente {
   position: fixed;
   top: 0;
+  left: 0;
+  right: 0;
   width: 100%;
+  max-width: var(--ancho-contenido);
+  margin: 0 auto;
   height: 65px;
   background: rgba(255,255,255,0.9);
   backdrop-filter: blur(10px);
@@ -20,6 +37,13 @@
   justify-content: space-between;
   padding: 0 25px;
   z-index: 10000;
+}
+
+@media (max-width: 1200px) {
+  .header_cliente {
+    max-width: 100%;
+    padding: 0 10px;
+  }
 }
 
 /* LOGO */
@@ -225,7 +249,7 @@
 
 /* ================= SALUDO ================= */
 .container_saludo {
-  background: var(--color-container);
+  background: palegoldenrod;
   margin-top: -50px;
   padding: 30px;
   border-radius: 18px;
@@ -233,6 +257,7 @@
   max-width: 900px;
   box-shadow: 0 10px 25px rgba(0,0,0,.12);
   text-align: center;
+
 }
 
 .container_saludo h1 {
@@ -253,15 +278,60 @@
 /* FILTROS */
 .categoria_productos {
   display: flex;
-  justify-content: center;
+  justify-content: flex-start;
   gap: 15px;
   margin-bottom: 35px;
+  overflow-x: auto;
+  padding-bottom: 10px;
+  scrollbar-width: thin;
+  scrollbar-color: #ccc #f5f5f5;
+  position: relative;
+  max-width: 100%;
 }
-
+.categoria_productos::-webkit-scrollbar {
+  height: 8px;
+}
+.categoria_productos::-webkit-scrollbar-thumb {
+  background: #ccc;
+  border-radius: 4px;
+}
 .categoria_productos .btn {
   border-radius: 30px;
   padding: 10px 25px;
   font-weight: bold;
+  white-space: nowrap;
+}
+.categoria-scroll-btn {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  background: #fff;
+  border: 1px solid #ccc;
+  border-radius: 50%;
+  width: 32px;
+  height: 32px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  z-index: 2;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+}
+.categoria-scroll-btn.left {
+  left: 0;
+}
+.categoria-scroll-btn.right {
+  right: 0;
+}
+@media (max-width: 600px) {
+  .categoria_productos {
+    gap: 8px;
+    padding-bottom: 6px;
+  }
+  .categoria_productos .btn {
+    padding: 8px 14px;
+    font-size: 13px;
+  }
 }
 
 /* GRID */
@@ -475,4 +545,78 @@
   color: #555;
   cursor: pointer;
   text-align: center;
+}
+
+/* ================= FOOTER ================= */
+
+.footer_cliente {
+  margin-top: 80px;
+  width: 100%;
+  background: rgba(255,255,255,0.85);
+  backdrop-filter: blur(10px);
+  border-top: 1px solid rgba(0,0,0,0.08);
+}
+
+.footer_container {
+  max-width: 1200px;
+  margin: auto;
+  padding: 40px 25px;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 30px;
+  align-items: center;
+}
+
+/* BRAND */
+.footer_brand img {
+  height: 40px;
+  margin-bottom: 10px;
+}
+
+.footer_brand h3 {
+  color: var(--color-encabezado);
+  margin-bottom: 5px;
+}
+
+.footer_brand p {
+  font-size: 14px;
+  color: #666;
+}
+
+/* LINKS */
+.footer_links h4 {
+  margin-bottom: 12px;
+  color: var(--color-titulo);
+}
+
+.footer_links a {
+  display: block;
+  font-size: 14px;
+  color: #555;
+  margin-bottom: 6px;
+  transition: color .2s;
+}
+
+.footer_links a:hover {
+  color: var(--color-encabezado);
+}
+
+/* COPY */
+.footer_copy {
+  text-align: right;
+  font-size: 13px;
+  color: #777;
+}
+
+.footer_copy span {
+  display: block;
+  margin-top: 6px;
+  font-weight: 500;
+}
+
+/* RESPONSIVE */
+@media (max-width: 768px) {
+  .footer_copy {
+    text-align: left;
+  }
 }

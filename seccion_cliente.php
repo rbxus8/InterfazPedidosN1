@@ -7,15 +7,26 @@ include 'conexion/conexion.php';
 $usuarioLogueado = isset($_SESSION['id_usuario']);
 
 /* 🛒 Permiso para comprar (solo clientes logueados) */
-$puedeComprar = false;
-
-if (
+$puedeComprar = (
   isset($_SESSION['id_usuario']) &&
-  isset($_SESSION['tipo_usuario']) &&
-  $_SESSION['tipo_usuario'] === 'cliente'
-) {
-  $puedeComprar = true;
+  ($_SESSION['tipo_usuario'] ?? '') === 'cliente'
+);
+
+// Mostrar mensaje de éxito si acaba de iniciar sesión
+$mensajeBienvenida = '';
+if (isset($_SESSION['login_exitoso'])) {
+  $mensajeBienvenida = '¡Listo para comprar! Ya puedes usar el carrito.';
+  unset($_SESSION['login_exitoso']);
 }
+
+// DEBUG: Mostrar contenido de la sesión
+if (isset($_GET['debug'])) {
+  echo '<pre style="background:#222;color:#0f0;padding:1em;">';
+  echo '$_SESSION = ';
+  print_r($_SESSION);
+  echo '</pre>';
+}
+
 
 /* 🔹 Consulta de productos */
 $consultaProductos = "
@@ -59,8 +70,12 @@ if (!$categorias) {
   <link rel="stylesheet" href="css/cliente.css" />
 </head>
 
-
 <body class="body_cliente">
+  <?php if ($mensajeBienvenida): ?>
+    <div style="background: #d4edda; color: #155724; padding: 1em; margin: 1em 0; border-radius: 5px; text-align: center; font-weight: bold;">
+      <?= $mensajeBienvenida ?>
+    </div>
+  <?php endif; ?>
   <!-- 🪟 MODAL LOGIN -->
   <div class="login-modal" id="loginModal">
     <div class="login-box">
@@ -71,7 +86,7 @@ if (!$categorias) {
       <!-- LOGIN -->
       <form id="loginForm">
         <input type="email" name="correo" placeholder="Correo" required>
-        <input type="password" name="contraseña" placeholder="Contraseña" required>
+        <input type="password" name="password" placeholder="Contraseña" required>
 
         <button type="submit">Entrar</button>
       </form>
@@ -202,16 +217,19 @@ if (!$categorias) {
       <h3>Elige tus productos favoritos y agrégalos al carrito de compras.</h3>
 
       <!-- Botones de filtro -->
-      <div class="categoria_productos">
-        <?php while ($cat = $categorias->fetch_assoc()):
-          $catClase = strtolower(str_replace(' ', '-', $cat['nombre']));
-        ?>
-          <button class="btn" onclick="mostrar('<?= $catClase ?>')">
-            <?= $cat['nombre'] ?>
-          </button>
-        <?php endwhile; ?>
-
-        <button class="btn" onclick="mostrar('todos')">Todos</button>
+      <div class="categoria_productos-wrapper" style="position:relative;">
+        <button type="button" class="categoria-scroll-btn left" onclick="scrollCategorias(-1)">&#8592;</button>
+        <div class="categoria_productos" id="categoriaProductos">
+          <?php while ($cat = $categorias->fetch_assoc()):
+            $catClase = strtolower(str_replace(' ', '-', $cat['nombre']));
+          ?>
+            <button class="btn" onclick="mostrar('<?= $catClase ?>')">
+              <?= $cat['nombre'] ?>
+            </button>
+          <?php endwhile; ?>
+          <button class="btn" onclick="mostrar('todos')">Todos</button>
+        </div>
+        <button type="button" class="categoria-scroll-btn right" onclick="scrollCategorias(1)">&#8594;</button>
       </div>
 
 
@@ -247,10 +265,30 @@ if (!$categorias) {
     </section>
   </main>
 
-  <footer class="footer">
-    <p>&copy; 2025 Juli's. Todos los derechos reservados.</p>
-    <p>Desarrollado por Julián</p>
-  </footer>
+<footer class="footer_cliente">
+  <div class="footer_container">
+
+    <div class="footer_brand">
+      <img src="img/iconosinfondotitulo.png" alt="GoShop">
+      <h3>GoShop</h3>
+      <p>Compras rápidas, seguras y deliciosas 🍰</p>
+    </div>
+
+    <div class="footer_links">
+      <h4>Enlaces</h4>
+      <a href="#">Productos</a>
+      <a href="#">Ofertas</a>
+      <a href="#">Contacto</a>
+    </div>
+
+    <div class="footer_copy">
+      <p>© 2026 GoShop</p>
+      <span>Desarrollado por Julián</span>
+    </div>
+
+  </div>
+</footer>
+
 
 
 
@@ -438,6 +476,18 @@ if (!$categorias) {
         .then(res => res.json())
         .then(data => alert(data.message));
     });
+
+    /* ===============================
+       ⏩ SCROLL CATEGORÍAS
+    =============================== */
+    function scrollCategorias(dir) {
+      const cont = document.getElementById('categoriaProductos');
+      const scrollAmount = 120;
+      cont.scrollBy({
+        left: dir * scrollAmount,
+        behavior: 'smooth'
+      });
+    }
   </script>
 
 </body>
