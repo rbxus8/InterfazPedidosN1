@@ -305,10 +305,9 @@ if (!$categorias) {
   </footer>
 
 
-
-
-
   <script>
+    const cart = <?= json_encode($_SESSION['carrito'] ?? [], JSON_UNESCAPED_UNICODE) ?>;
+
     /* ===============================
    🔐 ESTADO SESIÓN
 =============================== */
@@ -329,7 +328,6 @@ if (!$categorias) {
     /* ===============================
        🛒 CARRITO
     =============================== */
-    const cart = [];
 
     const cartPanel = document.getElementById('cartPanel');
     const cartOverlay = document.getElementById('cartOverlay');
@@ -387,8 +385,14 @@ if (!$categorias) {
         }
 
         actualizarCarrito();
+        guardarCarritoServidor();
+
+        cartPanel.classList.add('activo');
+        cartOverlay.classList.add('activo');
       }
     });
+
+
 
     /* Actualizar carrito */
     function actualizarCarrito() {
@@ -432,11 +436,13 @@ if (!$categorias) {
       }
 
       actualizarCarrito();
+      guardarCarritoServidor();
     }
 
     function eliminarItem(index) {
       cart.splice(index, 1);
       actualizarCarrito();
+      guardarCarritoServidor();
     }
 
 
@@ -572,6 +578,17 @@ if (!$categorias) {
         behavior: 'smooth'
       });
     }
+
+    function guardarCarritoServidor() {
+      fetch("guardar_carrito.php", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json"
+        },
+        body: JSON.stringify(cart)
+      });
+    }
+    actualizarCarrito();
   </script>
 
 
