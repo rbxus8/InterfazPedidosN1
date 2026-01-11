@@ -313,6 +313,51 @@ if (!$categorias) {
 =============================== */
     const usuarioLogueado = <?= isset($_SESSION['id_usuario']) ? 'true' : 'false' ?>;
 
+
+    const checkoutBtn = document.getElementById("checkoutBtn");
+
+    checkoutBtn?.addEventListener("click", () => {
+
+      if (cart.length === 0) {
+        alert("El carrito está vacío");
+        return;
+      }
+
+      fetch("procesar_pedido.php", {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json"
+          },
+          body: JSON.stringify(cart)
+        })
+        .then(res => res.json())
+        .then(data => {
+
+          if (data.success) {
+            alert("✅ Pedido creado correctamente");
+
+            // Vaciar carrito
+            cart.length = 0;
+            actualizarCarrito();
+
+            // Cerrar carrito
+            cerrarCarrito();
+
+          } else {
+            alert("❌ Error: " + data.error);
+          }
+
+        })
+        .catch(err => {
+          console.error(err);
+          alert("Error al procesar el pedido");
+        });
+
+    });
+
+
+
+
     /* ===============================
        🎂 FILTRAR PRODUCTOS
     =============================== */
@@ -452,14 +497,17 @@ if (!$categorias) {
     const userMenu = document.getElementById('userMenu');
     const userDropdown = document.getElementById('userDropdown');
 
-    userMenu?.addEventListener('click', e => {
-      e.stopPropagation();
-      userDropdown.classList.toggle('activo');
-    });
+    if (userMenu && userDropdown) {
+      userMenu.addEventListener('click', e => {
+        e.stopPropagation();
+        userDropdown.classList.toggle('activo');
+      });
 
-    document.addEventListener('click', () => {
-      userDropdown?.classList.remove('activo');
-    });
+      document.addEventListener('click', () => {
+        userDropdown.classList.remove('activo');
+      });
+    }
+
 
     /* ===============================
        🔐 MODAL LOGIN
