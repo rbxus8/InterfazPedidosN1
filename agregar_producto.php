@@ -8,33 +8,37 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $stock = $_POST['stock'] ?? null;
     $local = $_POST['local'] ?? null;
     $precio = $_POST['precio'] ?? null;
-    $categoria = $_POST['categoria'] ?? null; // <-- IMPORTANTE
+    $categoria = $_POST['categoria'] ?? null; // id_categoria REAL
 
     // Validación
     if (
         !empty($nombre) &&
         !empty($codigo_producto) &&
-        !empty($categoria) &&
+        !empty($categoria) && is_numeric($categoria) &&
         !empty($stock) && is_numeric($stock) && $stock > 0 &&
-        !empty($local) &&
+        !empty($local) && is_numeric($local) &&
         !empty($precio) && is_numeric($precio) && $precio > 0
     ) {
 
-        // Insertar producto
-        $query = "INSERT INTO productos 
-                  (codigo_producto, nombre, categoria, precio, estado)
-                  VALUES 
-                  ('$codigo_producto', '$nombre', '$categoria', $precio, 'disponible')";
+        // INSERT PRODUCTO (✔ columna correcta)
+        $query = "
+            INSERT INTO productos 
+            (codigo_producto, nombre, id_categoria, precio, estado)
+            VALUES 
+            ('$codigo_producto', '$nombre', $categoria, $precio, 'disponible')
+        ";
 
-        if ($conexion->query($query) === TRUE) {
+        if ($conexion->query($query)) {
 
             $id_producto = $conexion->insert_id;
 
-            // Insertar stock en bodega
-            $queryStock = "INSERT INTO bodega (id_producto, cantidad_producto, id_local)
-                           VALUES ($id_producto, $stock, $local)";
+            // INSERT BODEGA
+            $queryStock = "
+                INSERT INTO bodega (id_producto, cantidad_producto, id_local)
+                VALUES ($id_producto, $stock, $local)
+            ";
 
-            if ($conexion->query($queryStock) === TRUE) {
+            if ($conexion->query($queryStock)) {
                 echo "Producto agregado correctamente";
             } else {
                 echo "Error al agregar stock: " . $conexion->error;

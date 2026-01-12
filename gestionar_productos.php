@@ -1,48 +1,35 @@
 <?php
 include 'conexion/conexion.php';
+
+/* Categorías */
 $categorias = $conexion->query("SELECT id_categoria, nombre FROM categorias");
 
+/* Función para obtener productos por local */
+function obtenerProductos($conexion, $local)
+{
+    $sql = "
+        SELECT 
+            p.id_producto,
+            p.codigo_producto,
+            p.nombre,
+            p.unidad_medida,
+            p.cantidad_stock,
+            c.nombre AS categoria
+        FROM productos p
+        LEFT JOIN categorias c 
+            ON p.id_categoria = c.id_categoria
+        WHERE p.id_local = $local
+        ORDER BY p.created_at DESC
+    ";
 
-// Obtener productos de Negocio A
-$productosA = $conexion->query("
-SELECT 
-    p.id_producto, 
-    p.nombre, 
-    p.codigo_producto, 
-    p.unidad_medida, 
-    b.cantidad_producto,
-    c.nombre AS categoria
-FROM productos p
-INNER JOIN bodega b 
-    ON p.id_producto = b.id_producto
-LEFT JOIN categorias c 
-    ON p.categoria = c.id_categoria
-WHERE b.id_local = 1
-");
-
-
-
-
-// Obtener productos de Negocio B
-$productosB = $conexion->query("
-SELECT 
-    p.id_producto, 
-    p.nombre, 
-    p.codigo_producto, 
-    p.unidad_medida, 
-    b.cantidad_producto,
-    c.nombre AS categoria
-FROM productos p
-INNER JOIN bodega b 
-    ON p.id_producto = b.id_producto
-LEFT JOIN categorias c 
-    ON p.categoria = c.id_categoria
-WHERE b.id_local = 2
-");
+    return $conexion->query($sql);
+}
 
 
-
+$productosA = obtenerProductos($conexion, 1);
+$productosB = obtenerProductos($conexion, 2);
 ?>
+
 
 <!DOCTYPE html>
 <html lang="es">
@@ -100,7 +87,7 @@ WHERE b.id_local = 2
                             <td><?= $producto['categoria'] ?></td>
                             <td><?= $producto['nombre'] ?></td>
                             <td><?= $producto['unidad_medida'] ?></td> <!-- Mostrar la unidad -->
-                            <td><?= $producto['cantidad_producto'] ?></td>
+                            <td><?= $producto['cantidad_stock'] ?></td>
                             <td>
                                 <form action="agregar_stock.php" method="POST">
                                     <input type="hidden" name="id_producto" value="<?= $producto['id_producto'] ?>">
