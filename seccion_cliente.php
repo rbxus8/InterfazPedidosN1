@@ -214,6 +214,29 @@ if (!$categorias) {
       </span>
     </section>
 
+    <section class="estado-pedido">
+      <div class="estado-item">
+        <span>🧁</span>
+        <p>Productos artesanales</p>
+      </div>
+
+      <div class="estado-item">
+        <span>📦</span>
+        <p>Preparación en 24h</p>
+      </div>
+
+      <div class="estado-item">
+        <span>🚚</span>
+        <p>Entrega puntual</p>
+      </div>
+
+      <div class="estado-item">
+        <span>🔒</span>
+        <p>Pedido seguro</p>
+      </div>
+    </section>
+
+
     <section class="container_productos">
       <h1>Productos</h1>
       <h3>Elige tus productos favoritos y agrégalos al carrito de compras.</h3>
