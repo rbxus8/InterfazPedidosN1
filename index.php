@@ -1,7 +1,7 @@
 <?php
 include 'conexion/conexion.php';
 
-$filtroEstado = isset($_GET['estado']) ? $_GET['estado'] : "";
+$filtroEstado = $_GET['estado'] ?? "";
 
 $consultaPedidos = "
 SELECT
@@ -9,28 +9,23 @@ SELECT
     usu.nombre AS cliente,
     loc.nombre AS local,
     ped.fecha_pedido,
-    ped.estado,
-    GROUP_CONCAT(DISTINCT prod.codigo_producto SEPARATOR ', ') AS codigos_productos
+    ped.estado
 FROM pedidos ped
-LEFT JOIN usuarios usu ON ped.id_cliente = usu.id
+LEFT JOIN usuarios usu ON ped.id_usuario = usu.id
 LEFT JOIN locales loc ON ped.id_local = loc.id_local
-LEFT JOIN historial_productos hp ON hp.id_pedido = ped.id_pedido
-LEFT JOIN productos prod ON hp.id_producto = prod.id_producto
 ";
 
 $params = [];
 $tipos = "";
 
-// Agregar filtro si hay estado
 if (!empty($filtroEstado)) {
     $consultaPedidos .= " WHERE LOWER(ped.estado) = ?";
     $params[] = strtolower($filtroEstado);
     $tipos .= "s";
 }
 
-$consultaPedidos .= " GROUP BY ped.id_pedido ORDER BY ped.fecha_pedido DESC";
+$consultaPedidos .= " ORDER BY ped.fecha_pedido DESC";
 
-// Ejecutar consulta
 if (!empty($params)) {
     $stmt = $conexion->prepare($consultaPedidos);
     $stmt->bind_param($tipos, ...$params);
@@ -39,6 +34,7 @@ if (!empty($params)) {
 } else {
     $resultadoPedidos = $conexion->query($consultaPedidos);
 }
+
 
 // Consulta resumen de pedidos por estado
 $consultaResumen = "
@@ -59,14 +55,16 @@ while ($row = $resultadoResumen->fetch_assoc()) {
 }
 
 // Últimos pedidos
+
 $consultaUltimos = "
 SELECT ped.id_pedido, usu.nombre AS cliente, ped.estado, ped.fecha_pedido
 FROM pedidos ped
-LEFT JOIN usuarios usu ON ped.id_cliente = usu.id
+LEFT JOIN usuarios usu ON ped.id_usuario = usu.id
 ORDER BY ped.fecha_pedido DESC
 LIMIT 5
 ";
 $ultimosPedidos = $conexion->query($consultaUltimos);
+
 ?>
 
 <!DOCTYPE html>

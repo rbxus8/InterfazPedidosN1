@@ -270,7 +270,7 @@ $pedidos = $stmtP->get_result();
                 <?php endif; ?>
 
                 <div class="acciones">
-                    <a href="index.php">⬅ Volver a la tienda</a><br>
+                    <a href="seccion_cliente.php">⬅ Volver a la tienda</a><br>
                     <a href="logout.php">🔒 Cerrar sesión</a>
                 </div>
             </div>
