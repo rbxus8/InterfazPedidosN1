@@ -74,7 +74,7 @@ $ultimosPedidos = $conexion->query($consultaUltimos);
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Gestión de Pedidos</title>
-    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/index.css">
     <!-- CSS de DataTables -->
     <link rel="stylesheet" href="https://cdn.datatables.net/1.13.4/css/jquery.dataTables.min.css">
 </head>
@@ -130,12 +130,21 @@ $ultimosPedidos = $conexion->query($consultaUltimos);
                             <td><?= $mostrar['cliente'] ?></td> <!-- Nombre del cliente -->
                             <td><?= $mostrar['local'] ?></td> <!-- Nombre del local -->
                             <td><?= $mostrar['fecha_pedido'] ?></td>
-                            <td><?= $mostrar['estado'] ?></td>
                             <td>
-                                <a href="editar_pedido.php?id=<?= $mostrar['id_pedido'] ?>" style="margin-right: 10px;">Editar</a>
-                                <a href="eliminar_pedido.php?id=<?= $mostrar['id_pedido'] ?>" class="btn-delete" onclick="return confirm('¿Está seguro de eliminar este pedido?');">Eliminar</a>
+                                <span class="badge <?= $mostrar['estado'] ?>">
+                                    <?= ucfirst($mostrar['estado']) ?>
+                                </span>
                             </td>
+
+                            <td class="acciones">
+                                <a href="editar_pedido.php?id=<?= $mostrar['id_pedido'] ?>" title="Editar">✏️</a>
+                                <a href="eliminar_pedido.php?id=<?= $mostrar['id_pedido'] ?>"
+                                    title="Eliminar"
+                                    onclick="return confirm('¿Eliminar pedido?')">🗑️</a>
+                            </td>
+
                         </tr>
+
                     <?php
                     }
                     ?>

@@ -1,0 +1,312 @@
+@import url('https://cdn.datatables.net/2.3.2/css/dataTables.dataTables.min.css');
+
+/* ===== COLORES ===== */
+:root {
+    --fondo: #0f172a;
+    --contenedor: #111827;
+    --card: #1f2933;
+    --texto: #e5e7eb;
+    --primario: #38bdf8;
+    --secundario: #22c55e;
+    --peligro: #ef4444;
+}
+
+/* RESET */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+/* BODY */
+body {
+    font-family: Arial, sans-serif;
+    background: var(--fondo);
+    color: var(--texto);
+}
+
+/* ===== HEADER ===== */
+header {
+    position: fixed;
+    top: 0;
+    width: 100%;
+    height: 60px;
+    background: #020617;
+    display: flex;
+    align-items: center;
+    padding: 0 20px;
+    z-index: 1000;
+    border-bottom: 1px solid #1f2937;
+}
+
+header img {
+    height: 28px;
+}
+
+.chance_color {
+    margin-left: auto;
+    background: #111827;
+    border-radius: 50%;
+    width: 32px;
+    height: 32px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+}
+
+/* ===== MAIN ===== */
+main {
+    padding-top: 80px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+/* ===== CONTENEDOR ===== */
+.container {
+    width: 95%;
+    max-width: 1100px;
+    background: var(--contenedor);
+    padding: 25px;
+    border-radius: 12px;
+    margin-bottom: 40px;
+}
+
+/* ===== TITULOS ===== */
+h1 {
+    margin-bottom: 20px;
+    color: var(--primario);
+    text-align: center;
+}
+
+/* ===== BOTONES ===== */
+.btn {
+    background: var(--primario);
+    color: #020617;
+    padding: 10px 16px;
+    border-radius: 6px;
+    text-decoration: none;
+    font-weight: bold;
+}
+
+.btn:hover {
+    opacity: 0.85;
+}
+
+.btn-delete {
+    background: var(--peligro);
+    color: white;
+    padding: 6px 10px;
+    border-radius: 6px;
+}
+
+/* ===== FORM ===== */
+.form-group {
+    margin-bottom: 20px;
+    display: flex;
+    gap: 10px;
+    align-items: center;
+}
+
+/* ===== TABLA ===== */
+table {
+    width: 100%;
+    border-collapse: collapse;
+    background: var(--card);
+    border-radius: 10px;
+    overflow: hidden;
+}
+
+th {
+    background: #020617;
+    padding: 12px;
+}
+
+td {
+    padding: 10px;
+    border-top: 1px solid #1f2937;
+}
+
+tr:hover {
+    background: #020617;
+}
+
+/* ===== DASHBOARD ===== */
+.dashboard-cards {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+    gap: 15px;
+}
+
+.card {
+    background: var(--card);
+    padding: 20px;
+    border-radius: 10px;
+    text-align: center;
+}
+
+.card h2 {
+    font-size: 1rem;
+    color: var(--primario);
+}
+
+/* ===== FOOTER ===== */
+footer {
+    background: #020617;
+    color: #9ca3af;
+    text-align: center;
+    padding: 20px;
+}
+
+.badge {
+    padding: 4px 10px;
+    border-radius: 999px;
+    font-size: 0.75rem;
+    font-weight: bold;
+    text-transform: uppercase;
+}
+
+.badge.pendiente {
+    background: #facc15;
+    color: #000;
+}
+
+.badge.completado {
+    background: #22c55e;
+    color: #020617;
+}
+
+.badge.cancelado {
+    background: #ef4444;
+    color: white;
+}
+
+.acciones {
+    display: flex;
+    justify-content: center;
+    gap: 10px;
+}
+
+.acciones a {
+    font-size: 1.1rem;
+    cursor: pointer;
+}
+
+/* =========================
+   FILTROS SUPERIORES
+========================= */
+
+.form-group {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    margin-bottom: 15px;
+    font-size: 14px;
+    font-weight: 500;
+    color: #334155;
+}
+
+/* Select Estado */
+.form-group select {
+    padding: 6px 10px;
+    border-radius: 6px;
+    border: 1px solid #cbd5e1;
+    background-color: #ffffff;
+    font-size: 14px;
+    cursor: pointer;
+}
+
+.form-group select:focus {
+    outline: none;
+    border-color: #2563eb;
+}
+
+/* DataTables: Show entries & Search */
+.dataTables_wrapper .dataTables_length,
+.dataTables_wrapper .dataTables_filter {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 14px;
+    font-weight: 500;
+    color: #334155;
+}
+
+/* Select cantidad */
+.dataTables_wrapper .dataTables_length select {
+    padding: 6px 8px;
+    border-radius: 6px;
+    border: 1px solid #cbd5e1;
+}
+
+/* Input búsqueda */
+.dataTables_wrapper .dataTables_filter input {
+    padding: 6px 10px;
+    border-radius: 6px;
+    border: 1px solid #cbd5e1;
+    width: 200px;
+}
+
+.dataTables_wrapper .dataTables_filter input:focus {
+    outline: none;
+    border-color: #2563eb;
+}
+
+/* Alinear todo en una sola línea */
+.dataTables_wrapper .dataTables_length,
+.dataTables_wrapper .dataTables_filter {
+    margin-bottom: 10px;
+}
+
+
+/* =========================
+   ORGANIZACIÓN DASHBOARD
+========================= */
+
+#dashboard_pedidos {
+    display: flex;
+    flex-direction: column;
+    gap: 30px;
+}
+
+/* KPIs arriba */
+.dashboard-cards {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 20px;
+}
+
+/* Responsive */
+@media (max-width: 900px) {
+    .dashboard-cards {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
+
+@media (max-width: 500px) {
+    .dashboard-cards {
+        grid-template-columns: 1fr;
+    }
+}
+
+/* Gráfico ocupa todo el ancho */
+.grafico-card {
+    width: 100%;
+}
+
+/* Últimos pedidos más compacto */
+#dashboard_pedidos table {
+    width: 100%;
+    font-size: 13px;
+}
+
+#dashboard_pedidos table th,
+#dashboard_pedidos table td {
+    padding: 10px;
+}
+
+/* Espaciado visual entre bloques */
+#dashboard_pedidos .card {
+    margin-bottom: 0;
+}
