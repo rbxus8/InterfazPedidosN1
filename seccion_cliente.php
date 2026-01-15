@@ -29,22 +29,27 @@ if (isset($_GET['debug'])) {
 
 
 /* 🔹 Consulta de productos */
+/* 🔹 Consulta de productos */
 $consultaProductos = "
-  SELECT 
-    p.id_producto,
-    p.nombre,
-    p.precio,
-    p.unidad_medida,
-    c.nombre AS categoria
-  FROM productos p
-  INNER JOIN categorias c 
-    ON p.id_categoria = c.id_categoria
-  WHERE p.estado = 'disponible'
-  ORDER BY c.nombre, p.nombre
+SELECT 
+  p.id_producto,
+  p.nombre,
+  p.precio,
+  p.unidad_medida,
+  p.id_local,
+  c.nombre AS categoria
+FROM productos p
+INNER JOIN categorias c 
+  ON p.id_categoria = c.id_categoria
+WHERE p.estado = 'disponible'
+ORDER BY c.nombre, p.nombre
 ";
 
-
 $resultadoProductos = $conexion->query($consultaProductos);
+
+if (!$resultadoProductos) {
+  die("❌ Error en consulta productos: " . $conexion->error);
+}
 
 /* 🔹 CONSULTA CATEGORÍAS */
 $categorias = $conexion->query("
@@ -54,8 +59,9 @@ $categorias = $conexion->query("
 ");
 
 if (!$categorias) {
-  die("Error en consulta categorias: " . $conexion->error);
+  die("❌ Error en consulta categorias: " . $conexion->error);
 }
+
 ?>
 
 
@@ -236,13 +242,22 @@ if (!$categorias) {
       </div>
     </section>
 
+    <div class="tienda-select-container">
+      <select id="tiendaSelect">
+        <option value="">🏪 Selecciona la tienda</option>
+        <option value="1">Tienda Norte</option>
+        <option value="2">Tienda Sur</option>
+      </select>
 
-    <section class="container_productos">
-      <h1>Productos</h1>
+    </div>
+
+    <section class="container_productos" id="productosSection">
+
+
       <h3>Elige tus productos favoritos y agrégalos al carrito de compras.</h3>
 
       <!-- Botones de filtro -->
-      <div class="categoria_productos-wrapper" style="position:relative;">
+      <div class=" categoria_productos-wrapper" style="position:relative;">
         <button type="button" class="categoria-scroll-btn left" onclick="scrollCategorias(-1)">&#8592;</button>
         <div class="categoria_productos" id="categoriaProductos">
           <?php while ($cat = $categorias->fetch_assoc()):
@@ -265,7 +280,10 @@ if (!$categorias) {
           $categoria = strtolower(trim($producto['categoria']));
           $claseCategoria = str_replace(' ', '-', $categoria);
           ?>
-          <div class="card item <?= $claseCategoria ?>">
+          <div class="card item <?= $claseCategoria ?>"
+            data-tienda="<?= $producto['id_local'] ?>">
+
+
             <img src="img/<?= $claseCategoria ?>.jpg" alt="<?= htmlspecialchars($producto['nombre']) ?>">
             <h3><?= htmlspecialchars($producto['nombre']) ?></h3>
             <p><?= ucfirst($producto['categoria']) ?></p>
@@ -385,13 +403,19 @@ if (!$categorias) {
        🎂 FILTRAR PRODUCTOS
     =============================== */
     function mostrar(categoria) {
+      const tienda = localStorage.getItem("tienda");
+
       document.querySelectorAll('.item').forEach(item => {
-        item.style.display =
-          categoria === 'todos' || item.classList.contains(categoria) ?
-          'block' :
-          'none';
+        const mismaTienda = item.dataset.tienda === tienda;
+        const mismaCategoria =
+          categoria === 'todos' || item.classList.contains(categoria);
+
+        item.style.display = (mismaTienda && mismaCategoria) ?
+          "block" :
+          "none";
       });
     }
+
 
     /* ===============================
        🛒 CARRITO
@@ -430,8 +454,16 @@ if (!$categorias) {
     document.addEventListener('click', e => {
       if (e.target.classList.contains('add-to-cart')) {
 
-        if (!usuarioLogueado) {
-          loginModal.style.display = "flex";
+        const tiendaSeleccionada = localStorage.getItem("tienda");
+        const tiendaProducto = e.target.closest('.item').dataset.tienda;
+
+        if (!tiendaSeleccionada) {
+          alert("Selecciona una tienda primero");
+          return;
+        }
+
+        if (tiendaProducto !== tiendaSeleccionada) {
+          alert("No puedes mezclar productos de distintas tiendas");
           return;
         }
 
@@ -459,6 +491,7 @@ if (!$categorias) {
         cartOverlay.classList.add('activo');
       }
     });
+
 
 
 
@@ -660,6 +693,35 @@ if (!$categorias) {
       });
     }
     actualizarCarrito();
+
+    /* ===============================
+   🏪 SELECT TIENDA → PRODUCTOS
+=============================== */
+
+    const tiendaSelect = document.getElementById("tiendaSelect");
+    const productosSection = document.getElementById("productosSection");
+    const productos = document.querySelectorAll(".item");
+
+    // Ocultar productos al inicio
+    productosSection.style.display = "none";
+
+    tiendaSelect.addEventListener("change", () => {
+      const tienda = tiendaSelect.value;
+
+      if (tienda === "") {
+        productosSection.style.display = "none";
+        return;
+      }
+
+      productosSection.style.display = "block";
+
+      document.querySelectorAll('.item').forEach(item => {
+        item.style.display =
+          item.dataset.tienda === tienda ? "block" : "none";
+      });
+
+      localStorage.setItem("tienda", tienda);
+    });
   </script>
 
 
